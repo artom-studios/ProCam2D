@@ -4,7 +4,7 @@
 
 ## Overview
 
-![ProCam2D Icon](https://i.ibb.co/s2Ht4RK/pcam.png) **ProCam2D** is a powerful and feature-rich custom 2D camera node designed for the Godot Engine. It aims to provide developers with a AAA-quality camera system suitable for all types of 2D games. ProCam2D is a standalone camera solution that surpasses the built-in Camera2D node, offering extensive customization and control.
+![ProCam2D Icon](https://i.ibb.co/s2Ht4RK/pcam.png) **ProCam2D** is a powerful and feature-rich custom 2D camera node designed for the Godot Engine. It aims to provide developers with a quality camera system suitable for all types of 2D games. ProCam2D is a standalone camera solution that surpasses the built-in Camera2D node, offering extensive customization and control.
 
 ## Key Features
 
@@ -15,10 +15,8 @@
 
 ## Installation
 
-1. Download or clone the ProCam2D repository.
-2. Copy the `ProCam2D` folder into your Godot project’s `addons` directory.
-3. Enable the ProCam2D plugin in your project settings.
-4. Save and Reload your project from the `project` menu to ensure the plugin is properly loaded.
+1. Download or clone the ProCam2D repository or get it from thee asset store.
+2. Enable the ProCam2D plugin in your project settings.
 
 ## Usage
 
