@@ -4,7 +4,7 @@ extends "b.gd"
 const GROUP_NAME = "procam_targets"
 
 @export var influence: Vector2 = Vector2.ONE
-@export var rotation_influence: float = 0.0
+@export var rotation_influence: float = 1.0
 @export var offset: Vector2 = Vector2.ZERO
 @export var radius: float = 50.0: set = set_radius
 @export var disable_outside_limits: bool = true

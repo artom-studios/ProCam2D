@@ -28,7 +28,7 @@ var prediction_time: Vector2 = Vector2(9, 9)
 var offset: Vector2 = Vector2.ZERO
 var smooth_offset: bool = true:  set = set_smooth_offset
 var smooth_offset_speed: float = 2.0
-var allow_rotation: bool = true: set = set_allow_rotation
+var allow_rotation: bool = false: set = set_allow_rotation
 var smooth_rotation: bool = true: set = set_smooth_rotation
 var smooth_rotation_speed: float = 5.0
 var zoom: float = 1.0 : set = sett_zoom
@@ -151,21 +151,18 @@ func _setup_camera() -> void:
 	set_tha_process_mode(_pm)
 	_camera.set_process_mode(process_frame)
 	_camera.enabled = true
+	_camera.ignore_rotation = false
 	if _camera.is_inside_tree():
 		_camera.make_current()
 
-func _reparent_to_nearest_viewport() -> void:
+func _reparent_camera() -> void:
 	var viewport := get_viewport()
 	if viewport == null:
 		push_error("No viewport found for this node.")
 		return
-	
 	var current_parent := get_parent()
 	if current_parent == viewport:
-		# Already under the correct viewport
 		return
-	
-	# Reparent under the viewport
 	if current_parent:
 		current_parent.remove_child(self)
 	viewport.add_child(self)
@@ -940,6 +937,7 @@ func set_smooth_offset(value):
 
 func set_allow_rotation(value):
 	allow_rotation = value
+	_camera.ignore_rotation = not value
 	notify_property_list_changed()
 
 func set_smooth_rotation(value):

@@ -147,7 +147,6 @@ func add_trauma(amount: float):
 		_time_elapsed = 0.0
 
 func set_preset(value):
-	print("done")
 	preset = value
 	if preset != Preset.CUSTOM:
 		apply_preset(preset)
