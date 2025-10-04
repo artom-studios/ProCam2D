@@ -352,11 +352,6 @@ To create your own addon:
 
 This framework provides a flexible way to modify camera behavior by compartmentalizing changes into different processing stages.
 
-## Support
-
-If you find ProCam2D useful and would like to support its development, consider buying me a coffee:
-
-[![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/dazlike)
 
 ## Contributing
 
@@ -364,7 +359,7 @@ Contributions are welcome! For detailed instructions on how to contribute, pleas
 
 ## Reporting Bugs or Requesting Features
 
-To report a bug or request a feature, please use the [Issues](https://github.com/daz-b-like/ProCam2D_Godot4.x/issues) section of this repository. Make sure to follow the templates provided for better clarity and organization.
+To report a bug or request a feature, please use the [Issues](https://github.com/artom-studios/ProCam2D/issues) section of this repository. Make sure to follow the templates provided for better clarity and organization.
 
 ## License
 
