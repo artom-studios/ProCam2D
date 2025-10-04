@@ -31,7 +31,7 @@
 4. Add one or more `PCamTarget` nodes as children of the objects you want the camera to follow.
 5. Configure the camera properties and target properties via the inspector.
 
-### Example: Basic Camera Setup
+### Example: Accessing ProCam2D properties via code
 
 ```gdscript
 extends Node2D
