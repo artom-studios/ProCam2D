@@ -51,9 +51,19 @@ func _init():
 func _ready():
 	_rng.randomize()
 	_noise.seed = randi()
-	_noise.octaves = 2
+	_noise.fractal_octaves = 2
 	_noise.period = 20.0
 	_noise.persistence = 0.8
+	
+func _ready2():
+	_rng.randomize()
+	_noise.seed = randi()
+	_noise.frequency = 0.05
+	_noise.fractal_octaves = 2
+	_noise.fractal_gain = 0.8
+	_noise.fractal_lacunarity = 2.0
+	_noise.noise_type = FastNoiseLite.TYPE_PERLIN
+
 
 func post_smoothing(camera, delta):
 	if not _is_shaking:

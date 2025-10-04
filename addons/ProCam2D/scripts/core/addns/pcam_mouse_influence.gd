@@ -12,8 +12,8 @@ func pre_process(camera, delta):
 		return
 
 	var viewport = camera.get_viewport()
-	var mouse_position = viewport.get_mouse_position() - viewport.size / 2
-	var viewport_size = viewport.size / 2
+	var mouse_position = viewport.get_mouse_position() - viewport.size / 2.0
+	var viewport_size = viewport.size / 2.0
 
 	var offset = Vector2(
 		clamp(mouse_position.x / viewport_size.x, -1, 1) * max_offset.x,

@@ -154,18 +154,23 @@ func _setup_camera() -> void:
 	if _camera.is_inside_tree():
 		_camera.make_current()
 
-func _reparent_camera() -> void:
-	var root = get_tree().get_root()
-	var children = root.get_child_count()
-	var first_node = root.get_child(children - 1)
-	if first_node != self:
-		var current_parent = get_parent()
-		if current_parent:
-			current_parent.remove_child(self)
-		first_node.add_child(self)
-		set_owner(first_node)
-	else:
-		print("error setting up procam. Can't be root node!")
+func _reparent_to_nearest_viewport() -> void:
+	var viewport := get_viewport()
+	if viewport == null:
+		push_error("No viewport found for this node.")
+		return
+	
+	var current_parent := get_parent()
+	if current_parent == viewport:
+		# Already under the correct viewport
+		return
+	
+	# Reparent under the viewport
+	if current_parent:
+		current_parent.remove_child(self)
+	viewport.add_child(self)
+	set_owner(viewport)
+
 
 func _update_limits() -> void:
 	_camera.limit_left = left_limit

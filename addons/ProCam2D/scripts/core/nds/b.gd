@@ -4,10 +4,9 @@ extends Node2D
 # Enums
 enum ProcessMode {
 	IDLE,
-	PHYSICS,
-	OFF
+	PHYSICS
 }
-var process_frame: int = ProcessMode.OFF: set = set_tha_process_mode
+var process_frame: int = ProcessMode.PHYSICS: set = set_tha_process_mode
 @export var enabled: bool = true: set = set_enabled
 @export var priority: int = 0: set = set_priority
 var debug_draw: bool = false
