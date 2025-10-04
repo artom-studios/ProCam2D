@@ -2,8 +2,6 @@
 
 ![procam icon](https://i.ibb.co/dkT2tPQ/procam-icon.png)
 
-[![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/dazlike)
-
 ## Overview
 
 ![ProCam2D Icon](https://i.ibb.co/s2Ht4RK/pcam.png) **ProCam2D** is a powerful and feature-rich custom 2D camera node designed for the Godot Engine. It aims to provide developers with a AAA-quality camera system suitable for all types of 2D games. ProCam2D is a standalone camera solution that surpasses the built-in Camera2D node, offering extensive customization and control.
