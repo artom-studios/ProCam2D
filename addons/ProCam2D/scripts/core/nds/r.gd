@@ -75,10 +75,10 @@ func _draw_debug():
 	for i in range(4):
 		var color = Color.YELLOW if open_sides & (1 << i) else debug_color[0]
 		match i:
-			0: draw_line(Vector2(start.x, start.y), Vector2(start.x, end.y), color, 1)
-			1: draw_line(Vector2(end.x, start.y), Vector2(end.x, end.y), color, 1)
-			2: draw_line(Vector2(start.x, start.y), Vector2(end.x, start.y), color, 1)
-			3: draw_line(Vector2(start.x, end.y), Vector2(end.x, end.y), color, 1)
+			0: draw_line(Vector2(start.x, start.y), Vector2(start.x, end.y), color)
+			1: draw_line(Vector2(end.x, start.y), Vector2(end.x, end.y), color)
+			2: draw_line(Vector2(start.x, start.y), Vector2(end.x, start.y), color)
+			3: draw_line(Vector2(start.x, end.y), Vector2(end.x, end.y), color)
 
 func _exit_tree():
 	if _is_inside:
