@@ -15,7 +15,7 @@
 
 ## Installation
 
-1. Download or clone the ProCam2D repository or get it from thee asset store.
+1. Download or clone the ProCam2D repository or get it from the asset store.
 2. Enable the ProCam2D plugin in your project settings.
 
 ## Usage
@@ -27,7 +27,7 @@
    
    ![Adding ProCam nodes](https://i.ibb.co/jhzqrWC/image.png)
    
-3. Add a `ProCam2D` node to your scene.
+3. Add a `ProCam2D` node to your scene. It can be placed anywhere in the scene tree.
 4. Add one or more `PCamTarget` nodes as children of the objects you want the camera to follow.
 5. Configure the camera properties and target properties via the inspector.
 
