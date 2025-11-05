@@ -1,32 +1,41 @@
 # Mouse Follow Example
 
-A top-down aiming demo showcasing **ProCam2D's PCamMouseFollow addon**, which creates dynamic camera movement based on mouse cursor position.
+A complete top-down shooter showcasing **ProCam2D's PCamMouseFollow addon**, with shooting mechanics, enemies, and particle effects.
 
 ## Features
 
 - **Dynamic Mouse Follow**: Camera shifts toward your cursor for better visibility in aim direction
-- **Top-Down Aiming**: Player rotates to face the mouse cursor
-- **Smooth Camera Movement**: Configurable influence and smoothing for natural feel
-- **Training Arena**: Targets and obstacles to navigate around
-- **Visual Crosshair**: Always centered on mouse position
+- **Top-Down Combat**: Shoot enemies that chase and attack you
+- **Captured Cursor Mode**: Mouse is hidden during gameplay for immersive experience
+- **Particle Effects**: Muzzle flashes, hit sparks, and death explosions
+- **Enemy AI**: Purple enemies chase the player and attack on contact
+- **Health System**: Player and enemies have health with visual damage feedback
+- **Visual Crosshair**: Displayed when cursor is captured
 
 ## What's Included
 
-- **Player.gd**: Top-down character controller with mouse-based rotation (Godot 4.5)
-- **Player.tscn**: Player scene with turret design and PCamTarget node
-- **MouseFollow.tscn**: Arena scene with ProCam2D and mouse follow addon configured
-- **Crosshair.gd**: Simple script to position crosshair at mouse location
+- **Player.gd**: Top-down character controller with shooting, health, and damage (Godot 4.5)
+- **Player.tscn**: Player scene with turret, muzzle flash particles, and PCamTarget
+- **Enemy.gd**: AI-controlled enemy with chase behavior and health
+- **Enemy.tscn**: Enemy scene with hexagon body and particle effects
+- **Bullet.gd/tscn**: Projectile with collision detection
+- **GameManager.gd**: Handles cursor capture/release with Escape key
+- **MouseFollow.tscn**: Complete arena with enemies, obstacles, and ProCam2D configured
+- **Crosshair.gd**: Crosshair that only shows when cursor is captured
 
 ## How to Run
 
 1. Make sure ProCam2D plugin is enabled in your Godot 4.5 project
 2. Open `MouseFollow.tscn` in the Godot editor
 3. Run the scene (F6) or set it as the main scene and run the project (F5)
+4. **The cursor will be captured automatically** - use Escape to release it
 
 ## Controls
 
 - **WASD / Arrow Keys**: Move in all directions
 - **Mouse**: Aim (player rotates to face cursor)
+- **Left Click**: Shoot bullets
+- **Escape**: Toggle cursor capture (release to access menus, capture for gameplay)
 
 ## How Mouse Follow Works
 
@@ -53,16 +62,41 @@ When you move your mouse cursor away from the center of the screen:
 - **Background**: Dark blue-gray (#181a26) - reduces eye strain
 - **Grid Lines**: Subtle blue guides (10% opacity)
 - **Player**: Red/coral body (#ff4d66) with cyan turret (#3399cc) and white gun
+- **Enemies**: Purple hexagons (#cc4de6) - threatening and distinct
 - **Obstacles**: Vibrant orange (#ff8033) with darker outlines
-- **Targets**: Teal/cyan pentagons (#33cc99) with darker outlines
+- **Targets**: Teal/cyan pentagons (#33cc99) for reference
+- **Bullets**: Yellow projectiles with trail effect
 - **UI**: Bright cyan text (#66ccff)
 - **Crosshair**: Semi-transparent white
 
 ### Why This Color Scheme?
 - Dark background reduces visual fatigue during aiming
+- Purple enemies immediately stand out as threats
 - Warm obstacles (orange) vs cool targets (cyan) for instant recognition
-- Player uses both warm (body) and cool (turret) colors to stand out against everything
-- High contrast for clarity during fast gameplay
+- Player uses both warm (body) and cool (turret) colors to stand out
+- Yellow bullets are highly visible against all backgrounds
+- High contrast for clarity during fast-paced combat
+
+## Gameplay Mechanics
+
+### Combat System
+- **Shooting**: Rapid fire with automatic cooldown (0.15s between shots)
+- **Bullet System**: Projectiles with collision detection and 3-second lifetime
+- **Muzzle Flash**: Yellow particle burst when firing for visual feedback
+- **Hit Effects**: White spark particles when bullets connect with enemies
+
+### Enemy Behavior
+- **Chase AI**: Enemies detect and pursue the player within 600px range
+- **Smart Movement**: Enemies stop at 150px distance to avoid stacking
+- **Health**: Each enemy takes 3 hits to eliminate
+- **Contact Damage**: Enemies deal 1 damage when touching the player
+- **Death Effects**: Purple particle explosion when defeated
+
+### Player Stats
+- **Health**: 5 hit points
+- **Damage Flash**: Red color flash when taking damage
+- **Death**: Creates particle effect on elimination
+- **Movement**: Smooth acceleration/deceleration for responsive control
 
 ## Customizing the Mouse Follow
 

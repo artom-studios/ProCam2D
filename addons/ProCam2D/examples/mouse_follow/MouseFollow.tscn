@@ -1,9 +1,11 @@
-[gd_scene load_steps=7 format=3 uid="uid://d1e2f3g4h5i6j"]
+[gd_scene load_steps=9 format=3 uid="uid://d1e2f3g4h5i6j"]
 
 [ext_resource type="PackedScene" uid="uid://c1m2x3n4p5q6r" path="res://addons/ProCam2D/examples/mouse_follow/Player.tscn" id="1"]
 [ext_resource type="Script" uid="uid://cehb0ngltjow3" path="res://addons/ProCam2D/scripts/procam2d.gd" id="2"]
 [ext_resource type="Script" path="res://addons/ProCam2D/scripts/core/addns/pcam_mouse_influence.gd" id="3"]
 [ext_resource type="Script" path="res://addons/ProCam2D/examples/mouse_follow/Crosshair.gd" id="4"]
+[ext_resource type="Script" path="res://addons/ProCam2D/examples/mouse_follow/GameManager.gd" id="5"]
+[ext_resource type="PackedScene" uid="uid://e1n2e3m4y5w6x" path="res://addons/ProCam2D/examples/mouse_follow/Enemy.tscn" id="6"]
 
 [sub_resource type="RectangleShape2D" id="1"]
 size = Vector2(100, 100)
@@ -18,6 +20,9 @@ priority = 0
 enabled = true
 
 [node name="MouseFollow" type="Node2D"]
+
+[node name="GameManager" type="Node" parent="."]
+script = ExtResource("5")
 
 [node name="Background" type="ColorRect" parent="."]
 offset_right = 2400.0
@@ -70,6 +75,26 @@ addons = Array[Resource]([SubResource("2")])
 
 [node name="Player" parent="." instance=ExtResource("1")]
 position = Vector2(1200, 1200)
+
+[node name="Enemies" type="Node2D" parent="."]
+
+[node name="Enemy1" parent="Enemies" instance=ExtResource("6")]
+position = Vector2(800, 600)
+
+[node name="Enemy2" parent="Enemies" instance=ExtResource("6")]
+position = Vector2(1600, 800)
+
+[node name="Enemy3" parent="Enemies" instance=ExtResource("6")]
+position = Vector2(600, 1600)
+
+[node name="Enemy4" parent="Enemies" instance=ExtResource("6")]
+position = Vector2(1800, 1600)
+
+[node name="Enemy5" parent="Enemies" instance=ExtResource("6")]
+position = Vector2(1200, 400)
+
+[node name="Enemy6" parent="Enemies" instance=ExtResource("6")]
+position = Vector2(400, 1000)
 
 [node name="Obstacles" type="Node2D" parent="."]
 
@@ -277,9 +302,11 @@ text = "ProCam2D Mouse Follow Example
 
 WASD / Arrow Keys: Move
 Mouse: Aim
+Left Click: Shoot
+Escape: Release/Capture Cursor
 
-Notice how the camera shifts toward your cursor,
-giving you better visibility in your aim direction!"
+Eliminate the purple enemies! Notice how the camera
+shifts toward your cursor for better aim visibility."
 
 [node name="Crosshair" type="Control" parent="UI"]
 layout_mode = 3
