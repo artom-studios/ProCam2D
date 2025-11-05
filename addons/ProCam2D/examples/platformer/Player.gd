@@ -1,13 +1,11 @@
-extends KinematicBody2D
+extends CharacterBody2D
 
 # Player movement variables
-export var speed = 300.0
-export var jump_velocity = -600.0
-export var gravity = 1500.0
-export var acceleration = 2000.0
-export var friction = 2000.0
-
-var velocity = Vector2.ZERO
+@export var speed = 300.0
+@export var jump_velocity = -600.0
+@export var gravity = 1500.0
+@export var acceleration = 2000.0
+@export var friction = 2000.0
 
 func _physics_process(delta):
 	# Apply gravity
@@ -27,4 +25,4 @@ func _physics_process(delta):
 		velocity.y = jump_velocity
 
 	# Move the player
-	velocity = move_and_slide(velocity, Vector2.UP)
+	move_and_slide()

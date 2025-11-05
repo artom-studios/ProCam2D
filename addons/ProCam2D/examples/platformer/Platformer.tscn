@@ -1,0 +1,126 @@
+[gd_scene load_steps=4 format=3 uid="uid://cyb8shk10shk1"]
+
+[ext_resource type="PackedScene" uid="uid://l1glbpf6ynxf" path="res://addons/ProCam2D/examples/platformer/Player.tscn" id="1"]
+[ext_resource type="Script" uid="uid://cehb0ngltjow3" path="res://addons/ProCam2D/scripts/procam2d.gd" id="2_ax3jb"]
+
+[sub_resource type="RectangleShape2D" id="1"]
+size = Vector2(256, 32)
+
+[node name="Platformer" type="Node2D"]
+
+[node name="Player" parent="." instance=ExtResource("1")]
+position = Vector2(200, 300)
+
+[node name="Platforms" type="Node2D" parent="."]
+
+[node name="Ground" type="StaticBody2D" parent="Platforms"]
+position = Vector2(512, 550)
+
+[node name="ColorRect" type="ColorRect" parent="Platforms/Ground"]
+color = Color(0.4, 0.3, 0.2, 1)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Platforms/Ground"]
+shape = SubResource("1")
+
+[node name="Platform1" type="StaticBody2D" parent="Platforms"]
+position = Vector2(300, 450)
+
+[node name="ColorRect" type="ColorRect" parent="Platforms/Platform1"]
+color = Color(0.3, 0.6, 0.3, 1)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Platforms/Platform1"]
+shape = SubResource("1")
+
+[node name="Platform2" type="StaticBody2D" parent="Platforms"]
+position = Vector2(600, 380)
+
+[node name="ColorRect" type="ColorRect" parent="Platforms/Platform2"]
+color = Color(0.3, 0.6, 0.3, 1)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Platforms/Platform2"]
+shape = SubResource("1")
+
+[node name="Platform3" type="StaticBody2D" parent="Platforms"]
+position = Vector2(850, 300)
+
+[node name="ColorRect" type="ColorRect" parent="Platforms/Platform3"]
+color = Color(0.3, 0.6, 0.3, 1)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Platforms/Platform3"]
+shape = SubResource("1")
+
+[node name="Platform4" type="StaticBody2D" parent="Platforms"]
+position = Vector2(450, 250)
+
+[node name="ColorRect" type="ColorRect" parent="Platforms/Platform4"]
+color = Color(0.3, 0.6, 0.3, 1)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Platforms/Platform4"]
+scale = Vector2(0.75, 1)
+shape = SubResource("1")
+
+[node name="Walls" type="Node2D" parent="."]
+
+[node name="LeftWall" type="StaticBody2D" parent="Walls"]
+position = Vector2(0, 300)
+
+[node name="ColorRect" type="ColorRect" parent="Walls/LeftWall"]
+color = Color(0.5, 0.5, 0.5, 1)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Walls/LeftWall"]
+position = Vector2(10, 0)
+scale = Vector2(0.078125, 9.375)
+shape = SubResource("1")
+
+[node name="RightWall" type="StaticBody2D" parent="Walls"]
+position = Vector2(1004, 300)
+
+[node name="ColorRect" type="ColorRect" parent="Walls/RightWall"]
+color = Color(0.5, 0.5, 0.5, 1)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Walls/RightWall"]
+position = Vector2(10, 0)
+scale = Vector2(0.078125, 9.375)
+shape = SubResource("1")
+
+[node name="Background" type="ColorRect" parent="."]
+color = Color(0.15, 0.15, 0.2, 1)
+
+[node name="Instructions" type="Label" parent="."]
+text = "Simple Platformer Example with ProCam2D
+
+Arrow Keys: Move
+Space: Jump
+
+ProCam2D will smoothly follow the player!"
+
+[node name="ProCam2D" type="Node2D" parent="."]
+z_index = 4096
+script = ExtResource("2_ax3jb")
+process_frame = 1
+follow_mode = 0
+drag_type = 0
+smooth_drag = true
+smooth_drag_speed = Vector2(5, 5)
+max_distance = Vector2(100000, 100000)
+offset = Vector2(0, 0)
+smooth_offset = true
+smooth_offset_speed = 2.0
+allow_rotation = false
+zoom = 1.0
+smooth_zoom = true
+smooth_zoom_speed = 5.0
+auto_zoom = true
+min_zoom = 0.0
+max_zoom = 1.0
+zoom_margin = 5.0
+smooth_limit = true
+left_limit = -10000000
+right_limit = 10000000
+top_limit = -10000000
+bottom_limit = 10000000
+use_h_margins = false
+use_v_margins = false
+working_radius = 2000.0
+global_debug_draw = false
+metadata/_custom_type_script = "uid://cehb0ngltjow3"
