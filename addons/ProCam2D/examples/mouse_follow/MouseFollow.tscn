@@ -24,6 +24,10 @@ enabled = true
 [node name="GameManager" type="Node" parent="."]
 script = ExtResource("5")
 
+[node name="EnemySpawnTimer" type="Timer" parent="GameManager"]
+wait_time = 3.0
+autostart = true
+
 [node name="Background" type="ColorRect" parent="."]
 offset_right = 2400.0
 offset_bottom = 2400.0
@@ -303,12 +307,36 @@ text = "ProCam2D Mouse Follow Example
 WASD / Arrow Keys: Move
 Mouse: Aim
 Left Click: Shoot
-Escape: Release/Capture Cursor
 
-Eliminate the purple enemies! Notice how the camera
+Survive and rack up points! Notice how the camera
 shifts toward your cursor for better aim visibility."
 
+[node name="ScoreLabel" type="Label" parent="UI"]
+offset_left = 20.0
+offset_top = 160.0
+offset_right = 300.0
+offset_bottom = 190.0
+theme_override_colors/font_color = Color(1, 0.9, 0.4, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.5)
+theme_override_constants/shadow_offset_x = 2
+theme_override_constants/shadow_offset_y = 2
+theme_override_font_sizes/font_size = 24
+text = "Score: 0"
+
+[node name="HighScoreLabel" type="Label" parent="UI"]
+offset_left = 20.0
+offset_top = 195.0
+offset_right = 300.0
+offset_bottom = 225.0
+theme_override_colors/font_color = Color(0.9, 0.5, 1, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.5)
+theme_override_constants/shadow_offset_x = 2
+theme_override_constants/shadow_offset_y = 2
+theme_override_font_sizes/font_size = 20
+text = "High Score: 0"
+
 [node name="Crosshair" type="Control" parent="UI"]
+visible = false
 layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
@@ -333,3 +361,5 @@ offset_right = 1.0
 offset_bottom = 10.0
 mouse_filter = 2
 color = Color(1, 1, 1, 0.6)
+
+[connection signal="timeout" from="GameManager/EnemySpawnTimer" to="GameManager" method="_on_enemy_spawn_timer_timeout"]
