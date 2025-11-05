@@ -1,133 +1,465 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=3 format=3 uid="uid://dj3xqw7k8pbxf"]
 
-[ext_resource path="res://examples/platformer/Player.tscn" type="PackedScene" id=1]
+[ext_resource type="PackedScene" uid="uid://b2qxh4jy5ncv8" path="res://examples/platformer/Player.tscn" id="1"]
 
-[sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 128, 16 )
+[sub_resource type="RectangleShape2D" id="1"]
+size = Vector2(256, 32)
 
 [node name="Platformer" type="Node2D"]
 
+[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
+
+[node name="Sky" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_scale = Vector2(0, 0)
+motion_mirroring = Vector2(2048, 0)
+
+[node name="ColorRect" type="ColorRect" parent="ParallaxBackground/Sky"]
+offset_right = 2048.0
+offset_bottom = 1200.0
+color = Color(0.101961, 0.0862745, 0.156863, 1)
+
+[node name="ColorRect2" type="ColorRect" parent="ParallaxBackground/Sky"]
+offset_top = 800.0
+offset_right = 2048.0
+offset_bottom = 1200.0
+color = Color(0.0392157, 0.0509804, 0.109804, 1)
+
+[node name="FarMountains" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_scale = Vector2(0.2, 0.5)
+motion_mirroring = Vector2(2048, 0)
+
+[node name="Mountain1" type="Polygon2D" parent="ParallaxBackground/FarMountains"]
+position = Vector2(150, 900)
+color = Color(0.176471, 0.105882, 0.305882, 1)
+polygon = PackedVector2Array(0, 0, 200, -250, 400, -150, 600, 0)
+
+[node name="Mountain2" type="Polygon2D" parent="ParallaxBackground/FarMountains"]
+position = Vector2(600, 900)
+color = Color(0.176471, 0.105882, 0.305882, 1)
+polygon = PackedVector2Array(0, 0, 300, -320, 500, -180, 800, 0)
+
+[node name="Mountain3" type="Polygon2D" parent="ParallaxBackground/FarMountains"]
+position = Vector2(1300, 900)
+color = Color(0.176471, 0.105882, 0.305882, 1)
+polygon = PackedVector2Array(0, 0, 250, -280, 450, -200, 700, 0)
+
+[node name="MidShapes" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_scale = Vector2(0.4, 0.6)
+motion_mirroring = Vector2(2048, 0)
+
+[node name="Shape1" type="Polygon2D" parent="ParallaxBackground/MidShapes"]
+position = Vector2(300, 850)
+color = Color(0.239216, 0.176471, 0.372549, 1)
+polygon = PackedVector2Array(0, 0, 150, -200, 300, 0)
+
+[node name="Shape2" type="Polygon2D" parent="ParallaxBackground/MidShapes"]
+position = Vector2(800, 820)
+color = Color(0.239216, 0.176471, 0.372549, 1)
+polygon = PackedVector2Array(0, 0, 200, -180, 400, 0)
+
+[node name="Shape3" type="Polygon2D" parent="ParallaxBackground/MidShapes"]
+position = Vector2(1400, 870)
+color = Color(0.239216, 0.176471, 0.372549, 1)
+polygon = PackedVector2Array(0, 0, 180, -220, 360, 0)
+
+[node name="NearShapes" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_scale = Vector2(0.6, 0.8)
+motion_mirroring = Vector2(2048, 0)
+
+[node name="Rect1" type="ColorRect" parent="ParallaxBackground/NearShapes"]
+offset_left = 400.0
+offset_top = 750.0
+offset_right = 480.0
+offset_bottom = 900.0
+color = Color(0.305882, 0.215686, 0.439216, 1)
+
+[node name="Rect2" type="ColorRect" parent="ParallaxBackground/NearShapes"]
+offset_left = 1000.0
+offset_top = 780.0
+offset_right = 1060.0
+offset_bottom = 900.0
+color = Color(0.305882, 0.215686, 0.439216, 1)
+
+[node name="Rect3" type="ColorRect" parent="ParallaxBackground/NearShapes"]
+offset_left = 1600.0
+offset_top = 800.0
+offset_right = 1680.0
+offset_bottom = 900.0
+color = Color(0.305882, 0.215686, 0.439216, 1)
+
 [node name="ProCam2D" type="Node2D" parent="."]
 
-[node name="Player" parent="." instance=ExtResource( 1 )]
-position = Vector2( 200, 300 )
+[node name="Player" parent="." instance=ExtResource("1")]
+position = Vector2(200, 800)
 
 [node name="Platforms" type="Node2D" parent="."]
 
 [node name="Ground" type="StaticBody2D" parent="Platforms"]
-position = Vector2( 512, 550 )
+position = Vector2(2000, 1050)
 
-[node name="ColorRect" type="ColorRect" parent="Platforms/Ground"]
-margin_left = -512.0
-margin_top = -50.0
-margin_right = 512.0
-margin_bottom = 50.0
-color = Color( 0.4, 0.3, 0.2, 1 )
+[node name="Visual" type="ColorRect" parent="Platforms/Ground"]
+offset_left = -2000.0
+offset_top = -50.0
+offset_right = 2000.0
+offset_bottom = 50.0
+color = Color(0.0745098, 0.305882, 0.290196, 1)
+
+[node name="Outline" type="ColorRect" parent="Platforms/Ground"]
+offset_left = -2000.0
+offset_top = -52.0
+offset_right = 2000.0
+offset_bottom = -50.0
+color = Color(0.0509804, 0.231373, 0.219608, 1)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Platforms/Ground"]
-shape = SubResource( 1 )
+shape = SubResource("1")
+scale = Vector2(15.625, 1)
 
 [node name="Platform1" type="StaticBody2D" parent="Platforms"]
-position = Vector2( 300, 450 )
+position = Vector2(400, 900)
 
-[node name="ColorRect" type="ColorRect" parent="Platforms/Platform1"]
-margin_left = -128.0
-margin_top = -16.0
-margin_right = 128.0
-margin_bottom = 16.0
-color = Color( 0.3, 0.6, 0.3, 1 )
+[node name="Visual" type="ColorRect" parent="Platforms/Platform1"]
+offset_left = -128.0
+offset_top = -16.0
+offset_right = 128.0
+offset_bottom = 16.0
+color = Color(0.176471, 0.831373, 0.74902, 1)
+
+[node name="Outline" type="ColorRect" parent="Platforms/Platform1"]
+offset_left = -128.0
+offset_top = -18.0
+offset_right = 128.0
+offset_bottom = -16.0
+color = Color(0.0784314, 0.721569, 0.647059, 1)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Platforms/Platform1"]
-shape = SubResource( 1 )
+shape = SubResource("1")
 
 [node name="Platform2" type="StaticBody2D" parent="Platforms"]
-position = Vector2( 600, 380 )
+position = Vector2(700, 820)
 
-[node name="ColorRect" type="ColorRect" parent="Platforms/Platform2"]
-margin_left = -128.0
-margin_top = -16.0
-margin_right = 128.0
-margin_bottom = 16.0
-color = Color( 0.3, 0.6, 0.3, 1 )
+[node name="Visual" type="ColorRect" parent="Platforms/Platform2"]
+offset_left = -128.0
+offset_top = -16.0
+offset_right = 128.0
+offset_bottom = 16.0
+color = Color(0.176471, 0.831373, 0.74902, 1)
+
+[node name="Outline" type="ColorRect" parent="Platforms/Platform2"]
+offset_left = -128.0
+offset_top = -18.0
+offset_right = 128.0
+offset_bottom = -16.0
+color = Color(0.0784314, 0.721569, 0.647059, 1)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Platforms/Platform2"]
-shape = SubResource( 1 )
+shape = SubResource("1")
 
 [node name="Platform3" type="StaticBody2D" parent="Platforms"]
-position = Vector2( 850, 300 )
+position = Vector2(1000, 750)
 
-[node name="ColorRect" type="ColorRect" parent="Platforms/Platform3"]
-margin_left = -128.0
-margin_top = -16.0
-margin_right = 128.0
-margin_bottom = 16.0
-color = Color( 0.3, 0.6, 0.3, 1 )
+[node name="Visual" type="ColorRect" parent="Platforms/Platform3"]
+offset_left = -96.0
+offset_top = -16.0
+offset_right = 96.0
+offset_bottom = 16.0
+color = Color(0.176471, 0.831373, 0.74902, 1)
+
+[node name="Outline" type="ColorRect" parent="Platforms/Platform3"]
+offset_left = -96.0
+offset_top = -18.0
+offset_right = 96.0
+offset_bottom = -16.0
+color = Color(0.0784314, 0.721569, 0.647059, 1)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Platforms/Platform3"]
-shape = SubResource( 1 )
+shape = SubResource("1")
+scale = Vector2(0.75, 1)
 
 [node name="Platform4" type="StaticBody2D" parent="Platforms"]
-position = Vector2( 450, 250 )
+position = Vector2(1200, 680)
 
-[node name="ColorRect" type="ColorRect" parent="Platforms/Platform4"]
-margin_left = -96.0
-margin_top = -16.0
-margin_right = 96.0
-margin_bottom = 16.0
-color = Color( 0.3, 0.6, 0.3, 1 )
+[node name="Visual" type="ColorRect" parent="Platforms/Platform4"]
+offset_left = -128.0
+offset_top = -16.0
+offset_right = 128.0
+offset_bottom = 16.0
+color = Color(0.176471, 0.831373, 0.74902, 1)
+
+[node name="Outline" type="ColorRect" parent="Platforms/Platform4"]
+offset_left = -128.0
+offset_top = -18.0
+offset_right = 128.0
+offset_bottom = -16.0
+color = Color(0.0784314, 0.721569, 0.647059, 1)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Platforms/Platform4"]
-position = Vector2( 0, 0 )
-shape = SubResource( 1 )
-scale = Vector2( 0.75, 1 )
+shape = SubResource("1")
 
-[node name="Walls" type="Node2D" parent="."]
+[node name="Platform5" type="StaticBody2D" parent="Platforms"]
+position = Vector2(1500, 600)
 
-[node name="LeftWall" type="StaticBody2D" parent="Walls"]
-position = Vector2( 0, 300 )
+[node name="Visual" type="ColorRect" parent="Platforms/Platform5"]
+offset_left = -128.0
+offset_top = -16.0
+offset_right = 128.0
+offset_bottom = 16.0
+color = Color(0.176471, 0.831373, 0.74902, 1)
 
-[node name="ColorRect" type="ColorRect" parent="Walls/LeftWall"]
-margin_top = -300.0
-margin_right = 20.0
-margin_bottom = 300.0
-color = Color( 0.5, 0.5, 0.5, 1 )
+[node name="Outline" type="ColorRect" parent="Platforms/Platform5"]
+offset_left = -128.0
+offset_top = -18.0
+offset_right = 128.0
+offset_bottom = -16.0
+color = Color(0.0784314, 0.721569, 0.647059, 1)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Walls/LeftWall"]
-position = Vector2( 10, 0 )
-shape = SubResource( 1 )
-scale = Vector2( 0.078125, 9.375 )
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Platforms/Platform5"]
+shape = SubResource("1")
 
-[node name="RightWall" type="StaticBody2D" parent="Walls"]
-position = Vector2( 1004, 300 )
+[node name="Platform6" type="StaticBody2D" parent="Platforms"]
+position = Vector2(1800, 520)
 
-[node name="ColorRect" type="ColorRect" parent="Walls/RightWall"]
-margin_top = -300.0
-margin_right = 20.0
-margin_bottom = 300.0
-color = Color( 0.5, 0.5, 0.5, 1 )
+[node name="Visual" type="ColorRect" parent="Platforms/Platform6"]
+offset_left = -96.0
+offset_top = -16.0
+offset_right = 96.0
+offset_bottom = 16.0
+color = Color(0.176471, 0.831373, 0.74902, 1)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Walls/RightWall"]
-position = Vector2( 10, 0 )
-shape = SubResource( 1 )
-scale = Vector2( 0.078125, 9.375 )
+[node name="Outline" type="ColorRect" parent="Platforms/Platform6"]
+offset_left = -96.0
+offset_top = -18.0
+offset_right = 96.0
+offset_bottom = -16.0
+color = Color(0.0784314, 0.721569, 0.647059, 1)
 
-[node name="Background" type="ColorRect" parent="."]
-margin_right = 1024.0
-margin_bottom = 600.0
-color = Color( 0.15, 0.15, 0.2, 1 )
-__meta__ = {
-"_edit_lock_": true,
-"_edit_use_anchors_": false
-}
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Platforms/Platform6"]
+shape = SubResource("1")
+scale = Vector2(0.75, 1)
 
-[node name="Instructions" type="Label" parent="."]
-margin_left = 20.0
-margin_top = 20.0
-margin_right = 400.0
-margin_bottom = 100.0
-text = "Simple Platformer Example with ProCam2D
+[node name="Platform7" type="StaticBody2D" parent="Platforms"]
+position = Vector2(2100, 480)
 
-Arrow Keys: Move
+[node name="Visual" type="ColorRect" parent="Platforms/Platform7"]
+offset_left = -128.0
+offset_top = -16.0
+offset_right = 128.0
+offset_bottom = 16.0
+color = Color(0.176471, 0.831373, 0.74902, 1)
+
+[node name="Outline" type="ColorRect" parent="Platforms/Platform7"]
+offset_left = -128.0
+offset_top = -18.0
+offset_right = 128.0
+offset_bottom = -16.0
+color = Color(0.0784314, 0.721569, 0.647059, 1)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Platforms/Platform7"]
+shape = SubResource("1")
+
+[node name="Platform8" type="StaticBody2D" parent="Platforms"]
+position = Vector2(2400, 400)
+
+[node name="Visual" type="ColorRect" parent="Platforms/Platform8"]
+offset_left = -128.0
+offset_top = -16.0
+offset_right = 128.0
+offset_bottom = 16.0
+color = Color(0.176471, 0.831373, 0.74902, 1)
+
+[node name="Outline" type="ColorRect" parent="Platforms/Platform8"]
+offset_left = -128.0
+offset_top = -18.0
+offset_right = 128.0
+offset_bottom = -16.0
+color = Color(0.0784314, 0.721569, 0.647059, 1)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Platforms/Platform8"]
+shape = SubResource("1")
+
+[node name="Platform9" type="StaticBody2D" parent="Platforms"]
+position = Vector2(2700, 350)
+
+[node name="Visual" type="ColorRect" parent="Platforms/Platform9"]
+offset_left = -96.0
+offset_top = -16.0
+offset_right = 96.0
+offset_bottom = 16.0
+color = Color(0.176471, 0.831373, 0.74902, 1)
+
+[node name="Outline" type="ColorRect" parent="Platforms/Platform9"]
+offset_left = -96.0
+offset_top = -18.0
+offset_right = 96.0
+offset_bottom = -16.0
+color = Color(0.0784314, 0.721569, 0.647059, 1)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Platforms/Platform9"]
+shape = SubResource("1")
+scale = Vector2(0.75, 1)
+
+[node name="Platform10" type="StaticBody2D" parent="Platforms"]
+position = Vector2(3000, 320)
+
+[node name="Visual" type="ColorRect" parent="Platforms/Platform10"]
+offset_left = -160.0
+offset_top = -16.0
+offset_right = 160.0
+offset_bottom = 16.0
+color = Color(0.176471, 0.831373, 0.74902, 1)
+
+[node name="Outline" type="ColorRect" parent="Platforms/Platform10"]
+offset_left = -160.0
+offset_top = -18.0
+offset_right = 160.0
+offset_bottom = -16.0
+color = Color(0.0784314, 0.721569, 0.647059, 1)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Platforms/Platform10"]
+shape = SubResource("1")
+scale = Vector2(1.25, 1)
+
+[node name="Platform11" type="StaticBody2D" parent="Platforms"]
+position = Vector2(3300, 280)
+
+[node name="Visual" type="ColorRect" parent="Platforms/Platform11"]
+offset_left = -128.0
+offset_top = -16.0
+offset_right = 128.0
+offset_bottom = 16.0
+color = Color(0.176471, 0.831373, 0.74902, 1)
+
+[node name="Outline" type="ColorRect" parent="Platforms/Platform11"]
+offset_left = -128.0
+offset_top = -18.0
+offset_right = 128.0
+offset_bottom = -16.0
+color = Color(0.0784314, 0.721569, 0.647059, 1)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Platforms/Platform11"]
+shape = SubResource("1")
+
+[node name="Platform12" type="StaticBody2D" parent="Platforms"]
+position = Vector2(3600, 400)
+
+[node name="Visual" type="ColorRect" parent="Platforms/Platform12"]
+offset_left = -128.0
+offset_top = -16.0
+offset_right = 128.0
+offset_bottom = 16.0
+color = Color(0.176471, 0.831373, 0.74902, 1)
+
+[node name="Outline" type="ColorRect" parent="Platforms/Platform12"]
+offset_left = -128.0
+offset_top = -18.0
+offset_right = 128.0
+offset_bottom = -16.0
+color = Color(0.0784314, 0.721569, 0.647059, 1)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Platforms/Platform12"]
+shape = SubResource("1")
+
+[node name="LowerPlatforms" type="Node2D" parent="Platforms"]
+
+[node name="Platform13" type="StaticBody2D" parent="Platforms/LowerPlatforms"]
+position = Vector2(800, 950)
+
+[node name="Visual" type="ColorRect" parent="Platforms/LowerPlatforms/Platform13"]
+offset_left = -80.0
+offset_top = -16.0
+offset_right = 80.0
+offset_bottom = 16.0
+color = Color(0.176471, 0.831373, 0.74902, 1)
+
+[node name="Outline" type="ColorRect" parent="Platforms/LowerPlatforms/Platform13"]
+offset_left = -80.0
+offset_top = -18.0
+offset_right = 80.0
+offset_bottom = -16.0
+color = Color(0.0784314, 0.721569, 0.647059, 1)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Platforms/LowerPlatforms/Platform13"]
+shape = SubResource("1")
+scale = Vector2(0.625, 1)
+
+[node name="Platform14" type="StaticBody2D" parent="Platforms/LowerPlatforms"]
+position = Vector2(1400, 880)
+
+[node name="Visual" type="ColorRect" parent="Platforms/LowerPlatforms/Platform14"]
+offset_left = -80.0
+offset_top = -16.0
+offset_right = 80.0
+offset_bottom = 16.0
+color = Color(0.176471, 0.831373, 0.74902, 1)
+
+[node name="Outline" type="ColorRect" parent="Platforms/LowerPlatforms/Platform14"]
+offset_left = -80.0
+offset_top = -18.0
+offset_right = 80.0
+offset_bottom = -16.0
+color = Color(0.0784314, 0.721569, 0.647059, 1)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Platforms/LowerPlatforms/Platform14"]
+shape = SubResource("1")
+scale = Vector2(0.625, 1)
+
+[node name="Platform15" type="StaticBody2D" parent="Platforms/LowerPlatforms"]
+position = Vector2(2000, 800)
+
+[node name="Visual" type="ColorRect" parent="Platforms/LowerPlatforms/Platform15"]
+offset_left = -80.0
+offset_top = -16.0
+offset_right = 80.0
+offset_bottom = 16.0
+color = Color(0.176471, 0.831373, 0.74902, 1)
+
+[node name="Outline" type="ColorRect" parent="Platforms/LowerPlatforms/Platform15"]
+offset_left = -80.0
+offset_top = -18.0
+offset_right = 80.0
+offset_bottom = -16.0
+color = Color(0.0784314, 0.721569, 0.647059, 1)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Platforms/LowerPlatforms/Platform15"]
+shape = SubResource("1")
+scale = Vector2(0.625, 1)
+
+[node name="Platform16" type="StaticBody2D" parent="Platforms/LowerPlatforms"]
+position = Vector2(2600, 920)
+
+[node name="Visual" type="ColorRect" parent="Platforms/LowerPlatforms/Platform16"]
+offset_left = -80.0
+offset_top = -16.0
+offset_right = 80.0
+offset_bottom = 16.0
+color = Color(0.176471, 0.831373, 0.74902, 1)
+
+[node name="Outline" type="ColorRect" parent="Platforms/LowerPlatforms/Platform16"]
+offset_left = -80.0
+offset_top = -18.0
+offset_right = 80.0
+offset_bottom = -16.0
+color = Color(0.0784314, 0.721569, 0.647059, 1)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Platforms/LowerPlatforms/Platform16"]
+shape = SubResource("1")
+scale = Vector2(0.625, 1)
+
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="Instructions" type="Label" parent="UI"]
+offset_left = 20.0
+offset_top = 20.0
+offset_right = 420.0
+offset_bottom = 120.0
+theme_override_colors/font_color = Color(0.647059, 0.952941, 0.988235, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.5)
+theme_override_constants/shadow_offset_x = 2
+theme_override_constants/shadow_offset_y = 2
+theme_override_font_sizes/font_size = 16
+text = "ProCam2D Platformer Example
+
+Arrow Keys / A-D: Move
 Space: Jump
 
-ProCam2D will smoothly follow the player!"
+Explore the atmospheric level!"
