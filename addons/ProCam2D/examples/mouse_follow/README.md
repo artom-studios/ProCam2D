@@ -6,11 +6,13 @@ A complete top-down shooter showcasing **ProCam2D's PCamMouseFollow addon**, wit
 
 - **Dynamic Mouse Follow**: Camera shifts toward your cursor for better visibility in aim direction
 - **Top-Down Combat**: Shoot enemies that chase and attack you
-- **Captured Cursor Mode**: Mouse is hidden during gameplay for immersive experience
+- **Custom Crosshair Cursor**: Your mouse pointer becomes a crosshair for precise aiming
 - **Particle Effects**: Muzzle flashes, hit sparks, and death explosions
 - **Enemy AI**: Purple enemies chase the player and attack on contact
+- **Dynamic Enemy Spawning**: New enemies spawn randomly around the player every 3 seconds
+- **Score System**: Earn 100 points per enemy defeated
+- **High Score Tracking**: Your best score is saved and displayed
 - **Health System**: Player and enemies have health with visual damage feedback
-- **Visual Crosshair**: Displayed when cursor is captured
 
 ## What's Included
 
@@ -19,23 +21,21 @@ A complete top-down shooter showcasing **ProCam2D's PCamMouseFollow addon**, wit
 - **Enemy.gd**: AI-controlled enemy with chase behavior and health
 - **Enemy.tscn**: Enemy scene with hexagon body and particle effects
 - **Bullet.gd/tscn**: Projectile with collision detection
-- **GameManager.gd**: Handles cursor capture/release with Escape key
-- **MouseFollow.tscn**: Complete arena with enemies, obstacles, and ProCam2D configured
-- **Crosshair.gd**: Crosshair that only shows when cursor is captured
+- **GameManager.gd**: Handles score tracking, high score saving, and enemy spawning
+- **MouseFollow.tscn**: Complete arena with initial enemies, obstacles, and ProCam2D configured
 
 ## How to Run
 
 1. Make sure ProCam2D plugin is enabled in your Godot 4.5 project
 2. Open `MouseFollow.tscn` in the Godot editor
 3. Run the scene (F6) or set it as the main scene and run the project (F5)
-4. **The cursor will be captured automatically** - use Escape to release it
+4. Your mouse cursor will automatically become a crosshair
 
 ## Controls
 
 - **WASD / Arrow Keys**: Move in all directions
-- **Mouse**: Aim (player rotates to face cursor)
+- **Mouse**: Aim (player rotates to face cursor, camera shifts toward aim direction)
 - **Left Click**: Shoot bullets
-- **Escape**: Toggle cursor capture (release to access menus, capture for gameplay)
 
 ## How Mouse Follow Works
 
@@ -97,6 +97,20 @@ When you move your mouse cursor away from the center of the screen:
 - **Damage Flash**: Red color flash when taking damage
 - **Death**: Creates particle effect on elimination
 - **Movement**: Smooth acceleration/deceleration for responsive control
+
+### Enemy Spawning System
+- **Spawn Timer**: New enemies appear every 3 seconds
+- **Random Positioning**: Spawns 400-800px away from the player at a random angle
+- **Arena Bounds**: Enemies spawn within the 2400x2400 arena
+- **Max Enemies**: Limited to 15 simultaneous enemies to maintain performance
+- **Initial Spawn**: 6 enemies placed at start, then dynamic spawning begins
+
+### Score System
+- **Points per Kill**: 100 points for each enemy defeated
+- **Real-time Display**: Yellow score label shows current score
+- **High Score Tracking**: Purple high score label shows your best performance
+- **Persistent Saving**: High score saved to disk (user://mouse_follow_highscore.save)
+- **Auto-update**: High score automatically updates when beaten
 
 ## Customizing the Mouse Follow
 
