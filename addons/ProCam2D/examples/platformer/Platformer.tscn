@@ -1,6 +1,7 @@
-[gd_scene load_steps=3 format=3 uid="uid://dj3xqw7k8pbxf"]
+[gd_scene load_steps=4 format=3 uid="uid://cyb8shk10shk1"]
 
-[ext_resource type="PackedScene" uid="uid://b2qxh4jy5ncv8" path="res://examples/platformer/Player.tscn" id="1"]
+[ext_resource type="PackedScene" uid="uid://l1glbpf6ynxf" path="res://addons/ProCam2D/examples/platformer/Player.tscn" id="1"]
+[ext_resource type="Script" uid="uid://cehb0ngltjow3" path="res://addons/ProCam2D/scripts/procam2d.gd" id="2_ax3jb"]
 
 [sub_resource type="RectangleShape2D" id="1"]
 size = Vector2(256, 32)
@@ -88,6 +89,7 @@ offset_bottom = 900.0
 color = Color(0.305882, 0.215686, 0.439216, 1)
 
 [node name="ProCam2D" type="Node2D" parent="."]
+script = ExtResource("2_ax3jb")
 
 [node name="Player" parent="." instance=ExtResource("1")]
 position = Vector2(200, 800)

@@ -1,6 +1,7 @@
-[gd_scene load_steps=3 format=3 uid="uid://b2qxh4jy5ncv8"]
+[gd_scene load_steps=4 format=3 uid="uid://l1glbpf6ynxf"]
 
-[ext_resource type="Script" path="res://examples/platformer/Player.gd" id="1"]
+[ext_resource type="Script" uid="uid://h2hxvlhk85ac" path="res://addons/ProCam2D/examples/platformer/Player.gd" id="1"]
+[ext_resource type="Script" uid="uid://b4rf4nj3rhndx" path="res://addons/ProCam2D/scripts/pcam_target.gd" id="2_rrcan"]
 
 [sub_resource type="RectangleShape2D" id="1"]
 size = Vector2(32, 48)
@@ -19,3 +20,5 @@ color = Color(1, 0.4, 0.5, 1)
 shape = SubResource("1")
 
 [node name="PCamTarget" type="Node2D" parent="."]
+script = ExtResource("2_rrcan")
+metadata/_custom_type_script = "uid://b4rf4nj3rhndx"

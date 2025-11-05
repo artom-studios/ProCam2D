@@ -128,7 +128,7 @@ func apply_influence(pos) -> Vector2:
 			
 			if attract_repel == AttractRepel.ATTRACT:
 				# For attraction, limit displacement to the distance to the center
-				displacement_vector = (-local_pos.normalized() * force_magnitude).clamped(local_pos.length())
+				displacement_vector = (-local_pos.normalized() * force_magnitude).limit_length(local_pos.length())
 			else: # REPEL
 				var repel_direction
 				if edge_distance.length() == 0:
@@ -149,7 +149,7 @@ func apply_influence(pos) -> Vector2:
 					max_repel_distance = distance_from_edge
 				
 				# Apply force with respect to max repel distance
-				displacement_vector = (repel_direction * force_magnitude).clamped(max_repel_distance)
+				displacement_vector = (repel_direction * force_magnitude).limit_length(max_repel_distance)
 			
 			return pos + displacement_vector
 
