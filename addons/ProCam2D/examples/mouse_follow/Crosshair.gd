@@ -1,4 +1,8 @@
 extends Control
 
 func _process(_delta):
-	global_position = get_global_mouse_position() - size / 2
+	# Only show crosshair when cursor is captured
+	visible = Input.mouse_mode == Input.MOUSE_MODE_CAPTURED
+
+	if visible:
+		global_position = get_viewport().get_mouse_position() - size / 2
