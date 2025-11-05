@@ -10,18 +10,14 @@ size = Vector2(32, 48)
 script = ExtResource("1")
 
 [node name="Sprite" type="ColorRect" parent="."]
-color = Color(0.2, 0.6, 1, 1)
+offset_left = -16.0
+offset_top = -24.0
+offset_right = 16.0
+offset_bottom = 24.0
+color = Color(1, 0.4, 0.5, 1)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("1")
-
-[node name="Label" type="Label" parent="."]
-offset_left = -24.0
-offset_top = -58.0
-offset_right = 25.0
-offset_bottom = -35.0
-text = "Player"
-horizontal_alignment = 1
 
 [node name="PCamTarget" type="Node2D" parent="."]
 script = ExtResource("2_rrcan")

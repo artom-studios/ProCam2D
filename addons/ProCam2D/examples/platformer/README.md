@@ -1,23 +1,47 @@
-# Simple Platformer Example
+# Atmospheric Platformer Example
 
-This is a simple platformer example that demonstrates how to use **ProCam2D** in a 2D platformer game.
+An atmospheric minimalist platformer demonstrating **ProCam2D** with parallax backgrounds and clean geometric design.
+
+## Features
+
+- **Atmospheric Design**: Deep purple/blue night atmosphere with teal platforms
+- **Parallax Backgrounds**: Multiple layered backgrounds creating depth
+- **Large Explorable Level**: Extended platforming area (4000x1200px)
+- **Smooth Camera**: ProCam2D follows the player with customizable settings
+- **Clean Aesthetics**: Minimalist geometric shapes with thoughtful color theory
 
 ## What's Included
 
-- **Player.gd**: A simple character controller with movement and jumping mechanics
-- **Player.tscn**: Player scene with a PCamTarget node attached
-- **Platformer.tscn**: Main game scene with platforms and ProCam2D setup
+- **Player.gd**: Character controller with smooth acceleration, friction, and jump mechanics (Godot 4.5)
+- **Player.tscn**: Player scene with centered ColorRect sprite and PCamTarget node
+- **Platformer.tscn**: Large atmospheric level with parallax layers and 16+ platforms
 
 ## How to Run
 
-1. Make sure ProCam2D plugin is enabled in your Godot project
+1. Make sure ProCam2D plugin is enabled in your Godot 4.5 project
 2. Open `Platformer.tscn` in the Godot editor
 3. Run the scene (F6) or set it as the main scene and run the project (F5)
 
 ## Controls
 
-- **Arrow Keys / A/D**: Move left and right
-- **Space / Up Arrow**: Jump
+- **Arrow Keys**: Move left and right
+- **Space**: Jump
+
+## Design Elements
+
+### Color Palette
+- **Sky Gradient**: Deep purple (#1a1628) to dark blue (#0a0d1c)
+- **Parallax Mountains**: Dark purple silhouettes (#2d1b4e)
+- **Platforms**: Bright teal (#2dd4bf) with darker outlines (#14b8a6)
+- **Ground**: Dark teal (#134e4a)
+- **Player**: Coral pink (#ff667f) - stands out against the cool background
+- **UI**: Light cyan (#a5f3fc) with drop shadows
+
+### Parallax Layers
+1. **Static Sky**: Gradient background (no movement)
+2. **Far Mountains** (0.2x motion): Large mountain silhouettes
+3. **Mid Shapes** (0.4x motion): Triangular geometric shapes
+4. **Near Shapes** (0.6x motion): Rectangular pillars in foreground
 
 ## How ProCam2D is Used
 
