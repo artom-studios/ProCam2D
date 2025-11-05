@@ -6,12 +6,23 @@ This directory contains example projects demonstrating various uses of ProCam2D.
 
 ### [Platformer](platformer/)
 
-A simple 2D platformer example showing basic ProCam2D setup:
-- Character controller with movement and jumping
-- ProCam2D following the player
-- Simple platform-based level
+An atmospheric 2D platformer with parallax backgrounds:
+- Character controller with smooth acceleration and jumping
+- ProCam2D following the player with smooth camera movement
+- Large explorable level with atmospheric design
+- Parallax background layers for depth
 
-**Perfect for**: Learning the basics of ProCam2D integration
+**Perfect for**: Learning the basics of ProCam2D integration and camera following
+
+### [Mouse Follow](mouse_follow/)
+
+A top-down aiming demo showcasing dynamic camera movement:
+- Player that rotates to face the mouse cursor
+- ProCam2D with PCamMouseFollow addon configured
+- Camera shifts toward cursor for better visibility
+- Training arena with targets and obstacles
+
+**Perfect for**: Understanding mouse follow addon for aiming games, twin-stick shooters, and top-down games
 
 ## Running the Examples
 
@@ -34,11 +45,11 @@ See [CONTRIBUTING.md](../CONTRIBUTING.md) for more details.
 
 Here are some ideas for additional examples that could be added:
 
-- **Top-down game**: Demonstrate multi-target following
-- **Twin-stick shooter**: Show mouse follow addon usage
-- **Cinematic platformer**: Showcase PCamCinematic for cutscenes
+- **Multi-target following**: Demonstrate camera following multiple characters
+- **Cinematic platformer**: Showcase PCamCinematic for cutscenes and camera sequences
 - **Metroidvania-style**: Demonstrate PCamRoom for room-based cameras
-- **Boss fight**: Use PCamZoom and PCamMagnet for dynamic camera
+- **Boss fight**: Use PCamZoom and PCamMagnet for dynamic camera behavior
 - **Racing game**: Show path constraints with PCamPath
+- **Screen shake showcase**: Demonstrate all shake types and presets
 
 Contributions welcome!
