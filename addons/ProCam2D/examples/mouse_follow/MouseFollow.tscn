@@ -1,0 +1,308 @@
+[gd_scene load_steps=7 format=3 uid="uid://d1e2f3g4h5i6j"]
+
+[ext_resource type="PackedScene" uid="uid://c1m2x3n4p5q6r" path="res://addons/ProCam2D/examples/mouse_follow/Player.tscn" id="1"]
+[ext_resource type="Script" uid="uid://cehb0ngltjow3" path="res://addons/ProCam2D/scripts/procam2d.gd" id="2"]
+[ext_resource type="Script" path="res://addons/ProCam2D/scripts/core/addns/pcam_mouse_influence.gd" id="3"]
+[ext_resource type="Script" path="res://addons/ProCam2D/examples/mouse_follow/Crosshair.gd" id="4"]
+
+[sub_resource type="RectangleShape2D" id="1"]
+size = Vector2(100, 100)
+
+[sub_resource type="Resource" id="2"]
+script = ExtResource("3")
+max_distance = 300.0
+influence = Vector2(0.5, 0.5)
+smoothing = 8.0
+deadzone_radius = 10.0
+priority = 0
+enabled = true
+
+[node name="MouseFollow" type="Node2D"]
+
+[node name="Background" type="ColorRect" parent="."]
+offset_right = 2400.0
+offset_bottom = 2400.0
+color = Color(0.0941176, 0.101961, 0.14902, 1)
+metadata/_edit_lock_ = true
+
+[node name="Grid" type="Node2D" parent="."]
+modulate = Color(1, 1, 1, 0.1)
+
+[node name="LineH1" type="ColorRect" parent="Grid"]
+offset_top = 600.0
+offset_right = 2400.0
+offset_bottom = 602.0
+color = Color(0.4, 0.6, 0.8, 1)
+
+[node name="LineH2" type="ColorRect" parent="Grid"]
+offset_top = 1200.0
+offset_right = 2400.0
+offset_bottom = 1202.0
+color = Color(0.4, 0.6, 0.8, 1)
+
+[node name="LineH3" type="ColorRect" parent="Grid"]
+offset_top = 1800.0
+offset_right = 2400.0
+offset_bottom = 1802.0
+color = Color(0.4, 0.6, 0.8, 1)
+
+[node name="LineV1" type="ColorRect" parent="Grid"]
+offset_left = 600.0
+offset_right = 602.0
+offset_bottom = 2400.0
+color = Color(0.4, 0.6, 0.8, 1)
+
+[node name="LineV2" type="ColorRect" parent="Grid"]
+offset_left = 1200.0
+offset_right = 1202.0
+offset_bottom = 2400.0
+color = Color(0.4, 0.6, 0.8, 1)
+
+[node name="LineV3" type="ColorRect" parent="Grid"]
+offset_left = 1800.0
+offset_right = 1802.0
+offset_bottom = 2400.0
+color = Color(0.4, 0.6, 0.8, 1)
+
+[node name="ProCam2D" type="Node2D" parent="."]
+script = ExtResource("2")
+addons = Array[Resource]([SubResource("2")])
+
+[node name="Player" parent="." instance=ExtResource("1")]
+position = Vector2(1200, 1200)
+
+[node name="Obstacles" type="Node2D" parent="."]
+
+[node name="Obstacle1" type="StaticBody2D" parent="Obstacles"]
+position = Vector2(600, 400)
+
+[node name="Visual" type="ColorRect" parent="Obstacles/Obstacle1"]
+offset_left = -50.0
+offset_top = -50.0
+offset_right = 50.0
+offset_bottom = 50.0
+color = Color(1, 0.5, 0.2, 1)
+
+[node name="Outline" type="ColorRect" parent="Obstacles/Obstacle1"]
+offset_left = -52.0
+offset_top = -52.0
+offset_right = 52.0
+offset_bottom = 52.0
+color = Color(0.8, 0.3, 0.1, 1)
+z_index = -1
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Obstacles/Obstacle1"]
+shape = SubResource("1")
+
+[node name="Obstacle2" type="StaticBody2D" parent="Obstacles"]
+position = Vector2(1800, 600)
+
+[node name="Visual" type="ColorRect" parent="Obstacles/Obstacle2"]
+offset_left = -50.0
+offset_top = -50.0
+offset_right = 50.0
+offset_bottom = 50.0
+color = Color(1, 0.5, 0.2, 1)
+
+[node name="Outline" type="ColorRect" parent="Obstacles/Obstacle2"]
+offset_left = -52.0
+offset_top = -52.0
+offset_right = 52.0
+offset_bottom = 52.0
+color = Color(0.8, 0.3, 0.1, 1)
+z_index = -1
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Obstacles/Obstacle2"]
+shape = SubResource("1")
+
+[node name="Obstacle3" type="StaticBody2D" parent="Obstacles"]
+position = Vector2(400, 1200)
+
+[node name="Visual" type="ColorRect" parent="Obstacles/Obstacle3"]
+offset_left = -50.0
+offset_top = -50.0
+offset_right = 50.0
+offset_bottom = 50.0
+color = Color(1, 0.5, 0.2, 1)
+
+[node name="Outline" type="ColorRect" parent="Obstacles/Obstacle3"]
+offset_left = -52.0
+offset_top = -52.0
+offset_right = 52.0
+offset_bottom = 52.0
+color = Color(0.8, 0.3, 0.1, 1)
+z_index = -1
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Obstacles/Obstacle3"]
+shape = SubResource("1")
+
+[node name="Obstacle4" type="StaticBody2D" parent="Obstacles"]
+position = Vector2(2000, 1400)
+
+[node name="Visual" type="ColorRect" parent="Obstacles/Obstacle4"]
+offset_left = -50.0
+offset_top = -50.0
+offset_right = 50.0
+offset_bottom = 50.0
+color = Color(1, 0.5, 0.2, 1)
+
+[node name="Outline" type="ColorRect" parent="Obstacles/Obstacle4"]
+offset_left = -52.0
+offset_top = -52.0
+offset_right = 52.0
+offset_bottom = 52.0
+color = Color(0.8, 0.3, 0.1, 1)
+z_index = -1
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Obstacles/Obstacle4"]
+shape = SubResource("1")
+
+[node name="Obstacle5" type="StaticBody2D" parent="Obstacles"]
+position = Vector2(800, 1800)
+
+[node name="Visual" type="ColorRect" parent="Obstacles/Obstacle5"]
+offset_left = -50.0
+offset_top = -50.0
+offset_right = 50.0
+offset_bottom = 50.0
+color = Color(1, 0.5, 0.2, 1)
+
+[node name="Outline" type="ColorRect" parent="Obstacles/Obstacle5"]
+offset_left = -52.0
+offset_top = -52.0
+offset_right = 52.0
+offset_bottom = 52.0
+color = Color(0.8, 0.3, 0.1, 1)
+z_index = -1
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Obstacles/Obstacle5"]
+shape = SubResource("1")
+
+[node name="Obstacle6" type="StaticBody2D" parent="Obstacles"]
+position = Vector2(1600, 2000)
+
+[node name="Visual" type="ColorRect" parent="Obstacles/Obstacle6"]
+offset_left = -50.0
+offset_top = -50.0
+offset_right = 50.0
+offset_bottom = 50.0
+color = Color(1, 0.5, 0.2, 1)
+
+[node name="Outline" type="ColorRect" parent="Obstacles/Obstacle6"]
+offset_left = -52.0
+offset_top = -52.0
+offset_right = 52.0
+offset_bottom = 52.0
+color = Color(0.8, 0.3, 0.1, 1)
+z_index = -1
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Obstacles/Obstacle6"]
+shape = SubResource("1")
+
+[node name="Targets" type="Node2D" parent="."]
+
+[node name="Target1" type="Polygon2D" parent="Targets"]
+position = Vector2(400, 400)
+color = Color(0.2, 0.8, 0.6, 1)
+polygon = PackedVector2Array(0, -30, 26, -9, 16, 24, -16, 24, -26, -9)
+
+[node name="Outline" type="Polygon2D" parent="Targets/Target1"]
+color = Color(0.1, 0.6, 0.4, 1)
+polygon = PackedVector2Array(0, -33, 28, -10, 18, 26, -18, 26, -28, -10)
+z_index = -1
+
+[node name="Target2" type="Polygon2D" parent="Targets"]
+position = Vector2(1200, 600)
+color = Color(0.2, 0.8, 0.6, 1)
+polygon = PackedVector2Array(0, -30, 26, -9, 16, 24, -16, 24, -26, -9)
+
+[node name="Outline" type="Polygon2D" parent="Targets/Target2"]
+color = Color(0.1, 0.6, 0.4, 1)
+polygon = PackedVector2Array(0, -33, 28, -10, 18, 26, -18, 26, -28, -10)
+z_index = -1
+
+[node name="Target3" type="Polygon2D" parent="Targets"]
+position = Vector2(2000, 800)
+color = Color(0.2, 0.8, 0.6, 1)
+polygon = PackedVector2Array(0, -30, 26, -9, 16, 24, -16, 24, -26, -9)
+
+[node name="Outline" type="Polygon2D" parent="Targets/Target3"]
+color = Color(0.1, 0.6, 0.4, 1)
+polygon = PackedVector2Array(0, -33, 28, -10, 18, 26, -18, 26, -28, -10)
+z_index = -1
+
+[node name="Target4" type="Polygon2D" parent="Targets"]
+position = Vector2(600, 1600)
+color = Color(0.2, 0.8, 0.6, 1)
+polygon = PackedVector2Array(0, -30, 26, -9, 16, 24, -16, 24, -26, -9)
+
+[node name="Outline" type="Polygon2D" parent="Targets/Target4"]
+color = Color(0.1, 0.6, 0.4, 1)
+polygon = PackedVector2Array(0, -33, 28, -10, 18, 26, -18, 26, -28, -10)
+z_index = -1
+
+[node name="Target5" type="Polygon2D" parent="Targets"]
+position = Vector2(1800, 1800)
+color = Color(0.2, 0.8, 0.6, 1)
+polygon = PackedVector2Array(0, -30, 26, -9, 16, 24, -16, 24, -26, -9)
+
+[node name="Outline" type="Polygon2D" parent="Targets/Target5"]
+color = Color(0.1, 0.6, 0.4, 1)
+polygon = PackedVector2Array(0, -33, 28, -10, 18, 26, -18, 26, -28, -10)
+z_index = -1
+
+[node name="Target6" type="Polygon2D" parent="Targets"]
+position = Vector2(1400, 2000)
+color = Color(0.2, 0.8, 0.6, 1)
+polygon = PackedVector2Array(0, -30, 26, -9, 16, 24, -16, 24, -26, -9)
+
+[node name="Outline" type="Polygon2D" parent="Targets/Target6"]
+color = Color(0.1, 0.6, 0.4, 1)
+polygon = PackedVector2Array(0, -33, 28, -10, 18, 26, -18, 26, -28, -10)
+z_index = -1
+
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="Instructions" type="Label" parent="UI"]
+offset_left = 20.0
+offset_top = 20.0
+offset_right = 520.0
+offset_bottom = 140.0
+theme_override_colors/font_color = Color(0.4, 0.8, 1, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.5)
+theme_override_constants/shadow_offset_x = 2
+theme_override_constants/shadow_offset_y = 2
+theme_override_font_sizes/font_size = 16
+text = "ProCam2D Mouse Follow Example
+
+WASD / Arrow Keys: Move
+Mouse: Aim
+
+Notice how the camera shifts toward your cursor,
+giving you better visibility in your aim direction!"
+
+[node name="Crosshair" type="Control" parent="UI"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+mouse_filter = 2
+script = ExtResource("4")
+
+[node name="H" type="ColorRect" parent="UI/Crosshair"]
+layout_mode = 0
+offset_left = -10.0
+offset_top = -1.0
+offset_right = 10.0
+offset_bottom = 1.0
+mouse_filter = 2
+color = Color(1, 1, 1, 0.6)
+
+[node name="V" type="ColorRect" parent="UI/Crosshair"]
+layout_mode = 0
+offset_left = -1.0
+offset_top = -10.0
+offset_right = 1.0
+offset_bottom = 10.0
+mouse_filter = 2
+color = Color(1, 1, 1, 0.6)
