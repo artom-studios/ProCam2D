@@ -9,6 +9,8 @@ enum ProcessMode {
 var process_frame: int = ProcessMode.PHYSICS: set = set_tha_process_mode
 @export var enabled: bool = true: set = set_enabled
 @export var priority: int = 0: set = set_priority
+@export var camera_id: String = "0"
+
 var debug_draw: bool = false
 var debug_color := [ Color("#563AFB"), Color("#7a90d8"), Color.YELLOW]
 var _pm : int = 1

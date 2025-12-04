@@ -1,0 +1,196 @@
+[gd_scene load_steps=8 format=3 uid="uid://b2julknnpyl1e"]
+
+[ext_resource type="Script" path="res://addons/ProCam2D/scripts/procam2d.gd" id="1_pcam"]
+[ext_resource type="Script" uid="uid://dnl55w76idwo6" path="res://addons/ProCam2D/examples/split_screen/split_screen_gdquest.gd" id="1_script"]
+[ext_resource type="Script" uid="uid://b4rf4nj3rhndx" path="res://addons/ProCam2D/scripts/pcam_target.gd" id="2_target"]
+[ext_resource type="Texture2D" uid="uid://1ljgu0r8fru2" path="res://icon.svg" id="3_icon"]
+[ext_resource type="Script" uid="uid://eb7ke8n0mn0e" path="res://addons/ProCam2D/scripts/core/nodes/pcam_addon.gd" id="5_hucj6"]
+[ext_resource type="Script" uid="uid://vgkxfwv860g2" path="res://addons/ProCam2D/scripts/core/addons/pcam_shake.gd" id="6_fqmne"]
+
+[sub_resource type="Resource" id="Resource_mpqa0"]
+script = ExtResource("6_fqmne")
+preset = 3
+speed = 1.0
+intensity = 5.0
+shake_type = 24
+trauma_attack = 0.1
+trauma_decay = 0.0
+duration = 0.0
+endless = true
+metadata/_custom_type_script = "uid://vgkxfwv860g2"
+
+[node name="SplitScreenGDQuest" type="Control" unique_id=369391894]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_script")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=1313606292]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -5.0
+offset_right = 5.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/separation = 10
+
+[node name="SubViewportContainer1" type="SubViewportContainer" parent="HBoxContainer" unique_id=589505780]
+layout_mode = 2
+size_flags_horizontal = 3
+stretch = true
+
+[node name="SubViewport" type="SubViewport" parent="HBoxContainer/SubViewportContainer1" unique_id=1119764311]
+handle_input_locally = false
+size = Vector2i(576, 648)
+render_target_update_mode = 4
+
+[node name="World" type="Node2D" parent="HBoxContainer/SubViewportContainer1/SubViewport" unique_id=384623790]
+
+[node name="Level" type="Node2D" parent="HBoxContainer/SubViewportContainer1/SubViewport/World" unique_id=1578873918]
+
+[node name="Background" type="ColorRect" parent="HBoxContainer/SubViewportContainer1/SubViewport/World/Level" unique_id=863679788]
+offset_left = -1000.0
+offset_top = -1000.0
+offset_right = 2000.0
+offset_bottom = 2000.0
+color = Color(0.2, 0.4, 0.2, 1)
+
+[node name="Floor" type="ColorRect" parent="HBoxContainer/SubViewportContainer1/SubViewport/World/Level" unique_id=387042905]
+offset_left = -500.0
+offset_top = 400.0
+offset_right = 1500.0
+offset_bottom = 450.0
+color = Color(0.5, 0.3, 0.1, 1)
+
+[node name="Box1" type="ColorRect" parent="HBoxContainer/SubViewportContainer1/SubViewport/World/Level" unique_id=725763465]
+offset_left = 100.0
+offset_top = 200.0
+offset_right = 300.0
+offset_bottom = 400.0
+color = Color(0.8, 0.2, 0.2, 1)
+
+[node name="Box2" type="ColorRect" parent="HBoxContainer/SubViewportContainer1/SubViewport/World/Level" unique_id=1354950260]
+offset_left = 700.0
+offset_top = 100.0
+offset_right = 900.0
+offset_bottom = 300.0
+color = Color(0.2, 0.2, 0.8, 1)
+
+[node name="Target1" type="Node2D" parent="HBoxContainer/SubViewportContainer1/SubViewport/World" unique_id=1624618321]
+unique_name_in_owner = true
+position = Vector2(200, 300)
+script = ExtResource("2_target")
+camera_id = "1"
+
+[node name="PlayerSprite" type="Sprite2D" parent="HBoxContainer/SubViewportContainer1/SubViewport/World/Target1" unique_id=1642458964]
+modulate = Color(0.337255, 0.584314, 1, 1)
+texture = ExtResource("3_icon")
+
+[node name="Target2" type="Node2D" parent="HBoxContainer/SubViewportContainer1/SubViewport/World" unique_id=1363164063]
+unique_name_in_owner = true
+position = Vector2(800, 300)
+script = ExtResource("2_target")
+camera_id = "2"
+
+[node name="PlayerSprite" type="Sprite2D" parent="HBoxContainer/SubViewportContainer1/SubViewport/World/Target2" unique_id=657433558]
+modulate = Color(1, 0.415686, 0.415686, 1)
+texture = ExtResource("3_icon")
+
+[node name="ProCam2D_Player1" type="Node2D" parent="HBoxContainer/SubViewportContainer1/SubViewport/World" unique_id=941873783]
+z_index = 4096
+position = Vector2(200, 300)
+script = ExtResource("1_pcam")
+pixel_perfect = true
+process_frame = 1
+follow_mode = 0
+drag_type = 0
+smooth_drag = true
+smooth_drag_speed = Vector2(5, 5)
+max_distance = Vector2(100000, 100000)
+offset = Vector2(0, 0)
+smooth_offset = true
+smooth_offset_speed = 2.0
+allow_rotation = false
+zoom = 1.0
+smooth_zoom = true
+smooth_zoom_speed = 5.0
+auto_zoom = true
+min_zoom = 0.01
+max_zoom = 1.0
+zoom_margin = 5.0
+smooth_limit = true
+left_limit = -10000000
+right_limit = 10000000
+top_limit = -10000000
+bottom_limit = 10000000
+use_h_margins = false
+use_v_margins = false
+working_radius = 2000.0
+global_debug_draw = true
+camera_id = "1"
+
+[node name="HUD" type="CanvasLayer" parent="HBoxContainer/SubViewportContainer1/SubViewport" unique_id=1638697870]
+
+[node name="Label" type="Label" parent="HBoxContainer/SubViewportContainer1/SubViewport/HUD" unique_id=341391156]
+offset_right = 40.0
+offset_bottom = 23.0
+text = "PLAYER 1 (World Owner)"
+metadata/_edit_use_anchors_ = true
+
+[node name="SubViewportContainer2" type="SubViewportContainer" parent="HBoxContainer" unique_id=591883034]
+layout_mode = 2
+size_flags_horizontal = 3
+stretch = true
+
+[node name="SubViewport" type="SubViewport" parent="HBoxContainer/SubViewportContainer2" unique_id=1642018839]
+handle_input_locally = false
+size = Vector2i(576, 648)
+render_target_update_mode = 4
+
+[node name="ProCam2D_Player2" type="Node2D" parent="HBoxContainer/SubViewportContainer2/SubViewport" unique_id=518582373]
+z_index = 4096
+position = Vector2(800, 300)
+script = ExtResource("1_pcam")
+addons = Array[ExtResource("5_hucj6")]([SubResource("Resource_mpqa0")])
+process_frame = 0
+follow_mode = 0
+drag_type = 0
+smooth_drag = true
+smooth_drag_speed = Vector2(5, 5)
+max_distance = Vector2(100000, 100000)
+offset = Vector2(0, 0)
+smooth_offset = true
+smooth_offset_speed = 2.0
+allow_rotation = false
+zoom = 1.0
+smooth_zoom = true
+smooth_zoom_speed = 5.0
+auto_zoom = true
+min_zoom = 0.01
+max_zoom = 1.0
+zoom_margin = 5.0
+smooth_limit = true
+left_limit = -10000000
+right_limit = 10000000
+top_limit = -10000000
+bottom_limit = 10000000
+use_h_margins = false
+use_v_margins = false
+working_radius = 2000.0
+global_debug_draw = true
+camera_id = "2"
+
+[node name="HUD" type="CanvasLayer" parent="HBoxContainer/SubViewportContainer2/SubViewport" unique_id=2107094679]
+
+[node name="Label" type="Label" parent="HBoxContainer/SubViewportContainer2/SubViewport/HUD" unique_id=196068924]
+offset_right = 40.0
+offset_bottom = 23.0
+text = "PLAYER 2 (Shared World)"
+metadata/_edit_use_anchors_ = true

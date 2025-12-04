@@ -1,0 +1,123 @@
+[gd_scene load_steps=5 format=3 uid="uid://e2bkfh874cd1"]
+
+[ext_resource type="Script" uid="uid://cehb0ngltjow3" path="res://addons/ProCam2D/scripts/procam2d.gd" id="1_pcam"]
+[ext_resource type="Script" uid="uid://eb7ke8n0mn0e" path="res://addons/ProCam2D/scripts/core/nodes/pcam_addon.gd" id="2_05c5e"]
+[ext_resource type="Script" uid="uid://dm4f03m2vxjbj" path="res://addons/ProCam2D/scripts/core/nodes/pcam_target.gd" id="2_target"]
+[ext_resource type="Texture2D" uid="uid://1ljgu0r8fru2" path="res://icon.svg" id="4_hbuhj"]
+
+[node name="SplitScreenDemo" type="Node2D" unique_id=270878687]
+
+[node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=1236664080]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="SubViewportContainer1" type="SubViewportContainer" parent="HBoxContainer" unique_id=763420710]
+layout_mode = 2
+size_flags_horizontal = 3
+stretch = true
+
+[node name="SubViewport" type="SubViewport" parent="HBoxContainer/SubViewportContainer1" unique_id=1184005573]
+handle_input_locally = false
+size = Vector2i(2, 2)
+render_target_update_mode = 4
+
+[node name="Camera1" type="Node2D" parent="HBoxContainer/SubViewportContainer1/SubViewport" unique_id=575075481]
+z_index = 4096
+script = ExtResource("1_pcam")
+addons = Array[ExtResource("2_05c5e")]([null])
+pixel_perfect = true
+process_frame = 0
+follow_mode = 0
+drag_type = 0
+smooth_drag = true
+smooth_drag_speed = Vector2(5, 5)
+max_distance = Vector2(100000, 100000)
+offset = Vector2(0, 0)
+smooth_offset = true
+smooth_offset_speed = 2.0
+allow_rotation = false
+zoom = 1.0
+smooth_zoom = true
+smooth_zoom_speed = 5.0
+auto_zoom = true
+min_zoom = 0.0
+max_zoom = 1.0
+zoom_margin = 5.0
+smooth_limit = true
+left_limit = -10000000
+right_limit = 10000000
+top_limit = -10000000
+bottom_limit = 10000000
+use_h_margins = false
+use_v_margins = false
+working_radius = 2000.0
+global_debug_draw = true
+camera_id = "1"
+
+[node name="SubViewportContainer2" type="SubViewportContainer" parent="HBoxContainer" unique_id=1602269965]
+layout_mode = 2
+size_flags_horizontal = 3
+stretch = true
+
+[node name="SubViewport" type="SubViewport" parent="HBoxContainer/SubViewportContainer2" unique_id=917910907]
+handle_input_locally = false
+size = Vector2i(2, 2)
+render_target_update_mode = 4
+
+[node name="Camera2" type="Node2D" parent="HBoxContainer/SubViewportContainer2/SubViewport" unique_id=554244380]
+z_index = 4096
+script = ExtResource("1_pcam")
+addons = Array[ExtResource("2_05c5e")]([null])
+pixel_perfect = true
+process_frame = 1
+follow_mode = 0
+drag_type = 0
+smooth_drag = true
+smooth_drag_speed = Vector2(5, 5)
+max_distance = Vector2(100000, 100000)
+offset = Vector2(0, 0)
+smooth_offset = true
+smooth_offset_speed = 2.0
+allow_rotation = false
+zoom = 1.0
+smooth_zoom = true
+smooth_zoom_speed = 5.0
+auto_zoom = true
+min_zoom = 0.0
+max_zoom = 1.0
+zoom_margin = 5.0
+smooth_limit = true
+left_limit = -10000000
+right_limit = 10000000
+top_limit = -10000000
+bottom_limit = 10000000
+use_h_margins = false
+use_v_margins = false
+working_radius = 2000.0
+global_debug_draw = true
+camera_id = "2"
+
+[node name="World" type="Node2D" parent="." unique_id=1642370781]
+
+[node name="Target1" type="Node2D" parent="World" unique_id=677376666]
+position = Vector2(200, 300)
+script = ExtResource("2_target")
+camera_id = "1"
+
+[node name="Icon" type="Sprite2D" parent="World/Target1" unique_id=333801835]
+position = Vector2(-1, -7)
+texture = ExtResource("4_hbuhj")
+
+[node name="Target2" type="Node2D" parent="World" unique_id=1719134002]
+position = Vector2(800, 300)
+script = ExtResource("2_target")
+camera_id = "2"
+
+[node name="Icon2" type="Sprite2D" parent="World/Target2" unique_id=569577008]
+position = Vector2(-5, 2)
+texture = ExtResource("4_hbuhj")

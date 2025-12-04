@@ -1,5 +1,5 @@
 @tool
-extends "b.gd"
+extends "pcam_base.gd"
 
 const GROUP_NAME := "procam_cinematics"
 

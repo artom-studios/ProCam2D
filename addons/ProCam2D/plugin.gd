@@ -34,12 +34,13 @@ var good_load: bool = false
 func _enter_tree() -> void:
 	# nodes
 	var pcam2d = preload("res://addons/ProCam2D/scripts/procam2d.gd")
-	var pcamtarget = preload("res://addons/ProCam2D/scripts/pcam_target.gd")
-	var pcamzoom = preload("res://addons/ProCam2D/scripts/procam_zoom.gd")
-	var pcamroom = preload("res://addons/ProCam2D/scripts/pcam_room.gd")
-	var pcammagnet = preload("res://addons/ProCam2D/scripts/pcam_magnet.gd")
-	var pcamcinematic = preload("res://addons/ProCam2D/scripts/pcam_cinematicpoint.gd")
-	var pcampath = preload("res://addons/ProCam2D/scripts/pcam_path.gd")
+	var pcamtarget = preload("res://addons/ProCam2D/scripts/core/nodes/pcam_target.gd")
+	var pcamzoom = preload("res://addons/ProCam2D/scripts/core/nodes/pcam_zoom.gd")
+	var pcamroom = preload("res://addons/ProCam2D/scripts/core/nodes/pcam_room.gd")
+	var pcammagnet = preload("res://addons/ProCam2D/scripts/core/nodes/pcam_magnet.gd")
+	var pcamcinematic = preload("res://addons/ProCam2D/scripts/core/nodes/pcam_cinematic.gd")
+	var pcampath = preload("res://addons/ProCam2D/scripts/core/nodes/pcam_path.gd")
+
 	# icons
 	var camicon = preload("res://addons/ProCam2D/assets/icons/pcam.png")
 	var targeticon = preload("res://addons/ProCam2D/assets/icons/pcam_target.png")

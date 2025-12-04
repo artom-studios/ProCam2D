@@ -10,7 +10,7 @@
 
 - **Standalone 2D Camera**: Works independently, providing advanced features out of the box.
 - **Extensible with Addons**: Comes with three addons for mouse follow, shake, and grid movement. Developers can write their own addons to extend functionality.
-- **Autoload Control**: The camera is controlled by an autoload called `procam`, making it easy to access all properties and methods from any script.
+- **Autoload Control**: The camera is controlled by an autoload called `procam`. It manages the `current_camera` but also allows access to specific cameras via `procam.get_camera_by_id("id")`.
 - **Multiple Camera Behaviors**: Includes 6 additional nodes to control various behaviors such as cinematics, magnet attraction or repulsion, zoom control, room constraints, path constraints, and target following.
 
 ## Installation
@@ -39,6 +39,23 @@ extends Node2D
 func _ready():
     procam.set_follow_mode(ProCam2D.FollowMode.SINGLE_TARGET)
 ```
+
+### Split-Screen Setup
+
+ProCam2D supports split-screen multiplayer. The recommended setup (GDQuest style) is:
+
+1.  **Hierarchy**: Place your "World" node inside `SubViewport1`.
+2.  **Camera 1**: Place `ProCam2D` for Player 1 inside `SubViewport1` (child of World).
+3.  **Camera 2**: Place `ProCam2D` for Player 2 inside `SubViewport2`.
+4.  **World Sharing**: Use a script to share the world from Viewport 1 to Viewport 2:
+    ```gdscript
+    func _ready():
+        $HBoxContainer/SubViewportContainer2/SubViewport.world_2d = $HBoxContainer/SubViewportContainer1/SubViewport.world_2d
+    ```
+5.  **Camera IDs**: Assign unique `camera_id`s (e.g., "1", "2") to each camera and their respective targets.
+
+See `addons/ProCam2D/examples/split_screen/split_screen_gdquest.tscn` for a working example.
+
 
 ### Example: Adding Addons
 

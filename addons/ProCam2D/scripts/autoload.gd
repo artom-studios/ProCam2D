@@ -42,290 +42,322 @@ var left_margin: float = 0.3: set = set_left_margin, get = get_left_margin
 var right_margin: float = 0.3: set = set_right_margin, get = get_right_margin
 var top_margin: float = 0.3: set = set_top_margin, get = get_top_margin
 var bottom_margin: float = 0.3: set = set_bottom_margin, get = get_bottom_margin
-var cam: Node2D
+
+var cameras: Array = []
+var current_camera: Node2D
 
 func _ready():
-	get_tree().connect("tree_changed", Callable(self, "_on_scene_changed"))
+	pass
+
+func register_camera(camera: Node2D) -> void:
+	if not cameras.has(camera):
+		cameras.append(camera)
+		if current_camera == null:
+			current_camera = camera
+
+func unregister_camera(camera: Node2D) -> void:
+	if cameras.has(camera):
+		cameras.erase(camera)
+		if current_camera == camera:
+			if not cameras.is_empty():
+				current_camera = cameras[0]
+			else:
+				current_camera = null
+
+func get_camera_by_id(id: String) -> Node2D:
+	for camera in cameras:
+		if "camera_id" in camera and camera.camera_id == id:
+			return camera
+	return null
+
+func get_cameras() -> Array:
+	return cameras.duplicate()
+
+func register_node(node: Node) -> void:
+	for camera in cameras:
+		if camera.has_method("register_node"):
+			camera.register_node(node)
+
+func unregister_node(node: Node) -> void:
+	for camera in cameras:
+		if camera.has_method("unregister_node"):
+			camera.unregister_node(node)
 
 func start_cinematic(id):
-	cam.start_cinematic(id)
+	if current_camera:
+		current_camera.start_cinematic(id)
 
 func stop_cinematic():
-	cam.stop_cinematic()
+	if current_camera:
+		current_camera.stop_cinematic()
 
 func get_camera_bounds() -> Rect2:
-	return cam.get_camera_bounds()
+	return current_camera.get_camera_bounds() if current_camera else Rect2()
 
 func reset_camera():
-	cam.reset_camera()
-	stop_cinematic()
+	if current_camera:
+		current_camera.reset_camera()
+		stop_cinematic()
 
-func add_addon(addon: PCamAddon) -> void:
-	cam.add_addon(addon)
+func add_addon(addon) -> void:
+	if current_camera:
+		current_camera.add_addon(addon)
 
 func get_addons() -> Array:
-	return cam.get_addons()
+	return current_camera.get_addons() if current_camera else []
 
-func remove_addon(addon: PCamAddon) -> void:
-	cam.remove_addon(addon)
+func remove_addon(addon) -> void:
+	if current_camera:
+		current_camera.remove_addon(addon)
 
 func set_position(new_position: Vector2):
-	cam.set_position(new_position)
+	if current_camera:
+		current_camera.set_position(new_position)
 
 func set_rotation(new_rotation: float):
-	cam.set_rotation(new_rotation)
+	if current_camera:
+		current_camera.set_rotation(new_rotation)
 
 func set_zoom(new_zoom: float):
-	cam.set_zoom(new_zoom)
+	if current_camera:
+		current_camera.set_zoom(new_zoom)
 
 #setters
 func set_follow_mode(value):
 	follow_mode = value
-	if cam:
-		cam.follow_mode = value
+	if current_camera:
+		current_camera.follow_mode = value
 
 func set_drag_type(value):
 	drag_type = value
-	if cam:
-		cam.drag_type = value
+	if current_camera:
+		current_camera.drag_type = value
 
 func set_smooth_drag(value):
 	smooth_drag = value
-	if cam:
-		cam.smooth_drag = value
+	if current_camera:
+		current_camera.smooth_drag = value
 
 func set_smooth_drag_speed(value):
 	smooth_drag_speed = value
-	if cam:
-		cam.smooth_drag_speed = value
+	if current_camera:
+		current_camera.smooth_drag_speed = value
 
 func set_prediction_time(value):
 	prediction_time = value
-	if cam:
-		cam.prediction_time = value
+	if current_camera:
+		current_camera.prediction_time = value
 
 func set_offset(value):
 	offset = value
-	if cam:
-		cam.offset = value
+	if current_camera:
+		current_camera.offset = value
 
 func set_smooth_offset(value):
 	smooth_offset = value
-	if cam:
-		cam.smooth_offset = value
+	if current_camera:
+		current_camera.smooth_offset = value
 
 func set_smooth_offset_speed(value):
 	smooth_offset_speed = value
-	if cam:
-		cam.smooth_offset_speed = value
+	if current_camera:
+		current_camera.smooth_offset_speed = value
 
 func set_allow_rotation(value):
 	allow_rotation = value
-	if cam:
-		cam.allow_rotation = value
+	if current_camera:
+		current_camera.allow_rotation = value
 
 func set_smooth_rotation(value):
 	smooth_rotation = value
-	if cam:
-		cam.smooth_rotation = value
+	if current_camera:
+		current_camera.smooth_rotation = value
 
 func set_smooth_rotation_speed(value):
 	smooth_rotation_speed = value
-	if cam:
-		cam.smooth_rotation_speed = value
+	if current_camera:
+		current_camera.smooth_rotation_speed = value
 
 func setter_for_zoom(value):
 	zoom = value
-	if cam:
-		cam.zoom = value
+	if current_camera:
+		current_camera.zoom = value
 
 func set_smooth_zoom(value):
 	smooth_zoom = value
-	if cam:
-		cam.smooth_zoom = value
+	if current_camera:
+		current_camera.smooth_zoom = value
 
 func set_smooth_zoom_speed(value):
 	smooth_zoom_speed = value
-	if cam:
-		cam.smooth_zoom_speed = value
+	if current_camera:
+		current_camera.smooth_zoom_speed = value
 
 func set_auto_zoom(value):
 	auto_zoom = value
-	if cam:
-		cam.auto_zoom = value
+	if current_camera:
+		current_camera.auto_zoom = value
 
 func set_min_zoom(value):
 	min_zoom = value
-	if cam:
-		cam.min_zoom = value
+	if current_camera:
+		current_camera.min_zoom = value
 
 func set_max_zoom(value):
 	max_zoom = value
-	if cam:
-		cam.max_zoom = value
+	if current_camera:
+		current_camera.max_zoom = value
 
 func set_zoom_margin(value):
 	zoom_margin = value
-	if cam:
-		cam.zoom_margin = value
+	if current_camera:
+		current_camera.zoom_margin = value
 
 func set_smooth_limit(value):
 	smooth_limit = value
-	if cam:
-		cam.smooth_limit = value
+	if current_camera:
+		current_camera.smooth_limit = value
 
 func set_left_limit(value):
 	left_limit = value
-	if cam:
-		cam.left_limit = value
+	if current_camera:
+		current_camera.left_limit = value
 
 func set_right_limit(value):
 	right_limit = value
-	if cam:
-		cam.right_limit = value
+	if current_camera:
+		current_camera.right_limit = value
 
 func set_top_limit(value):
 	top_limit = value
-	if cam:
-		cam.top_limit = value
+	if current_camera:
+		current_camera.top_limit = value
 
 func set_bottom_limit(value):
 	bottom_limit = value
-	if cam:
-		cam.bottom_limit = value
+	if current_camera:
+		current_camera.bottom_limit = value
 
 func set_use_h_margins(value):
 	use_h_margins = value
-	if cam:
-		cam.use_h_margins = value
+	if current_camera:
+		current_camera.use_h_margins = value
 
 func set_use_v_margins(value):
 	use_v_margins = value
-	if cam:
-		cam.use_v_margins = value
+	if current_camera:
+		current_camera.use_v_margins = value
 
 func set_left_margin(value):
 	left_margin = value
-	if cam:
-		cam.left_margin = value
+	if current_camera:
+		current_camera.left_margin = value
 
 func set_right_margin(value):
 	right_margin = value
-	if cam:
-		cam.right_margin = value
+	if current_camera:
+		current_camera.right_margin = value
 
 func set_top_margin(value):
 	top_margin = value
-	if cam:
-		cam.top_margin = value
+	if current_camera:
+		current_camera.top_margin = value
 
 func set_bottom_margin(value):
 	bottom_margin = value
-	if cam:
-		cam.bottom_margin = value
+	if current_camera:
+		current_camera.bottom_margin = value
 
 func set_process_frame(value):
-	if cam:
-		cam.process_frame = value
+	if current_camera:
+		current_camera.process_frame = value
 
 func get_follow_mode() -> int:
-	return cam.follow_mode if cam else follow_mode
+	return current_camera.follow_mode if current_camera else follow_mode
 
 func get_drag_type() -> int:
-	return cam.drag_type if cam else drag_type
+	return current_camera.drag_type if current_camera else drag_type
 
 func get_smooth_drag() -> bool:
-	return cam.smooth_drag if cam else smooth_drag
+	return current_camera.smooth_drag if current_camera else smooth_drag
 
 func get_smooth_drag_speed() -> Vector2:
-	return cam.smooth_drag_speed if cam else smooth_drag_speed
+	return current_camera.smooth_drag_speed if current_camera else smooth_drag_speed
 
 func get_prediction_time() -> Vector2:
-	return cam.prediction_time if cam else prediction_time
+	return current_camera.prediction_time if current_camera else prediction_time
 
 func get_offset() -> Vector2:
-	return cam.offset if cam else offset
+	return current_camera.offset if current_camera else offset
 
 func get_smooth_offset() -> bool:
-	return cam.smooth_offset if cam else smooth_offset
+	return current_camera.smooth_offset if current_camera else smooth_offset
 
 func get_smooth_offset_speed() -> float:
-	return cam.smooth_offset_speed if cam else smooth_offset_speed
+	return current_camera.smooth_offset_speed if current_camera else smooth_offset_speed
 
 func get_allow_rotation() -> bool:
-	return cam.allow_rotation if cam else allow_rotation
+	return current_camera.allow_rotation if current_camera else allow_rotation
 
 func get_smooth_rotation() -> bool:
-	return cam.smooth_rotation if cam else smooth_rotation
+	return current_camera.smooth_rotation if current_camera else smooth_rotation
 
 func get_smooth_rotation_speed() -> float:
-	return cam.smooth_rotation_speed if cam else smooth_rotation_speed
+	return current_camera.smooth_rotation_speed if current_camera else smooth_rotation_speed
 
 func get_zoom() -> float:
-	return cam.zoom if cam else zoom
+	return current_camera.zoom if current_camera else zoom
 
 func get_smooth_zoom() -> bool:
-	return cam.smooth_zoom if cam else smooth_zoom
+	return current_camera.smooth_zoom if current_camera else smooth_zoom
 
 func get_smooth_zoom_speed() -> float:
-	return cam.smooth_zoom_speed if cam else smooth_zoom_speed
+	return current_camera.smooth_zoom_speed if current_camera else smooth_zoom_speed
 
 func get_auto_zoom() -> bool:
-	return cam.auto_zoom if cam else auto_zoom
+	return current_camera.auto_zoom if current_camera else auto_zoom
 
 func get_min_zoom() -> float:
-	return cam.min_zoom if cam else min_zoom
+	return current_camera.min_zoom if current_camera else min_zoom
 
 func get_max_zoom() -> float:
-	return cam.max_zoom if cam else max_zoom
+	return current_camera.max_zoom if current_camera else max_zoom
 
 func get_zoom_margin() -> float:
-	return cam.zoom_margin if cam else zoom_margin
+	return current_camera.zoom_margin if current_camera else zoom_margin
 
 func get_smooth_limit() -> bool:
-	return cam.smooth_limit if cam else smooth_limit
+	return current_camera.smooth_limit if current_camera else smooth_limit
 
 func get_left_limit() -> int:
-	return cam.left_limit if cam else left_limit
+	return current_camera.left_limit if current_camera else left_limit
 
 func get_right_limit() -> int:
-	return cam.right_limit if cam else right_limit
+	return current_camera.right_limit if current_camera else right_limit
 
 func get_top_limit() -> int:
-	return cam.top_limit if cam else top_limit
+	return current_camera.top_limit if current_camera else top_limit
 
 func get_bottom_limit() -> int:
-	return cam.bottom_limit if cam else bottom_limit
+	return current_camera.bottom_limit if current_camera else bottom_limit
 
 func get_use_h_margins() -> bool:
-	return cam.use_h_margins if cam else use_h_margins
+	return current_camera.use_h_margins if current_camera else use_h_margins
 
 func get_use_v_margins() -> bool:
-	return cam.use_v_margins if cam else use_v_margins
+	return current_camera.use_v_margins if current_camera else use_v_margins
 
 func get_left_margin() -> float:
-	return cam.left_margin if cam else left_margin
+	return current_camera.left_margin if current_camera else left_margin
 
 func get_right_margin() -> float:
-	return cam.right_margin if cam else right_margin
+	return current_camera.right_margin if current_camera else right_margin
 
 func get_top_margin() -> float:
-	return cam.top_margin if cam else top_margin
+	return current_camera.top_margin if current_camera else top_margin
 
 func get_bottom_margin() -> float:
-	return cam.bottom_margin if cam else bottom_margin
+	return current_camera.bottom_margin if current_camera else bottom_margin
 
 func get_process_frame() -> float:
-	return cam.process_frame if cam else process_frame
-	
-func _on_scene_changed():
-	if is_inside_tree():
-		var cam_g = get_tree().get_nodes_in_group("procam")
-		if not cam_g.is_empty():
-			cam = cam_g[0]
-			var old_pcam_nodes : Array = cam._cinematics + cam._rooms + cam._paths + cam._zooms + cam._magnets
-			cam._gather_influence_nodes()
-			var new_pcam_nodes : Array = cam._cinematics + cam._rooms + cam._paths + cam._zooms + cam._magnets
-			if old_pcam_nodes.size() != new_pcam_nodes.size():
-				cam._setup_spatial_hash()
-		else: cam = null
+	return current_camera.process_frame if current_camera else process_frame

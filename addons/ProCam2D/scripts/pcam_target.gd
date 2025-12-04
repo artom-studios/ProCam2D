@@ -20,6 +20,6 @@
 #OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 #SOFTWARE.
 @tool
-extends "core/nds/t.gd"
+extends "core/nodes/pcam_target.gd"
 
 # NOTE: To avoid code conflicts, don't code here. Control this node externally or edit the file it extends.

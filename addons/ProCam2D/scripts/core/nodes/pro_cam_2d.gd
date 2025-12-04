@@ -1,5 +1,5 @@
 @tool
-extends "b.gd"
+extends "pcam_node.gd"
 
 const GROUP_NAME: = "procam"
 
@@ -35,7 +35,7 @@ var zoom: float = 1.0 : set = sett_zoom
 var smooth_zoom: bool = true: set = set_smooth_zoom
 var smooth_zoom_speed: float = 5.0
 var auto_zoom: bool = true: set = set_auto_zoom
-var min_zoom: float = 0.0
+var min_zoom: float = 0.01
 var max_zoom: float = 1.0
 var zoom_margin: float = 5.0
 var smooth_limit: bool = true
@@ -64,7 +64,7 @@ var _current_velocity: Vector2 = Vector2.ZERO
 var _current_rotation: float = 0.0
 var _target_rotation: float = 0.0
 var _current_rotation_velocity: float = 0.0
-var _current_zoom: float = 0.0
+var _current_zoom: float = 1.0
 var _target_zoom: float = 0.0
 var _current_zoom_velocity: float = 0.0
 var _margin_offset: Vector2 = Vector2.ZERO
@@ -92,6 +92,16 @@ func _init() -> void:
 	add_to_group(GROUP_NAME)
 	_init_camera()
 
+func _enter_tree() -> void:
+	var procam = get_node_or_null("/root/procam")
+	if procam:
+		procam.register_camera(self)
+
+func _exit_tree() -> void:
+	var procam = get_node_or_null("/root/procam")
+	if procam:
+		procam.unregister_camera(self)
+
 func _ready() -> void:
 	super._ready()
 	z_index = RenderingServer.CANVAS_ITEM_Z_MAX
@@ -101,6 +111,8 @@ func _ready() -> void:
 	_setup_addons()
 	_setup_spatial_hash()
 	_setup_camera()
+
+
 
 func _setup_spatial_hash():
 	_cell_size = working_radius * 2
@@ -141,7 +153,7 @@ func _init_camera() -> void:
 	call_deferred("add_child", _camera)
 
 func _setup_camera() -> void:
-	call_deferred("_reparent_camera")
+	top_level = true
 	_current_position = global_position
 	_current_rotation = global_rotation
 	_current_zoom = zoom
@@ -152,22 +164,9 @@ func _setup_camera() -> void:
 	_camera.set_process_mode(process_frame)
 	_camera.enabled = true
 	_camera.ignore_rotation = false
+	
 	if _camera.is_inside_tree():
 		_camera.make_current()
-
-func _reparent_camera() -> void:
-	var viewport := get_viewport()
-	if viewport == null:
-		push_error("No viewport found for this node.")
-		return
-	var current_parent := get_parent()
-	if current_parent == viewport:
-		return
-	if current_parent:
-		current_parent.remove_child(self)
-	viewport.add_child(self)
-	set_owner(viewport)
-
 
 func _update_limits() -> void:
 	_camera.limit_left = left_limit
@@ -175,51 +174,122 @@ func _update_limits() -> void:
 	_camera.limit_top = top_limit
 	_camera.limit_bottom = bottom_limit
 
-func _gather_influence_nodes() -> void:
-	_rooms = _get_nodes_in_group("procam_rooms")
-	_magnets = _get_nodes_in_group("procam_magnets")
-	_paths = _get_nodes_in_group("procam_paths")
-	_zooms = _get_nodes_in_group("procam_zooms")
-	_cinematics = _get_nodes_in_group("procam_cinematics")
-	for node in _rooms + _paths:
-		if not node.is_connected("priority_changed", Callable( self, "_on_node_priority_changed")):
-			node.connect("priority_changed", Callable( self, "_on_node_priority_changed"))
-	for node in _rooms + _magnets + _zooms:
+var _known_targets: Array = []
+
+func register_node(node: Node) -> void:
+	var should_register = false
+	if "affect_all_cameras" in node and node.affect_all_cameras:
+		should_register = true
+	elif "camera_id" in node and node.camera_id == camera_id:
+		should_register = true
+	
+	if should_register:
+		if node.is_in_group("procam_targets") and not _known_targets.has(node):
+			_known_targets.append(node)
+			print("ProCam2D ", camera_id, ": Registered target ", node.name)
+		elif node.is_in_group("procam_rooms") and not _rooms.has(node):
+			_rooms.append(node)
+			_setup_node_signals(node)
+			_add_to_spatial_hash(node)
+		elif node.is_in_group("procam_magnets") and not _magnets.has(node):
+			_magnets.append(node)
+			_setup_node_signals(node)
+			_add_to_spatial_hash(node)
+		elif node.is_in_group("procam_paths") and not _paths.has(node):
+			_paths.append(node)
+			_setup_node_signals(node)
+		elif node.is_in_group("procam_zooms") and not _zooms.has(node):
+			_zooms.append(node)
+			_setup_node_signals(node)
+			_add_to_spatial_hash(node)
+		elif node.is_in_group("procam_cinematics") and not _cinematics.has(node):
+			_cinematics.append(node)
+			_setup_node_signals(node)
+
+func unregister_node(node: Node) -> void:
+	if node.is_in_group("procam_targets") and _known_targets.has(node):
+		_known_targets.erase(node)
+		if _targets.has(node):
+			_targets.erase(node)
+	elif node.is_in_group("procam_rooms") and _rooms.has(node):
+		_rooms.erase(node)
+		_remove_from_spatial_hash(node)
+	elif node.is_in_group("procam_magnets") and _magnets.has(node):
+		_magnets.erase(node)
+		_remove_from_spatial_hash(node)
+	elif node.is_in_group("procam_paths") and _paths.has(node):
+		_paths.erase(node)
+	elif node.is_in_group("procam_zooms") and _zooms.has(node):
+		_zooms.erase(node)
+		_remove_from_spatial_hash(node)
+	elif node.is_in_group("procam_cinematics") and _cinematics.has(node):
+		_cinematics.erase(node)
+
+func _setup_node_signals(node: Node) -> void:
+	if node.is_in_group("procam_rooms") or node.is_in_group("procam_paths"):
+		if not node.is_connected("priority_changed", Callable(self, "_on_node_priority_changed")):
+			node.connect("priority_changed", Callable(self, "_on_node_priority_changed"))
+	
+	if node.is_in_group("procam_rooms") or node.is_in_group("procam_magnets") or node.is_in_group("procam_zooms"):
 		if not node.is_connected("position_changed", Callable(self, "_on_node_position_changed")):
 			node.connect("position_changed", Callable(self, "_on_node_position_changed"))
-		if not node.is_connected("tree_left", Callable( self, "on_node_exited")):
-			node.connect("tree_left", Callable( self, "on_node_exited"))
-	for node in _get_nodes_in_group("procam_targets") + _rooms + _magnets + _zooms + _paths + _cinematics:
-		if not is_connected("debug_draw_changed", Callable(node, "change_debug")):
-			connect("debug_draw_changed", Callable(node, "change_debug"))
-			node.debug_draw = _global_debug_draw
+	
+	if not node.is_connected("debug_draw_changed", Callable(node, "change_debug")):
+		node.connect("debug_draw_changed", Callable(node, "change_debug"))
+		node.debug_draw = _global_debug_draw
+
+func _gather_influence_nodes() -> void:
+	# Clear existing lists
+	_known_targets.clear()
+	_targets.clear()
+	_rooms.clear()
+	_magnets.clear()
+	_paths.clear()
+	_zooms.clear()
+	_cinematics.clear()
+	_spatial_hash.clear()
+	
+	# Re-register all nodes
+	var all_nodes = get_tree().get_nodes_in_group("procam_targets") + \
+					get_tree().get_nodes_in_group("procam_rooms") + \
+					get_tree().get_nodes_in_group("procam_magnets") + \
+					get_tree().get_nodes_in_group("procam_paths") + \
+					get_tree().get_nodes_in_group("procam_zooms") + \
+					get_tree().get_nodes_in_group("procam_cinematics")
+	
+	for node in all_nodes:
+		register_node(node)
 
 func _on_node_priority_changed(node) -> void:
-	var groups = node.get_groups()
-	for group_name in groups:
-		if group_name.begins_with("procam"):
-			match group_name:
-				"procam_rooms":
-					_rooms = _get_nodes_in_group("procam_rooms")
-				"procam_paths":
-					_paths = _get_nodes_in_group("procam_paths")
+	# Re-sort lists if needed, or just let the sort happen when accessing
+	pass 
 
 func on_node_exited(node):
-	_remove_from_spatial_hash(node)
+	unregister_node(node)
 
 func _on_node_position_changed(node):
 	_remove_from_spatial_hash(node)
 	_add_to_spatial_hash(node)
 
 func _get_nodes_in_group(group_name: String) -> Array:
-	var nodes = get_tree().get_nodes_in_group(group_name)
-	nodes.sort_custom(Callable(PCamUtils, "_sort_by_priority"))
-	return nodes
+	# Deprecated or used for fallback?
+	# We should use the cached lists now.
+	match group_name:
+		"procam_targets": return _known_targets
+		"procam_rooms": return _rooms
+		"procam_magnets": return _magnets
+		"procam_paths": return _paths
+		"procam_zooms": return _zooms
+		"procam_cinematics": return _cinematics
+	return []
 
 func _update(delta: float) -> void:
 	if Engine.is_editor_hint():
 		return
 	_update_targets(delta)
+	_target_position = _calculate_target_position()
+	_target_rotation = _calculate_target_rotation()
+	_target_zoom = _calculate_target_zoom()
 	_apply_influences()
 	_apply_addons_by_stage("pre_process", delta)
 	_update_offset(delta)
@@ -249,15 +319,12 @@ func _update_targets(delta) -> void:
 	_viewport_size = get_viewport_rect().size
 	_nearby_nodes = _get_nearby_nodes(global_position, working_radius)
 	_targets.clear()
-	for target in _get_nodes_in_group("procam_targets"):
+	for target in _known_targets:
 		if target.enabled:
-			if not target.disable_outside_limits or (target.disable_outside_limits and _calculate_limit_rect().has_point(to_local(target.global_position))):
+			var limit_rect = Rect2(left_limit, top_limit, right_limit - left_limit, bottom_limit - top_limit)
+			if not target.disable_outside_limits or (target.disable_outside_limits and limit_rect.has_point(target.global_position)):
 				target._update_velocity(delta)
 				_targets.append(target)
-	_target_rotation = _calculate_target_rotation()
-	_target_position = _calculate_target_position()
-	_target_zoom = _calculate_target_zoom()
-	_target_offset = offset.rotated(_current_rotation) if not _playing_cinematic else Vector2.ZERO
 
 func _apply_influences():
 	_target_zoom = _apply_zoom_influences()
@@ -340,7 +407,7 @@ func _update_zoom(delta: float) -> void:
 	
 	if smooth_zoom:
 		var result = PCamUtils.smooth_damp(_current_zoom, target_zoom, _current_zoom_velocity, smooth_zoom_speed, INF, delta)
-		_current_zoom = result.new_position
+		_current_zoom = max(result.new_position, 0.001)
 		_current_zoom_velocity = result.new_velocity
 	else:
 		_current_zoom = target_zoom
@@ -427,9 +494,23 @@ func _apply_deadzones(target_position: Vector2) -> Vector2:
 	return Vector2(camera_movement.x if use_h_margins else target_position.x,
 				   camera_movement.y if use_v_margins else target_position.y)
 
+@export var pixel_perfect: bool = false
+
+func add_trauma(amount: float) -> void:
+	for addon in addons:
+		if addon is PCamShake:
+			addon.add_trauma(amount)
+			return
+
 func _apply_transforms() -> void:
-	global_position = _current_position
-	global_rotation = _current_rotation
+	var final_pos = _current_position
+	var final_rot = _current_rotation
+	
+	if pixel_perfect:
+		final_pos = final_pos.round()
+	
+	global_position = final_pos
+	global_rotation = final_rot
 	_camera.zoom = Vector2(_current_zoom,_current_zoom)
 
 func _calculate_deadzone_rect() -> Rect2:
@@ -556,7 +637,7 @@ func _calculate_target_zoom() -> float:
 	var new_zoom = min(x_zoom, y_zoom)
 	
 	# Clamp the zoom value
-	new_zoom = clamp(new_zoom, min_zoom, max_zoom)
+	new_zoom = clamp(new_zoom, max(min_zoom, 0.001), max_zoom)
 	return new_zoom
 
 func _draw_debug() -> void:
@@ -610,6 +691,9 @@ func set_zoom(new_zoom: float):
 	_apply_transforms()
 
 func sett_zoom(new_zoom: float):
+	# Ensure zoom is never zero or negative
+	if new_zoom <= 0.001:
+		new_zoom = 0.001
 	zoom = new_zoom
 	if _camera:
 		_camera.zoom = Vector2(new_zoom, new_zoom)
