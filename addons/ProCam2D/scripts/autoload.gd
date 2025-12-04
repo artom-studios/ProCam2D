@@ -1,5 +1,6 @@
 extends Node
 
+# Expose enums for easy access via procam.FollowMode, procam.DragType, etc.
 enum FollowMode {
 	SINGLE_TARGET,
 	MULTI_TARGET
@@ -72,6 +73,21 @@ func get_camera_by_id(id: String) -> Node2D:
 
 func get_cameras() -> Array:
 	return cameras.duplicate()
+
+# Helper to set a property on a specific camera
+func set_camera_property(camera_id: String, property: String, value):
+	var camera = get_camera_by_id(camera_id)
+	if camera and property in camera:
+		camera.set(property, value)
+		return true
+	return false
+
+# Helper to get a property from a specific camera
+func get_camera_property(camera_id: String, property: String):
+	var camera = get_camera_by_id(camera_id)
+	if camera and property in camera:
+		return camera.get(property)
+	return null
 
 func register_node(node: Node) -> void:
 	for camera in cameras:

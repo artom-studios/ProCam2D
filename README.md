@@ -181,18 +181,37 @@ cam2.drag_type = ProCam2D.DragType.SPRING_DAMP
 
 The `procam` singleton is your main interface:
 
+**Single Camera (Auto-manages `current_camera`):**
 ```gdscript
-# Works for single camera (auto-manages current_camera)
+# Uses ProCam2D enums via the autoload
+procam.drag_type = procam.DragType.SMOOTH_DAMP
+procam.follow_mode = procam.FollowMode.MULTI_TARGET
 procam.zoom = 2.0
 procam.allow_rotation = true
-
-# Works for multi-camera (access specific cameras)
-var cam = procam.get_camera_by_id("2")
-cam.zoom = 1.5
-
-# Get all cameras
-var all_cams = procam.get_cameras()
+procam.start_cinematic("intro")
 ```
+
+**Multi-Camera (Access specific cameras by ID):**
+```gdscript
+# Get camera by ID and use it directly
+var cam1 = procam.get_camera_by_id("1")
+cam1.zoom = 1.5
+cam1.drag_type = procam.DragType.SPRING_DAMP
+cam1.start_cinematic("player1_intro")
+
+var cam2 = procam.get_camera_by_id("2")
+cam2.zoom = 2.0
+cam2.drag_type = procam.DragType.LOOK_AHEAD
+cam2.stop_cinematic()
+```
+
+**Iterate all cameras:**
+```gdscript
+for cam in procam.get_cameras():
+    cam.global_debug_draw = true
+```
+
+> **💡 API Consistency**: All `ProCam2D` methods and properties work identically whether accessed via the autoload (`procam.start_cinematic()`) or directly on a camera instance (`cam1.start_cinematic()`). The autoload simply delegates to `current_camera`.
 
 ### Priority System
 
