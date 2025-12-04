@@ -1,9 +1,13 @@
 [gd_scene load_steps=8 format=3 uid="uid://b2julknnpyl1e"]
 
-[ext_resource type="Script" path="res://addons/ProCam2D/scripts/procam2d.gd" id="1_pcam"]
+[ext_resource type="Script" uid="uid://2qj1e40noged" path="res://addons/ProCam2D/scripts/procam2d.gd" id="1_pcam"]
 [ext_resource type="Script" uid="uid://dnl55w76idwo6" path="res://addons/ProCam2D/examples/split_screen/split_screen_gdquest.gd" id="1_script"]
 [ext_resource type="Script" uid="uid://b4rf4nj3rhndx" path="res://addons/ProCam2D/scripts/pcam_target.gd" id="2_target"]
 [ext_resource type="Texture2D" uid="uid://1ljgu0r8fru2" path="res://icon.svg" id="3_icon"]
+[ext_resource type="Script" uid="uid://d384638463" path="res://addons/ProCam2D/scripts/core/nodes/pcam_magnet.gd" id="6_magnet"]
+[ext_resource type="Script" uid="uid://d384638464" path="res://addons/ProCam2D/scripts/core/nodes/pcam_room.gd" id="7_room"]
+[ext_resource type="Script" uid="uid://d384638465" path="res://addons/ProCam2D/scripts/core/nodes/pcam_zoom.gd" id="8_zoom"]
+[ext_resource type="Script" uid="uid://d384638466" path="res://addons/ProCam2D/scripts/core/nodes/pcam_cinematic.gd" id="9_cinematic"]
 [ext_resource type="Script" uid="uid://eb7ke8n0mn0e" path="res://addons/ProCam2D/scripts/core/nodes/pcam_addon.gd" id="5_hucj6"]
 [ext_resource type="Script" uid="uid://vgkxfwv860g2" path="res://addons/ProCam2D/scripts/core/addons/pcam_shake.gd" id="6_fqmne"]
 
@@ -95,13 +99,71 @@ texture = ExtResource("3_icon")
 
 [node name="Target2" type="Node2D" parent="HBoxContainer/SubViewportContainer1/SubViewport/World" unique_id=1363164063]
 unique_name_in_owner = true
-position = Vector2(800, 300)
+position = Vector2(417, 194)
 script = ExtResource("2_target")
+affect_all_cameras = true
 camera_id = "2"
 
 [node name="PlayerSprite" type="Sprite2D" parent="HBoxContainer/SubViewportContainer1/SubViewport/World/Target2" unique_id=657433558]
 modulate = Color(1, 0.415686, 0.415686, 1)
 texture = ExtResource("3_icon")
+
+[node name="TestMagnet" type="Node2D" parent="HBoxContainer/SubViewportContainer1/SubViewport/World"]
+position = Vector2(600, 500)
+script = ExtResource("6_magnet")
+radius = 150.0
+force = Vector2(200, 200)
+affect_all_cameras = true
+
+[node name="MagnetVisual" type="ColorRect" parent="HBoxContainer/SubViewportContainer1/SubViewport/World/TestMagnet"]
+offset_left = -10.0
+offset_top = -10.0
+offset_right = 10.0
+offset_bottom = 10.0
+color = Color(1, 0, 0, 0.5)
+
+[node name="TestRoom" type="Node2D" parent="HBoxContainer/SubViewportContainer1/SubViewport/World"]
+position = Vector2(200, 100)
+script = ExtResource("7_room")
+room_size = Vector2(300, 200)
+zoom = 0.8
+affect_all_cameras = true
+
+[node name="RoomVisual" type="ColorRect" parent="HBoxContainer/SubViewportContainer1/SubViewport/World/TestRoom"]
+offset_left = -150.0
+offset_top = -100.0
+offset_right = 150.0
+offset_bottom = 100.0
+color = Color(0, 1, 0, 0.2)
+
+[node name="TestZoom" type="Node2D" parent="HBoxContainer/SubViewportContainer1/SubViewport/World"]
+position = Vector2(900, 100)
+script = ExtResource("8_zoom")
+radius = 120.0
+zoom_factor = 2.0
+affect_all_cameras = true
+
+[node name="ZoomVisual" type="ColorRect" parent="HBoxContainer/SubViewportContainer1/SubViewport/World/TestZoom"]
+offset_left = -10.0
+offset_top = -10.0
+offset_right = 10.0
+offset_bottom = 10.0
+color = Color(0, 0, 1, 0.5)
+
+[node name="TestCinematic" type="Node2D" parent="HBoxContainer/SubViewportContainer1/SubViewport/World"]
+position = Vector2(500, 300)
+script = ExtResource("9_cinematic")
+cinematic_id = "test_seq"
+hold_time = 2.0
+target_zoom = 1.5
+affect_all_cameras = true
+
+[node name="CinematicVisual" type="ColorRect" parent="HBoxContainer/SubViewportContainer1/SubViewport/World/TestCinematic"]
+offset_left = -10.0
+offset_top = -10.0
+offset_right = 10.0
+offset_bottom = 10.0
+color = Color(1, 1, 0, 0.5)
 
 [node name="ProCam2D_Player1" type="Node2D" parent="HBoxContainer/SubViewportContainer1/SubViewport/World" unique_id=941873783]
 z_index = 4096
@@ -159,7 +221,7 @@ z_index = 4096
 position = Vector2(800, 300)
 script = ExtResource("1_pcam")
 addons = Array[ExtResource("5_hucj6")]([SubResource("Resource_mpqa0")])
-process_frame = 0
+process_frame = 1
 follow_mode = 0
 drag_type = 0
 smooth_drag = true

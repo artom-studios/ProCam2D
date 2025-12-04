@@ -23,7 +23,8 @@ signal position_changed(node)
 signal tree_left(node)
 
 func _ready() -> void:
-	z_index = RenderingServer.CANVAS_ITEM_Z_MAX-1
+	z_index = RenderingServer.CANVAS_ITEM_Z_MAX - 1
+	z_as_relative = false
 	debug_draw_scaler = get_viewport_rect().size.y/600
 	setup_signals()
 	_update_process_mode()

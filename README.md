@@ -1,386 +1,624 @@
-# ProCam2D - A Custom 2D Camera Node for Godot
+# ProCam2D - Professional 2D Camera for Godot 4
 
 ![procam icon](https://i.ibb.co/dkT2tPQ/procam-icon.png)
 
-## Overview
+<p align="center">
+  <strong>A feature-rich, intuitive 2D camera system that makes your game feel professional from day one.</strong>
+</p>
 
-![ProCam2D Icon](https://i.ibb.co/s2Ht4RK/pcam.png) **ProCam2D** is a powerful and feature-rich custom 2D camera node designed for the Godot Engine. It aims to provide developers with a quality camera system suitable for all types of 2D games. ProCam2D is a standalone camera solution that surpasses the built-in Camera2D node, offering extensive customization and control.
+<p align="center">
+  <a href="#-quick-start">Quick Start</a> •
+  <a href="#-key-features">Features</a> •
+  <a href="#-examples">Examples</a> •
+  <a href="#-documentation">Documentation</a> •
+  <a href="#-contributing">Contributing</a>
+</p>
 
-## Key Features
+---
 
-- **Standalone 2D Camera**: Works independently, providing advanced features out of the box.
-- **Extensible with Addons**: Comes with three addons for mouse follow, shake, and grid movement. Developers can write their own addons to extend functionality.
-- **Autoload Control**: The camera is controlled by an autoload called `procam`. It manages the `current_camera` but also allows access to specific cameras via `procam.get_camera_by_id("id")`.
-- **Multiple Camera Behaviors**: Includes 6 additional nodes to control various behaviors such as cinematics, magnet attraction or repulsion, zoom control, room constraints, path constraints, and target following.
+## 🎯 Overview
 
-## Installation
+**ProCam2D** is a standalone 2D camera system for Godot 4 that goes far beyond the built-in `Camera2D`. Whether you're making a platformer, top-down shooter, or split-screen co-op game, ProCam2D gives you cinematic-quality camera control with minimal setup.
 
-1. Download or clone the ProCam2D repository or get it from the asset store.
-2. Enable the ProCam2D plugin in your project settings.
+> **Why ProCam2D?** Because your camera should be as polished as your gameplay.
 
-## Usage
+### ✨ What Makes It Special?
 
-### Basic Setup
+- 🎮 **Zero Hassle Setup**: Drop in a node, add targets, done
+- 🔌 **Extensible Architecture**: Built-in addons + write your own
+- 🎬 **Cinematic Tools**: Smooth transitions, camera shake, zoom zones, and more
+- 🖥️ **Split-Screen Ready**: Supports 2, 3, 4+ players out of the box
+- 🎯 **Smart Following**: Multi-target tracking with auto-zoom
+- 🧩 **Modular Design**: Only use what you need
 
-1. Press `CTRL` + `A` or the "+" icon on the scene tab to add a new node.
-2. Type "pcam" in the search box to filter the nodes and show all 7 ProCam2D nodes.
-   
-   ![Adding ProCam nodes](https://i.ibb.co/jhzqrWC/image.png)
-   
-3. Add a `ProCam2D` node to your scene. It can be placed anywhere in the scene tree.
-4. Add one or more `PCamTarget` nodes as children of the objects you want the camera to follow.
-5. Configure the camera properties and target properties via the inspector.
+---
 
-### Example: Accessing ProCam2D properties via code
+## 🚀 Quick Start
+
+### Installation
+
+1. **Download** ProCam2D from the [Asset Library](https://godotengine.org/asset-library) or [clone this repo](https://github.com/artom-studios/ProCam2D)
+2. **Enable** the plugin: `Project → Project Settings → Plugins → ProCam2D → Enable`
+3. **You're ready!** The `procam` autoload is now available globally.
+
+### Your First Camera (30 Seconds)
+
+1. Press **`Ctrl+A`** and search for **`ProCam2D`**
+2. Add it to your scene (can be anywhere in the tree)
+3. Add a **`PCamTarget`** as a child of your player
+4. **Run the game** — Your camera is now following your player!
 
 ```gdscript
-extends Node2D
-
-func _ready():
-    procam.set_follow_mode(ProCam2D.FollowMode.SINGLE_TARGET)
+# Access from anywhere via the autoload
+procam.zoom = 1.5
+procam.smooth_drag_speed = Vector2(10, 10)
 ```
 
-### Split-Screen Setup
+That's it! You now have a professional camera with smooth following.
 
-ProCam2D supports split-screen multiplayer. The recommended setup (GDQuest style) is:
+---
 
-1.  **Hierarchy**: Place your "World" node inside `SubViewport1`.
-2.  **Camera 1**: Place `ProCam2D` for Player 1 inside `SubViewport1` (child of World).
-3.  **Camera 2**: Place `ProCam2D` for Player 2 inside `SubViewport2`.
-4.  **World Sharing**: Use a script to share the world from Viewport 1 to Viewport 2:
-    ```gdscript
-    func _ready():
-        $HBoxContainer/SubViewportContainer2/SubViewport.world_2d = $HBoxContainer/SubViewportContainer1/SubViewport.world_2d
-    ```
-5.  **Camera IDs**: Assign unique `camera_id`s (e.g., "1", "2") to each camera and their respective targets.
+## 🎨 Key Features
 
-See `addons/ProCam2D/examples/split_screen/split_screen_gdquest.tscn` for a working example.
+### 🎯 Smart Target Following
 
-
-### Example: Adding Addons
-
-Addons can be easily added to the `ProCam2D` node by following these steps:
-1. Click on the `Addons` property on the inspector and increase its `Array` size:
-
-   ![Adding addons](https://i.ibb.co/bmqMV8j/image.png)
-
-2. Click on any [empty] fields and choose your addon from the list of resources:
-
-   ![Adding addons](https://i.ibb.co/3kBgXgw/image.png)
-
-3. Configure the addons properties:
-
-   ![Adding addons](https://i.ibb.co/vsWh0fG/image.png)
-   
-If you added an addon through the inspector, you can access it like this:
+**Single Target Mode**: Focus on your main character with buttery-smooth motion
 ```gdscript
-func _ready():
-    var shake_addon = procam.get_addons()[index] # Replace index with the index of the addon on the inspector. 
-    shake_addon.shake() #Use this method to start any shake addon
-    shake_addon.stop() #Use this method to stop any shake addon
+procam.follow_mode = ProCam2D.FollowMode.SINGLE_TARGET
 ```
 
-   ![addon index](https://i.ibb.co/b7Tc6Vf/image.png)
+**Multi-Target Mode**: Automatically frames multiple players/enemies
+```gdscript
+procam.follow_mode = ProCam2D.FollowMode.MULTI_TARGET
+procam.auto_zoom = true  # Zooms out to fit everyone
+```
 
-To add an addon through code, use this method:
+### 🎬 Cinematic Sequences
+
+Create professional cutscenes with `PCamCinematic` nodes:
+
+```gdscript
+# Place PCamCinematic nodes in your level
+# They all share the same cinematic_id = "intro"
+
+func _on_player_entered_trigger():
+    procam.start_cinematic("intro")  # Plays the sequence automatically
+```
+
+### 🌊 Influence Nodes
+
+Add invisible zones that affect camera behavior:
+
+| Node | Purpose | Use Case |
+|------|---------|----------|
+| **PCamMagnet** | Attracts/Repels camera | Boss intro, secret areas |
+| **PCamRoom** | Constrains to a rectangle | Zelda-style room transitions |
+| **PCamZoom** | Changes zoom in an area | Wideangle vistas, tight corridors |
+| **PCamPath** | Follows a path | 2D side-scroller rails |
+
+All influence nodes support `camera_id` for per-camera control and `affect_all_cameras` for global effects.
+
+### 🎮 Multiple Drag Types
+
+Choose the feel that fits your game:
+
+```gdscript
+# Smooth and cinematic
+procam.drag_type = ProCam2D.DragType.SMOOTH_DAMP
+
+# Predictive (looks ahead of movement)
+procam.drag_type = ProCam2D.DragType.LOOK_AHEAD
+
+# Responsive (adapts to speed)
+procam.drag_type = ProCam2D.DragType.AUTO_SPEED
+
+# Bouncy (spring physics)
+procam.drag_type = ProCam2D.DragType.SPRING_DAMP
+```
+
+### 🔌 Powerful Addon System
+
+Extend the camera with built-in addons or write your own:
+
+**Built-in Addons:**
+- **PCamShake**: 7 shake types + 8 presets (gunshot, earthquake, etc.)
+- **PCamMouseFollow**: Cursor-based camera offset (great for aiming)
+- **PCamGrids**: Snap to grid (pixel-perfect movement)
+
+**Add via Code:**
+```gdscript
+var shake = PCamShake.new()
+shake.apply_preset(shake.Preset.EXPLOSION)
+procam.add_addon(shake)
+shake.shake()  # Boom!
+```
+
+**Add via Inspector:**
+Just expand the `Addons` array and pick from the list.
+
+---
+
+## 🖥️ Split-Screen Multiplayer
+
+ProCam2D makes split-screen **dead simple**. Here's a 2-player setup:
+
+### Setup (GDQuest Method - Recommended)
+
+1. Create your **World** in `SubViewport1`
+2. Add **ProCam2D** for Player 1 (inside World, `camera_id = "1"`)
+3. Add **ProCam2D** for Player 2 (in `SubViewport2`, `camera_id = "2"`)
+4. **Share the world** from Viewport 1:
+
 ```gdscript
 func _ready():
-    var shake_addon = PCamShake.new()
-    shake_addon.apply_preset(shake_addon.Preset.GUNSHOT) # This is a method available to the screenshake addon
-    procam.add_addon(shake_addon)
-    shake_addon.shake() # This is a method available to the screenshake addon see below for all available addons
+    # This line shares the world across both viewports
+    $SubViewportContainer2/SubViewport.world_2d = $SubViewportContainer1/SubViewport.world_2d
 ```
-## Available addons
-Addons are processed in order of their priority. from lowest to highest.
 
-### PCamShake
+5. Assign **PCamTargets** with matching `camera_id` values
 
-This addon is used to add exciting screenshakes to your game.
+### 3+ Player Split-Screen
 
-   ![shake](https://i.ibb.co/vsWh0fG/image.png)
+Use a `GridContainer` with as many viewports as you need! See `examples/split_screen/split_screen_4player.tscn` for a working 4-player demo.
 
-### Enums
-- **ShakeType**
-  - `VERTICAL`: Shakes the screen vertically, moving up and down.
-  - `HORIZONTAL`: Shakes the screen horizontally, moving left and right.
-  - `RANDOM`: Generates random shakes in all directions, creating an unpredictable effect.
-  - `PERLIN`: Uses Perlin noise to generate smooth, natural-looking random shakes.
-  - `ROTATE`: Rotates the screen around its center point, simulating a rotational shake.
-  - `CIRCULAR`: Shakes the screen in a circular motion, combining horizontal and vertical movement.
-  - `ZOOM`: Simulates a zooming effect, shaking the screen by scaling in and out.
-
-- **Preset**
-  - `GUNSHOT`: A quick and sudden shake, simulating the recoil of a gunshot.
-  - `EARTHQUAKE`: A continuous and intense shaking, mimicking the effect of an earthquake.
-  - `HANDHELD`: Mimics the natural, unsteady movement of a handheld camera.
-  - `EXPLOSION`: A strong and rapid shake, representing the shockwave of an explosion.
-  - `IMPACT`: A brief, intense shake, simulating the effect of a sudden impact.
-  - `RUMBLE`: A low-frequency, continuous shaking effect, like a deep vibration.
-  - `VIBRATION`: A rapid, high-frequency shake, similar to a vibrating effect.
-  - `WOBBLY`: A smooth and gentle shaking, creating a wobbly, unsteady motion.
-  - 
-### Methods
-- `set_preset(preset: Preset)`: Sets the current shake effect to a predefined preset. E.g : `set_preset(PCamShake.Preset.GUNSHOT)`
-- `stop()`: Stops the current screen shake effect immediately.
-- `is_shaking() -> bool`: Returns a boolean indicating whether a screen shake effect is currently active.
-- `shake()`: Initiates a custom screen shake effect based on the current settings.
-
-### PCamGrids
-
-This addon is used to make the camera snap to grid. The snapping will be smooth or instant depending on the camera's `smooth_drag` property.
-
-   ![grids](https://i.ibb.co/3c649s5/image.png)
-
-### PCamMouseFollow
-
-This addon adds pointer influence to the camera. Can be used for side scrollers that use the mouse for aiming or looking around.
-
-![mouse folllow](https://i.ibb.co/27w1gJw/image.png)
-
-## ProCam2D Properties
-
-### Enums
-
-- **FollowMode**
-  - `SINGLE_TARGET`: The camera follows a single target with the highest priority, ideal for focusing on one main character or object.
-  - `MULTI_TARGET`: The camera can follow multiple targets, useful for multiplayer games or scenes with multiple points of interest.
-
-- **DragType**
-  - `SMOOTH_DAMP`: Smoothly follows the target with a damping effect, providing a natural and gradual motion.
-  - `LOOK_AHEAD`: Allows the camera to look ahead of the target's movement, enhancing anticipation in fast-paced games.
-  - `AUTO_SPEED`: Automatically adjusts the camera speed based on the target's speed.
-  - `SPRING_DAMP`: Uses a spring-damping effect for following the target, creating a bouncy and responsive feel.
-
-### Camera Properties
-
-- `process_mode`: Controls the processing mode of the camera.
-- `follow_mode: int`: Sets the follow mode (SINGLE_TARGET or MULTI_TARGET).
-- `drag_type: int`: Sets the drag type (SMOOTH_DAMP, LOOK_AHEAD, AUTO_SPEED, SPRING_DAMP).
-- `smooth_drag: bool`: Enables or disables smooth dragging.
-- `smooth_drag_speed: Vector2`: Sets the speed of smooth dragging.
-- `prediction_time: Vector2`: Defines the prediction time for look-ahead functionality.
-- `offset: Vector2`: Sets the offset of the camera from the target.
-- `smooth_offset: bool`: Enables or disables smooth offset.
-- `smooth_offset_speed: float`: Sets the speed of smooth offset.
-- `allow_rotation: bool`: Enables or disables camera rotation.
-- `smooth_rotation: bool`: Enables or disables smooth rotation.
-- `smooth_rotation_speed: float`: Sets the speed of smooth rotation.
-- `zoom: float`: Sets the camera's zoom level.
-- `smooth_zoom: bool`: Enables or disables smooth zooming.
-- `smooth_zoom_speed: float`: Sets the speed of smooth zooming.
-- `auto_zoom: bool`: Enables or disables automatic zoom adjustment to fit multiple targets.
-- `min_zoom: float`: Sets the minimum zoom level for automatic zoom.
-- `max_zoom: float`: Sets the maximum zoom level automatic zoom.
-- `zoom_margin: float`: Defines the margin around targets when adjustmenting zoom automatically.
-- `smooth_limit: bool`: Enables or disables smooth limiting of the camera's bounds.
-- `left_limit: int`: Sets the left boundary of the camera.
-- `right_limit: int`: Sets the right boundary of the camera.
-- `top_limit: int`: Sets the top boundary of the camera.
-- `bottom_limit: int`: Sets the bottom boundary of the camera.
-- `use_h_margins: bool`: Enables or disables horizontal margins.
-- `use_v_margins: bool`: Enables or disables vertical margins.
-- `left_margin: float`: Sets the left margin.
-- `right_margin: float`: Sets the right margin.
-- `top_margin: float`: Sets the top margin.
-- `bottom_margin: float`: Sets the bottom margin.
-
-### Public Methods
-
-- `start_cinematic(id)`: Starts a cinematic sequence with the given ID.
-- `stop_cinematic()`: Stops the current cinematic sequence.
-- `get_camera_bounds()`: Returns the current camera bounds as a `Rect2`.
-- `reset_camera()`: Resets the camera to its target position, rotation and zoom.
-- `add_addon(addon: PCamAddon)`: Adds an addon to the camera.
-- `get_addons() -> Array`: Returns an array of all attached addons.
-- `remove_addon(addon: PCamAddon)`: Removes an addon from the camera.
-- `set_position(new_position: Vector2)`: Sets the camera's position.
-- `set_rotation(new_rotation: float)`: Sets the camera's rotation.
-- `set_zoom(new_zoom: float)`: Sets the camera's zoom level.
-
-### Signals
-
-- `cinematic_started(cinematic_id)`: Emitted when a cinematic sequence starts.
-- `cinematic_stopped(cinematic_id)`: Emitted when a cinematic sequence stops.
-- `addon_message(message)`: Emitted when an addon sends a message.
-
-
-## Additional Nodes
-
-### ![PCamTarget Icon](https://i.ibb.co/GT64yr8/pcam-target.png) PCamTarget
-
-A node that the camera follows. It can be placed as a child of a player. Multiple targets can be placed.
-
-   ![PCamTarget](https://i.ibb.co/JdyymHT/image.png)
-
-#### Properties
-
-- `priority: int`: Determines the active target when follow mode is set to SINGLE_TARGET. Higher priority targets are followed.
-- `radius: float`: Defines the target area for auto-zoom functionality.
-- `offset: Vector2`: Sets the positional offset of the target.
-- `influence: Vector2`: Determines how much the target influences the camera movement. Values range from 0 (no influence) to 1+ (full influence).
-- `rotation_influence: float`: Determines how much the target's rotation influences the camera. Values range from 0 (no influence) to 1+ (full influence).
-- `disable_outside_limits: bool`: The camera stops following this node once it goes beyond it's limits.
-
-### ![PCamCinematic Icon](https://i.ibb.co/QjHd0RT/pcam-cinematic.png) PCamCinematic
-
-Defines a point in a cinematic sequence. PCamCinematic nodes with the same id form a cinematic sequence which can be played with `procam.start_cinematic(id)`
-
-   ![PCamCinematic](https://i.ibb.co/FqkG4YD/image.png)
-
-#### Properties
-
-- `cinematic_id: string`: Identifier for the cinematic sequence, used to start and stop specific cinematic events. Can be an integer or string.
-- `hold_time: float`: Duration in seconds for which the camera holds the cinematic state before transitioning.
-- `target_zoom: float`: Desired zoom level during the cinematic sequence.
-- `drag_speed: Vector2`: Speed at which the camera follows the target during the cinematic, affecting how quickly it drags to the new position.
-- `rotation_speed: float`: Speed of camera rotation during the cinematic, controlling how quickly the camera rotates to match the `PCamCinematic`'s rotation.
-- `zoom_speed: float`: Speed at which the camera zooms in or out during the cinematic.
-
-### ![PCamMagnet Icon](https://i.ibb.co/6yPtVfB/pcam-magnet.png)  PCamMagnet
-
-Attracts or repels the camera like a magnet.
-
-   ![PCamMagnet](https://i.ibb.co/z7TwFwf/image.png)
-
-#### Properties
-
-- `magnet_shape: MagnetShape`: Defines the shape of the magnetic influence area. Options include `CIRCLE` or `RECTANGLE`.
-- `attract_repel: AttractRepel`: Determines whether the magnet attracts or repels the camera. Options include `ATTRACT` or `REPEL`.
-- `radius: float`: Radius of the influence area when `magnet_shape` is set to `CIRCLE`.
-- `rectangle_size: Vector2`: Size of the influence area when `magnet_shape` is set to `RECTANGLE`.
-- `use_full_force: bool`: Enables or disables full force application within the influence area.
-- `force: Vector2`: Defines the strength of the force applied to the camera when within the influence area, if `use_full_force` is disabled.
-- `falloff_curve: Curve`: A curve defining how the force diminishes with distance from the center of the influence area, if `use_full_force` is disabled.
-
-#### Signals
-
-- `magnet_entered()`: Emitted when the camera enters the magnet's area of influence
-- `magnet_exits()`: Emitted when the camera exits the magnet's area of influence
-
-### ![PCamZoom Icon](https://i.ibb.co/VJbnTwD/pcam-zoom.png) PCamZoom
-
-Changes the zoom of the camera within its area of influence.
-
-   ![PCamZoom](https://i.ibb.co/NY8sLGP/image.png)
-
-#### Properties
-
-- `zoom_shape: ZoomShape`: Defines the shape of the zoom influence area. Options include `CIRCLE` or `RECTANGLE`.
-- `radius: float`: Radius of the influence area when `zoom_shape` is set to `CIRCLE`.
-- `rectangle_size: Vector2`: Size of the influence area when `zoom_shape` is set to `RECTANGLE`.
-- `zoom_factor: float`: Factor by which the camera zooms in or out when within the influence area.
-- `gradual_zoom: bool`: Enables or disables gradual zooming when entering or exiting the influence area.
-
-#### Signals
-
-- `zoom_area_entered()`: Emitted when the camera enters the zoom's area of influence.
-- `zoom_area_exited()`: Emitted when the camera exits the zoom's area of influence.
-- `zoom_level_changed()`: Emitted when the zoom's zoom level changes.
-
-### ![PCamRoom Icon](https://i.ibb.co/GVVLdYZ/pcam-room.png) PCamRoom
-
-Constrains the camera to an area it covers.
-
-   ![PCamRoom](https://i.ibb.co/C6XjM16/image.png)
-
-#### Properties
-
-- `room_size: Vector2`: Defines the dimensions of the room or constrained area that the camera is limited to.
-- `zoom: float`: Sets the zoom level within the constrained room area.
-- `open_sides: BitMask`: Specifies which sides of the room are open (left, right, top, bottom). Checkboxes for each side allow for customizable room constraints.
-
-#### Signals
-- `room_entered(room)`: Emitted when the camera enters the room.
-- `room_exited(room)`: Emitted when the camera exits the room.
-
-### ![PCamPath Icon](https://i.ibb.co/B2spgmh/pcam-path.png) PCamPath
-
-Constrains the camera to a path on a specified axis.
-
-  ![PCamPath](https://i.ibb.co/QHV9Xtq/image.png)
-
-#### Properties
-- `constraint_axis: AxisConstraint`: Defines which axis (X or Y) the camera is constrained to follow along the path. Options include `X` and `Y`.
-
-## Addons
-
-ProCam2D is designed to be extensible. You can create your own addons to add custom functionality to the camera.
-
-### Writing Your Own Addon
-
-Creating an addon for the camera system involves extending the `PCamAddon` class. This class provides a standardized way to modify camera behavior in different stages: `pre_process`, `post_smoothing`, and `final_adjust`. Each stage allows you to adjust the camera's properties at different points in the update cycle.
-
-#### Addon Structure
-
-An addon inherits from the `PCamAddon` class and should implement the following methods:
-
-1. **`setup(camera)`**: Called when the addon is initialized. Use this method to set the initial state or configurations, such as defining the stage in which the addon operates.
-2. **`exit(camera)`**: Called when the addon is disabled or removed. Use this to clean up or reset any changes made by the addon.
-
-In addition to these lifecycle methods, an addon should override one of the following methods to define its behavior during a specific stage:
-
-- **`pre_process(camera, delta)`**: This method is used for modifications to the camera's target properties before any smoothing is applied. It’s ideal for setting `_target_zoom`, `_target_rotation`, and `_target_position` of the passed in camera.
-
-- **`post_smoothing(camera, delta)`**: This method is used for adjustments after the camera’s target properties have been smoothed but before final adjustments. It’s ideal for setting `_current_zoom`, `_current_rotation`, and `_current_position` of the passed in camera.
-
-- **`final_adjust(camera, delta)`**: This method allows for final modifications to the camera's properties after all other processing. It is often used for post-processing effects or final tweaks.
-
-#### Properties
-
-- **Target Properties**: These are properties adjusted during the `pre_process` stage. They include `_target_zoom`, `_target_rotation`, and `_target_position`.
-- **Current Properties**: These are properties adjusted during the `post_smoothing` or `final_adjust` stages. They include setting `_current_zoom`, `_current_rotation`, and `_current_position` of the passed in camera.
-
-### Sample Addon: Grids
-
-This addon aligns the camera's target position to a grid, ensuring that movement snaps to predefined intervals.
+### Per-Camera Effects
 
 ```gdscript
-tool
+# Add shake only to Player 1's camera
+var cam1 = procam.get_camera_by_id("1")
+cam1.add_addon(PCamShake.new())
+
+# Different drag type for Player 2
+var cam2 = procam.get_camera_by_id("2")
+cam2.drag_type = ProCam2D.DragType.SPRING_DAMP
+```
+
+---
+
+## 📚 Core Concepts
+
+### The Autoload: `procam`
+
+The `procam` singleton is your main interface:
+
+```gdscript
+# Works for single camera (auto-manages current_camera)
+procam.zoom = 2.0
+procam.allow_rotation = true
+
+# Works for multi-camera (access specific cameras)
+var cam = procam.get_camera_by_id("2")
+cam.zoom = 1.5
+
+# Get all cameras
+var all_cams = procam.get_cameras()
+```
+
+### Priority System
+
+Higher priority = higher precedence. Applies to:
+- **Targets** (single-target mode picks highest)
+- **Rooms** (overlapping rooms)
+- **Paths** (overlapping paths)
+- **Cinematics** (sequence order)
+- **Addons** (processing order)
+
+```gdscript
+# Player target has priority 10
+player_target.priority = 10
+
+# Boss target has priority 20 (will be followed instead)
+boss_target.priority = 20
+```
+
+### Camera IDs & Affect All
+
+```gdscript
+# This PCamMagnet only affects camera "1"
+magnet.camera_id = "1"
+
+# This PCamRoom affects ALL cameras
+room.affect_all_cameras = true
+```
+
+---
+
+## 📦 Examples Included
+
+Explore the `addons/ProCam2D/examples/` folder:
+
+| Example | What It Shows |
+|---------|---------------|
+| **`split_screen_gdquest.tscn`** | 2-player split-screen with WASD controls |
+| **`split_screen_4player.tscn`** | 4-player grid layout (2x2) |
+| **`loader_demo.tscn`** | Async scene loading with progress bar |
+
+Each example is fully commented and ready to run!
+
+---
+
+## 🎓 API Reference
+
+### ProCam2D Node
+
+#### Follow Settings
+```gdscript
+follow_mode: FollowMode               # SINGLE_TARGET or MULTI_TARGET
+drag_type: DragType                   # Movement feel (4 types)
+smooth_drag: bool                     # Smooth camera motion
+smooth_drag_speed: Vector2            # Drag smoothing speed
+prediction_time: Vector2              # Look-ahead time (LOOK_AHEAD mode)
+```
+
+#### Offset & Rotation
+```gdscript
+offset: Vector2                       # Camera offset from target
+smooth_offset: bool                   # Smooth offset transitions
+smooth_offset_speed: float            # Offset smoothing speed
+allow_rotation: bool                  # Follow target rotation
+smooth_rotation: bool                 # Smooth rotation transitions
+smooth_rotation_speed: float          # Rotation smoothing speed
+```
+
+#### Zoom
+```gdscript
+zoom: float                           # Manual zoom level
+smooth_zoom: bool                     # Smooth zoom transitions
+smooth_zoom_speed: float              # Zoom smoothing speed
+auto_zoom: bool                       # Auto-fit multiple targets
+min_zoom: float                       # Min zoom (auto mode)
+max_zoom: float                       # Max zoom (auto mode)
+zoom_margin: float                    # Padding for auto-zoom
+```
+
+#### Limits
+```gdscript
+left_limit: int                       # Left boundary
+right_limit: int                      # Right boundary
+top_limit: int                        # Top boundary
+bottom_limit: int                     # Bottom boundary
+smooth_limit: bool                    # Smooth limit clamping
+```
+
+#### Deadzones (Margins)
+```gdscript
+use_h_margins: bool                   # Enable horizontal deadzone
+use_v_margins: bool                   # Enable vertical deadzone
+left_margin: float                    # Left deadzone (0-1)
+right_margin: float                   # Right deadzone (0-1)
+top_margin: float                     # Top deadzone (0-1)
+bottom_margin: float                  # Bottom deadzone (0-1)
+```
+
+#### Methods
+```gdscript
+start_cinematic(id: String)           # Play cinematic sequence
+stop_cinematic()                      # Stop current cinematic
+reset_camera()                        # Snap to target instantly
+add_addon(addon: PCamAddon)           # Add camera addon
+remove_addon(addon: PCamAddon)        # Remove camera addon
+get_addons() -> Array                 # Get all addons
+get_camera_bounds() -> Rect2          # Get visible area
+```
+
+#### Signals
+```gdscript
+cinematic_started(cinematic_id)       # Cinematic began
+cinematic_stopped(cinematic_id)       # Cinematic ended
+addon_message(message)                # Addon sent a message
+```
+
+---
+
+### PCamTarget
+
+The node that tells the camera where to follow.
+
+```gdscript
+priority: int                         # Target priority (higher = more important)
+radius: float                         # Auto-zoom radius
+offset: Vector2                       # Offset from parent position
+influence: Vector2                    # How much to influence camera (0-1+)
+rotation_influence: float             # Rotation influence (0-1+)
+disable_outside_limits: bool          # Ignore target outside limits
+camera_id: String                     # Which camera to affect
+```
+
+---
+
+### PCamCinematic
+
+Defines a cinematic camera point.
+
+```gdscript
+cinematic_id: String                  # Sequence identifier
+hold_time: float                      # How long to hold this point
+target_zoom: float                    # Zoom level at this point
+drag_speed: Vector2                   # Move speed to this point
+rotation_speed: float                 # Rotation speed
+zoom_speed: float                     # Zoom speed
+priority: int                         # Order in sequence (higher = sooner)
+camera_id: String                     # Specific camera
+affect_all_cameras: bool              # Affect all cameras
+```
+
+---
+
+### PCamMagnet
+
+Attracts or repels the camera.
+
+```gdscript
+attract_repel: AttractRepel           # ATTRACT or REPEL
+magnet_shape: MagnetShape             # CIRCLE or RECTANGLE
+radius: float                         # Circle radius
+rectangle_size: Vector2               # Rectangle size
+use_full_force: bool                  # Full snap vs. gradual force
+force: Vector2                        # Force strength (if not full)
+falloff_curve: Curve                  # Force falloff curve
+```
+
+**Signals:**
+- `magnet_entered()`
+- `magnet_exited()`
+
+---
+
+### PCamZoom
+
+Changes zoom in an area.
+
+```gdscript
+zoom_shape: ZoomShape                 # CIRCLE or RECTANGLE
+radius: float                         # Circle radius
+rectangle_size: Vector2               # Rectangle size
+zoom_factor: float                    # Zoom multiplier
+gradual_zoom: bool                    # Smooth transition
+```
+
+**Signals:**
+- `zoom_area_entered()`
+- `zoom_area_exited()`
+- `zoom_level_changed(zoom_level)`
+
+---
+
+### PCamRoom
+
+Constrains camera to a room.
+
+```gdscript
+room_size: Vector2                    # Room dimensions
+zoom: float                           # Forced zoom level
+open_sides: BitMask                   # Which sides are open (left/right/top/bottom)
+```
+
+**Signals:**
+- `room_entered(room)`
+- `room_exited(room)`
+
+---
+
+### PCamPath
+
+Constrains camera to a path.
+
+```gdscript
+constraint_axis: AxisConstraint       # X or Y axis
+```
+
+---
+
+## 🛠️ Writing Custom Addons
+
+Addons let you modify camera behavior at specific stages. Here's a template:
+
+```gdscript
+extends PCamAddon
+class_name MyCustomAddon
+
+@export var my_property: float = 1.0
+
+func setup(camera):
+    stage = "pre_process"  # "pre_process", "post_smoothing", or "final_adjust"
+
+func pre_process(camera, delta):
+    # Modify target values before smoothing
+    camera._target_position += Vector2(10, 0) * my_property
+
+func exit(camera):
+    # Cleanup when removed
+    pass
+```
+
+### Addon Stages
+
+| Stage | When It Runs | Use For |
+|-------|--------------|---------|
+| **pre_process** | Before smoothing | Modifying `_target_position`, `_target_zoom`, `_target_rotation` |
+| **post_smoothing** | After smoothing | Modifying `_current_position`, `_current_zoom`, `_current_rotation` |
+| **final_adjust** | Final step | Screen shake, post-processing effects |
+
+### Example: Grid Snapping
+
+```gdscript
 extends PCamAddon
 class_name PCamGrids
 
-export var grid_size := Vector2(64, 64)
-export var grid_offset := Vector2.ZERO
+@export var grid_size := Vector2(64, 64)
+@export var grid_offset := Vector2.ZERO
 
 func setup(camera):
-	stage = "pre_process"
+    stage = "pre_process"
 
 func pre_process(camera, delta):
-	# Snap the target position to the grid and apply an offset if needed
-	var snapped_target = camera._target_position.snapped(grid_size) + grid_offset
-	camera._target_position = snapped_target
+    var snapped = camera._target_position.snapped(grid_size) + grid_offset
+    camera._target_position = snapped
 ```
 
-The addon will now show up on the list of resources. You can then add it to the camera through the inspector or like so:
+**Add it:**
+```gdscript
+procam.add_addon(PCamGrids.new())
+```
+
+---
+
+## 🔧 Advanced Tips
+
+### Smooth Transitions Between Targets
 
 ```gdscript
-var grid_addon = PCamGrids.new()
-func _ready() -> void:
-    procam.add_addon(grid_addon)
+# Switch targets smoothly
+func switch_to_boss():
+    player_target.priority = 0
+    boss_target.priority = 100
+    # Camera smoothly transitions due to smooth_drag
 ```
 
-### Implementing a New Addon
+### Triggering Camera Shake on Hit
 
-To create your own addon:
+```gdscript
+func _on_player_hit():
+    var shake = procam.get_addons()[0]  # If you added it via inspector
+    shake.add_trauma(0.5)  # Procedural shake intensity
+```
 
-1. **Define the Addon**: Extend `PCamAddon` and set up any necessary properties or export variables.
-2. **Set Up Stages**: Use the `setup` method to specify the stage in which the addon should operate. Implement the corresponding method (`pre_process`, `post_smoothing`, or `final_adjust`) to define the addon's behavior.
-3. **Enable the Addon**: Ensure your addon is enabled by setting the `enabled` property to `true`.
+### Dynamic Zoom Zones
 
-This framework provides a flexible way to modify camera behavior by compartmentalizing changes into different processing stages.
+```gdscript
+# Create zoom zones at runtime
+var zoom_zone = PCamZoom.new()
+zoom_zone.position = Vector2(500, 300)
+zoom_zone.radius = 200
+zoom_zone.zoom_factor = 2.0
+add_child(zoom_zone)
+```
 
+### Pixel-Perfect Camera
 
-## Contributing
+```gdscript
+var camera = procam.current_camera
+camera.pixel_perfect = true  # Rounds position every frame
+```
 
-Contributions are welcome! For detailed instructions on how to contribute, please see our [Contributing Guide](CONTRIBUTING.md).
+---
 
-## Reporting Bugs or Requesting Features
+## 🎬 Cinematic Sequences Example
 
-To report a bug or request a feature, please use the [Issues](https://github.com/artom-studios/ProCam2D/issues) section of this repository. Make sure to follow the templates provided for better clarity and organization.
+```gdscript
+# Scene setup: Place 3 PCamCinematic nodes
+# All with cinematic_id = "intro"
+# Priority: 0, 1, 2 (plays in order)
 
-## License
+func start_intro():
+    procam.start_cinematic("intro")
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+func _ready():
+    procam.cinematic_started.connect(_on_cinematic_started)
+    procam.cinematic_stopped.connect(_on_cinematic_stopped)
 
-Thank you for using ProCam2D! If you have any questions or need further assistance, feel free to reach out.
+func _on_cinematic_started(id):
+    print("Cinematic " + id + " started!")
+    player.disable_input()
 
+func _on_cinematic_stopped(id):
+    print("Cinematic " + id + " ended!")
+    player.enable_input()
+```
+
+---
+
+## 🎮 PCamShake Presets
+
+The shake addon comes with 8 cinematic presets:
+
+| Preset | Feel | Use Case |
+|--------|------|----------|
+| **GUNSHOT** | Quick recoil | Weapons, punches |
+| **EXPLOSION** | Strong burst | Big explosions |
+| **EARTHQUAKE** | Continuous rumble | Boss stomps, terrain events |
+| **IMPACT** | Sudden jolt | Collisions, landings |
+| **HANDHELD** | Subtle sway | Atmospheric immersion |
+| **RUMBLE** | Low vibration | Engines, machinery |
+| **VIBRATION** | High frequency | Electric shocks |
+| **WOBBLY** | Gentle wave | Drunk effect, underwater |
+
+```gdscript
+var shake = PCamShake.new()
+shake.apply_preset(shake.Preset.EXPLOSION)
+procam.add_addon(shake)
+shake.shake()
+```
+
+---
+
+## 🐛 Troubleshooting
+
+### Camera Not Following?
+- Check that your `PCamTarget` has the correct `camera_id`
+- Verify `enabled = true` on both camera and target
+- Ensure target is in the scene tree
+
+### Split-Screen Not Working?
+- Make sure `world_2d` is shared correctly
+- Verify each camera has a unique `camera_id`
+- Check that targets match their camera IDs
+
+### Influence Nodes Not Working?
+- Set `affect_all_cameras = true` OR match `camera_id`
+- Check that the node is enabled
+- Verify position is within range
+
+### Jittery Camera?
+- Use `process_frame = PHYSICS` for physics-based games
+- Lower `smooth_drag_speed` for slower following
+- Enable `smooth_limit` for smoother boundary clamping
+
+---
+
+## 🤝 Contributing
+
+We love contributions! Here's how to help:
+
+1. **Fork** this repository
+2. **Create a branch** (`git checkout -b feature/amazing-feature`)
+3. **Commit** your changes (`git commit -m 'Add amazing feature'`)
+4. **Push** to the branch (`git push origin feature/amazing-feature`)
+5. **Open a Pull Request**
+
+See [CONTRIBUTING.md](CONTRIBUTING.md) for detailed guidelines.
+
+### Reporting Bugs
+
+Found a bug? [Open an issue](https://github.com/artom-studios/ProCam2D/issues) with:
+- Godot version
+- ProCam2D version
+- Steps to reproduce
+- Expected vs. actual behavior
+
+---
+
+## 📜 License
+
+ProCam2D is licensed under the **MIT License**. See [LICENSE](LICENSE) for details.
+
+---
+
+## 🙏 Acknowledgments
+
+- **GDQuest** for split-screen architecture inspiration
+- The **Godot Community** for feedback and support
+- **You** for using ProCam2D!
+
+---
+
+<p align="center">
+  <strong>Made with ❤️ for the Godot community</strong><br>
+  <sub>Star this repo if ProCam2D makes your game better!</sub>
+</p>
+
+<p align="center">
+  <a href="https://github.com/artom-studios/ProCam2D">🌟 Star on GitHub</a> •
+  <a href="https://github.com/artom-studios/ProCam2D/issues">🐛 Report Bug</a> •
+  <a href="https://github.com/artom-studios/ProCam2D/discussions">💬 Discussions</a>
+</p>

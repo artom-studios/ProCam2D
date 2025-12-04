@@ -105,6 +105,7 @@ func _exit_tree() -> void:
 func _ready() -> void:
 	super._ready()
 	z_index = RenderingServer.CANVAS_ITEM_Z_MAX
+	z_as_relative = false
 	if Engine.is_editor_hint():
 		return
 	_gather_influence_nodes()
@@ -318,6 +319,8 @@ func _apply_limits():
 func _update_targets(delta) -> void:
 	_viewport_size = get_viewport_rect().size
 	_nearby_nodes = _get_nearby_nodes(global_position, working_radius)
+	_nearby_nodes.sort_custom(Callable(PCamUtils, "_sort_by_priority"))
+	
 	_targets.clear()
 	for target in _known_targets:
 		if target.enabled:
@@ -325,6 +328,8 @@ func _update_targets(delta) -> void:
 			if not target.disable_outside_limits or (target.disable_outside_limits and limit_rect.has_point(target.global_position)):
 				target._update_velocity(delta)
 				_targets.append(target)
+	
+	_targets.sort_custom(Callable(PCamUtils, "_sort_by_priority"))
 
 func _apply_influences():
 	_target_zoom = _apply_zoom_influences()
@@ -423,11 +428,14 @@ func _apply_room_constraints(pos: Vector2) -> Vector2:
 	return pos
 
 func _apply_zoom_influences() -> float:
-	var final_zoom: float = _target_zoom
 	for node in _nearby_nodes:
 		if node.is_in_group("procam_zooms"):
-			final_zoom = node.apply_influence(self)
-	return final_zoom
+			var influence_zoom = node.apply_influence(self)
+			# If the zoom node is active (returns a different value than current target), use it and stop.
+			# Since _nearby_nodes is sorted by priority, this ensures the highest priority zoom wins.
+			if influence_zoom != _target_zoom:
+				return influence_zoom
+	return _target_zoom
 
 func _apply_path_constraints(pos: Vector2) -> Vector2:
 	var active_path = null
@@ -643,20 +651,20 @@ func _calculate_target_zoom() -> float:
 func _draw_debug() -> void:
 	var target_position = _target_position
 	# Draw center cursor
-	draw_arc(Vector2.ZERO - _current_offset, 10 * debug_draw_scaler, 0, TAU, 20, debug_color[1], 1)
-	draw_arc(Vector2.ZERO - _current_offset, 13 * debug_draw_scaler , 0, TAU, 20, debug_color[1], 1)
-	draw_line(- Vector2(10 * debug_draw_scaler, 0) - _current_offset, + Vector2(10 * debug_draw_scaler, 0) - _current_offset, debug_color[1], 1)
-	draw_line(- Vector2(0, 10 * debug_draw_scaler) - _current_offset, + Vector2(0, 10 * debug_draw_scaler) - _current_offset, debug_color[1], 1)
+	draw_arc(Vector2.ZERO - _current_offset, 10 * debug_draw_scaler, 0, TAU, 20, debug_color[1])
+	draw_arc(Vector2.ZERO - _current_offset, 13 * debug_draw_scaler , 0, TAU, 20, debug_color[1])
+	draw_line(- Vector2(10 * debug_draw_scaler, 0) - _current_offset, + Vector2(10 * debug_draw_scaler,0) - _current_offset, debug_color[1])
+	draw_line(- Vector2(0, 10 * debug_draw_scaler) - _current_offset, + Vector2(0, 10 * debug_draw_scaler) - _current_offset, debug_color[1])
 		# Draw target position
 	if !Engine.is_editor_hint():
-		draw_line(Vector2.ZERO - _current_offset, to_local(target_position), debug_color[1], 1)
-		draw_arc(to_local(target_position), 5 * debug_draw_scaler, 0, TAU, 20, debug_color[1], 1)
+		draw_line(Vector2.ZERO - _current_offset, to_local(target_position), debug_color[1])
+		draw_arc(to_local(target_position), 5 * debug_draw_scaler, 0, TAU, 20, debug_color[1])
 		
 	
 	# Draw drag margin rect
 	if use_h_margins or use_v_margins:
 		var drag_rect = _calculate_deadzone_rect()
-		draw_rect(drag_rect, debug_color[0], false, 1)
+		draw_rect(drag_rect, debug_color[0], false)
 	
 	# Draw camera limits rect
 	var limit_rect_pos = Vector2(left_limit - global_position.x, top_limit - global_position.y)

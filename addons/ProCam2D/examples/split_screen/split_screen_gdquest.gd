@@ -16,11 +16,25 @@ func _ready():
 func _process(delta):
 	time += delta
 	
-	# Animate targets (same as other demo)
+	# Player 1 Control (WASD - Vehicle Style)
 	if target1:
-		target1.position.x = 200 + sin(time * 2.0) * 150
-		target1.position.y = 300 + cos(time * 2.0) * 100
-	
+		var rotation_dir = 0
+		var speed = 0
+		
+		if Input.is_key_pressed(KEY_A):
+			rotation_dir -= 1
+		if Input.is_key_pressed(KEY_D):
+			rotation_dir += 1
+		if Input.is_key_pressed(KEY_W):
+			speed = 300
+		if Input.is_key_pressed(KEY_S):
+			speed = -150
+			
+		target1.rotation += rotation_dir * 3.0 * delta
+		var velocity = Vector2(speed, 0).rotated(target1.rotation)
+		target1.position += velocity * delta
+
+	# Player 2 Animation (Automated)
 	if target2:
-		target2.position.x = 800 + sin(time * 1.5) * 150
+		target2.position.x = 800 + sin(time * 1.5) * 1500
 		target2.position.y = 300 + sin(time * 3.0) * 50

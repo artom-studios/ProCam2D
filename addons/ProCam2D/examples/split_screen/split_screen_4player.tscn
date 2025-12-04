@@ -1,0 +1,338 @@
+[gd_scene load_steps=7 format=3 uid="uid://bm46sfxhpo6mx"]
+
+[ext_resource type="Script" uid="uid://2qj1e40noged" path="res://addons/ProCam2D/scripts/procam2d.gd" id="1_pcam"]
+[ext_resource type="Script" uid="uid://55sk1qclhrwv" path="res://addons/ProCam2D/examples/split_screen/split_screen_4player.gd" id="1_script"]
+[ext_resource type="Script" uid="uid://b4rf4nj3rhndx" path="res://addons/ProCam2D/scripts/pcam_target.gd" id="2_target"]
+[ext_resource type="Texture2D" uid="uid://1ljgu0r8fru2" path="res://icon.svg" id="3_icon"]
+[ext_resource type="Script" uid="uid://yegndmy2xge4" path="res://addons/ProCam2D/scripts/core/nodes/pcam_magnet.gd" id="6_magnet"]
+[ext_resource type="Script" uid="uid://cueivmqv45b0s" path="res://addons/ProCam2D/scripts/core/nodes/pcam_room.gd" id="7_room"]
+
+[node name="SplitScreen4Player" type="Control" unique_id=681599323]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_script")
+
+[node name="GridContainer" type="GridContainer" parent="." unique_id=1064245491]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/h_separation = 5
+theme_override_constants/v_separation = 5
+columns = 2
+
+[node name="SubViewportContainer1" type="SubViewportContainer" parent="GridContainer" unique_id=789009026]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+stretch = true
+
+[node name="SubViewport" type="SubViewport" parent="GridContainer/SubViewportContainer1" unique_id=201659452]
+handle_input_locally = false
+size = Vector2i(574, 322)
+render_target_update_mode = 4
+
+[node name="World" type="Node2D" parent="GridContainer/SubViewportContainer1/SubViewport" unique_id=475189746]
+
+[node name="Level" type="Node2D" parent="GridContainer/SubViewportContainer1/SubViewport/World" unique_id=697312317]
+
+[node name="Background" type="ColorRect" parent="GridContainer/SubViewportContainer1/SubViewport/World/Level" unique_id=171497051]
+offset_left = -1000.0
+offset_top = -1000.0
+offset_right = 2000.0
+offset_bottom = 2000.0
+color = Color(0.2, 0.4, 0.2, 1)
+
+[node name="Floor" type="ColorRect" parent="GridContainer/SubViewportContainer1/SubViewport/World/Level" unique_id=533253991]
+offset_left = -500.0
+offset_top = 400.0
+offset_right = 1500.0
+offset_bottom = 450.0
+color = Color(0.5, 0.3, 0.1, 1)
+
+[node name="Box1" type="ColorRect" parent="GridContainer/SubViewportContainer1/SubViewport/World/Level" unique_id=1727779991]
+offset_left = 100.0
+offset_top = 200.0
+offset_right = 300.0
+offset_bottom = 400.0
+color = Color(0.8, 0.2, 0.2, 1)
+
+[node name="Box2" type="ColorRect" parent="GridContainer/SubViewportContainer1/SubViewport/World/Level" unique_id=393055018]
+offset_left = 700.0
+offset_top = 100.0
+offset_right = 900.0
+offset_bottom = 300.0
+color = Color(0.2, 0.2, 0.8, 1)
+
+[node name="Target1" type="Node2D" parent="GridContainer/SubViewportContainer1/SubViewport/World" unique_id=354822492]
+unique_name_in_owner = true
+position = Vector2(200, 300)
+script = ExtResource("2_target")
+camera_id = "1"
+
+[node name="Sprite" type="Sprite2D" parent="GridContainer/SubViewportContainer1/SubViewport/World/Target1" unique_id=1120029628]
+modulate = Color(0.337255, 0.584314, 1, 1)
+texture = ExtResource("3_icon")
+
+[node name="Target2" type="Node2D" parent="GridContainer/SubViewportContainer1/SubViewport/World" unique_id=494605682]
+unique_name_in_owner = true
+position = Vector2(500, 300)
+script = ExtResource("2_target")
+camera_id = "2"
+
+[node name="Sprite" type="Sprite2D" parent="GridContainer/SubViewportContainer1/SubViewport/World/Target2" unique_id=1468034911]
+modulate = Color(1, 0.415686, 0.415686, 1)
+texture = ExtResource("3_icon")
+
+[node name="Target3" type="Node2D" parent="GridContainer/SubViewportContainer1/SubViewport/World" unique_id=712968265]
+unique_name_in_owner = true
+position = Vector2(500, 300)
+script = ExtResource("2_target")
+camera_id = "3"
+
+[node name="Sprite" type="Sprite2D" parent="GridContainer/SubViewportContainer1/SubViewport/World/Target3" unique_id=1450570487]
+modulate = Color(0.415686, 1, 0.415686, 1)
+texture = ExtResource("3_icon")
+
+[node name="Target4" type="Node2D" parent="GridContainer/SubViewportContainer1/SubViewport/World" unique_id=1912545386]
+unique_name_in_owner = true
+position = Vector2(500, 300)
+script = ExtResource("2_target")
+camera_id = "4"
+
+[node name="Sprite" type="Sprite2D" parent="GridContainer/SubViewportContainer1/SubViewport/World/Target4" unique_id=683616909]
+modulate = Color(1, 1, 0.415686, 1)
+texture = ExtResource("3_icon")
+
+[node name="TestMagnet" type="Node2D" parent="GridContainer/SubViewportContainer1/SubViewport/World" unique_id=675423616]
+z_index = 4095
+z_as_relative = false
+position = Vector2(600, 500)
+script = ExtResource("6_magnet")
+attract_repel = 0
+magnet_shape = 0
+radius = 150.0
+use_full_force = true
+debug_color = [Color(0.3372549, 0.22745098, 0.9843137, 1), Color(0.47843137, 0.5647059, 0.84705883, 1), Color(1, 1, 0, 1)]
+affect_all_cameras = true
+
+[node name="Visual" type="ColorRect" parent="GridContainer/SubViewportContainer1/SubViewport/World/TestMagnet" unique_id=686232618]
+offset_left = -10.0
+offset_top = -10.0
+offset_right = 10.0
+offset_bottom = 10.0
+color = Color(1, 0, 0, 0.5)
+
+[node name="TestRoom" type="Node2D" parent="GridContainer/SubViewportContainer1/SubViewport/World" unique_id=719065762]
+position = Vector2(200, 100)
+script = ExtResource("7_room")
+room_size = Vector2(300, 200)
+zoom = 0.8
+open_sides = 0
+affect_all_cameras = true
+
+[node name="Visual" type="ColorRect" parent="GridContainer/SubViewportContainer1/SubViewport/World/TestRoom" unique_id=1130704442]
+offset_left = -150.0
+offset_top = -100.0
+offset_right = 150.0
+offset_bottom = 100.0
+color = Color(0, 1, 0, 0.2)
+
+[node name="ProCam2D_P1" type="Node2D" parent="GridContainer/SubViewportContainer1/SubViewport/World" unique_id=64771778]
+z_index = 4096
+z_as_relative = false
+position = Vector2(200, 300)
+script = ExtResource("1_pcam")
+process_frame = 1
+follow_mode = 0
+drag_type = 0
+smooth_drag = true
+smooth_drag_speed = Vector2(5, 5)
+max_distance = Vector2(100000, 100000)
+offset = Vector2(0, 0)
+smooth_offset = true
+smooth_offset_speed = 2.0
+allow_rotation = false
+zoom = 1.0
+smooth_zoom = true
+smooth_zoom_speed = 5.0
+auto_zoom = true
+min_zoom = 0.01
+max_zoom = 1.0
+zoom_margin = 5.0
+smooth_limit = true
+left_limit = -10000000
+right_limit = 10000000
+top_limit = -10000000
+bottom_limit = 10000000
+use_h_margins = false
+use_v_margins = false
+working_radius = 2000.0
+global_debug_draw = true
+camera_id = "1"
+
+[node name="HUD" type="CanvasLayer" parent="GridContainer/SubViewportContainer1/SubViewport" unique_id=402069939]
+
+[node name="Label" type="Label" parent="GridContainer/SubViewportContainer1/SubViewport/HUD" unique_id=1423106018]
+offset_right = 100.0
+offset_bottom = 23.0
+text = "PLAYER 1 (WASD)"
+
+[node name="SubViewportContainer2" type="SubViewportContainer" parent="GridContainer" unique_id=1246148924]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+stretch = true
+
+[node name="SubViewport" type="SubViewport" parent="GridContainer/SubViewportContainer2" unique_id=1158591241]
+handle_input_locally = false
+size = Vector2i(573, 322)
+render_target_update_mode = 4
+
+[node name="ProCam2D_P2" type="Node2D" parent="GridContainer/SubViewportContainer2/SubViewport" unique_id=1263172687]
+z_index = 4096
+z_as_relative = false
+position = Vector2(500, 300)
+script = ExtResource("1_pcam")
+process_frame = 1
+follow_mode = 0
+drag_type = 0
+smooth_drag = true
+smooth_drag_speed = Vector2(5, 5)
+max_distance = Vector2(100000, 100000)
+offset = Vector2(0, 0)
+smooth_offset = true
+smooth_offset_speed = 2.0
+allow_rotation = false
+zoom = 1.0
+smooth_zoom = true
+smooth_zoom_speed = 5.0
+auto_zoom = true
+min_zoom = 0.01
+max_zoom = 1.0
+zoom_margin = 5.0
+smooth_limit = true
+left_limit = -10000000
+right_limit = 10000000
+top_limit = -10000000
+bottom_limit = 10000000
+use_h_margins = false
+use_v_margins = false
+working_radius = 2000.0
+global_debug_draw = true
+camera_id = "2"
+
+[node name="HUD" type="CanvasLayer" parent="GridContainer/SubViewportContainer2/SubViewport" unique_id=1777727800]
+
+[node name="Label" type="Label" parent="GridContainer/SubViewportContainer2/SubViewport/HUD" unique_id=1732717360]
+offset_right = 100.0
+offset_bottom = 23.0
+text = "PLAYER 2 (Auto)"
+
+[node name="SubViewportContainer3" type="SubViewportContainer" parent="GridContainer" unique_id=943085041]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+stretch = true
+
+[node name="SubViewport" type="SubViewport" parent="GridContainer/SubViewportContainer3" unique_id=586870391]
+handle_input_locally = false
+size = Vector2i(574, 321)
+render_target_update_mode = 4
+
+[node name="ProCam2D_P3" type="Node2D" parent="GridContainer/SubViewportContainer3/SubViewport" unique_id=1443912612]
+z_index = 4096
+z_as_relative = false
+position = Vector2(500, 300)
+script = ExtResource("1_pcam")
+process_frame = 1
+follow_mode = 0
+drag_type = 0
+smooth_drag = true
+smooth_drag_speed = Vector2(5, 5)
+max_distance = Vector2(100000, 100000)
+offset = Vector2(0, 0)
+smooth_offset = true
+smooth_offset_speed = 2.0
+allow_rotation = false
+zoom = 1.0
+smooth_zoom = true
+smooth_zoom_speed = 5.0
+auto_zoom = true
+min_zoom = 0.01
+max_zoom = 1.0
+zoom_margin = 5.0
+smooth_limit = true
+left_limit = -10000000
+right_limit = 10000000
+top_limit = -10000000
+bottom_limit = 10000000
+use_h_margins = false
+use_v_margins = false
+working_radius = 2000.0
+global_debug_draw = true
+camera_id = "3"
+
+[node name="HUD" type="CanvasLayer" parent="GridContainer/SubViewportContainer3/SubViewport" unique_id=1868074886]
+
+[node name="Label" type="Label" parent="GridContainer/SubViewportContainer3/SubViewport/HUD" unique_id=730038918]
+offset_right = 100.0
+offset_bottom = 23.0
+text = "PLAYER 3 (Auto)"
+
+[node name="SubViewportContainer4" type="SubViewportContainer" parent="GridContainer" unique_id=116362341]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+stretch = true
+
+[node name="SubViewport" type="SubViewport" parent="GridContainer/SubViewportContainer4" unique_id=1087322422]
+handle_input_locally = false
+size = Vector2i(573, 321)
+render_target_update_mode = 4
+
+[node name="ProCam2D_P4" type="Node2D" parent="GridContainer/SubViewportContainer4/SubViewport" unique_id=786359499]
+z_index = 4096
+z_as_relative = false
+position = Vector2(500, 300)
+script = ExtResource("1_pcam")
+process_frame = 1
+follow_mode = 0
+drag_type = 0
+smooth_drag = true
+smooth_drag_speed = Vector2(5, 5)
+max_distance = Vector2(100000, 100000)
+offset = Vector2(0, 0)
+smooth_offset = true
+smooth_offset_speed = 2.0
+allow_rotation = false
+zoom = 1.0
+smooth_zoom = true
+smooth_zoom_speed = 5.0
+auto_zoom = true
+min_zoom = 0.01
+max_zoom = 1.0
+zoom_margin = 5.0
+smooth_limit = true
+left_limit = -10000000
+right_limit = 10000000
+top_limit = -10000000
+bottom_limit = 10000000
+use_h_margins = false
+use_v_margins = false
+working_radius = 2000.0
+global_debug_draw = true
+camera_id = "4"
+
+[node name="HUD" type="CanvasLayer" parent="GridContainer/SubViewportContainer4/SubViewport" unique_id=240614302]
+
+[node name="Label" type="Label" parent="GridContainer/SubViewportContainer4/SubViewport/HUD" unique_id=1601465655]
+offset_right = 100.0
+offset_bottom = 23.0
+text = "PLAYER 4 (Auto)"
