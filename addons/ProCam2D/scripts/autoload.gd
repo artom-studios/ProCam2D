@@ -18,6 +18,7 @@ var follow_mode: int = FollowMode.SINGLE_TARGET: set = set_follow_mode, get = ge
 var drag_type : int = DragType.SMOOTH_DAMP: set = set_drag_type, get = get_drag_type
 var smooth_drag: bool = true: set = set_smooth_drag, get = get_smooth_drag
 var smooth_drag_speed: Vector2 = Vector2(5, 5): set = set_smooth_drag_speed, get = get_smooth_drag_speed
+var max_distance: Vector2 = Vector2(100000, 100000): set = set_max_distance, get = get_max_distance
 var prediction_time: Vector2 = Vector2(9, 9): set = set_prediction_time, get = get_prediction_time
 var offset: Vector2 = Vector2.ZERO: set = set_offset, get = get_offset
 var smooth_offset: bool = true: set = set_smooth_offset, get = get_smooth_offset
@@ -159,6 +160,11 @@ func set_smooth_drag_speed(value):
 	if current_camera:
 		current_camera.smooth_drag_speed = value
 
+func set_max_distance(value):
+	max_distance = value
+	if current_camera:
+		current_camera.max_distance = value
+
 func set_prediction_time(value):
 	prediction_time = value
 	if current_camera:
@@ -299,6 +305,9 @@ func get_smooth_drag() -> bool:
 
 func get_smooth_drag_speed() -> Vector2:
 	return current_camera.smooth_drag_speed if current_camera else smooth_drag_speed
+
+func get_max_distance() -> Vector2:
+	return current_camera.max_distance if current_camera else max_distance
 
 func get_prediction_time() -> Vector2:
 	return current_camera.prediction_time if current_camera else prediction_time

@@ -187,7 +187,6 @@ func register_node(node: Node) -> void:
 	if should_register:
 		if node.is_in_group("procam_targets") and not _known_targets.has(node):
 			_known_targets.append(node)
-			print("ProCam2D ", camera_id, ": Registered target ", node.name)
 		elif node.is_in_group("procam_rooms") and not _rooms.has(node):
 			_rooms.append(node)
 			_setup_node_signals(node)
@@ -766,7 +765,7 @@ func start_cinematic(cinematic_id) -> void:
 	_current_cinematic_index = 0
 	_active_cinematics = _get_cinematics_by_id(id_string)
 	if _active_cinematics.is_empty():
-		print("No cinematics found with id: ", id_string)
+		# No cinematics found, exit silently
 		return
 	_active_cinematics.sort_custom(Callable(PCamUtils, "_sort_by_priority"))
 	_active_cinematics[0].start(self)

@@ -15,8 +15,7 @@ func _ready():
 
 func _process(delta):
 	time += delta
-	
-	# Player 1 Control (WASD - Vehicle Style)
+		# Player 1 Control (WASD - Vehicle Style)
 	if target1:
 		var rotation_dir = 0
 		var speed = 0

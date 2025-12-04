@@ -64,12 +64,12 @@ That's it! You now have a professional camera with smooth following.
 
 **Single Target Mode**: Focus on your main character with buttery-smooth motion
 ```gdscript
-procam.follow_mode = ProCam2D.FollowMode.SINGLE_TARGET
+procam.follow_mode = procam.FollowMode.SINGLE_TARGET
 ```
 
 **Multi-Target Mode**: Automatically frames multiple players/enemies
 ```gdscript
-procam.follow_mode = ProCam2D.FollowMode.MULTI_TARGET
+procam.follow_mode = procam.FollowMode.MULTI_TARGET
 procam.auto_zoom = true  # Zooms out to fit everyone
 ```
 
@@ -266,6 +266,7 @@ follow_mode: FollowMode               # SINGLE_TARGET or MULTI_TARGET
 drag_type: DragType                   # Movement feel (4 types)
 smooth_drag: bool                     # Smooth camera motion
 smooth_drag_speed: Vector2            # Drag smoothing speed
+max_distance: Vector2                 # Max distance camera can lag behind target
 prediction_time: Vector2              # Look-ahead time (LOOK_AHEAD mode)
 ```
 
