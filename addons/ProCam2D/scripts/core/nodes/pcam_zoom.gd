@@ -109,31 +109,36 @@ func _get_property_list():
 		"type": TYPE_INT,
 		"hint": PROPERTY_HINT_ENUM,
 		"hint_string": "Circle,Rectangle",
-		"usage": PROPERTY_USAGE_DEFAULT
+		"usage": PROPERTY_USAGE_DEFAULT,
+		"hint_tooltip": "Shape of the zoom influence area"
 	})
 	# Shape-specific Properties
 	if zoom_shape == ZoomShape.CIRCLE:
 		properties.append({
 			"name": "radius",
 			"type": TYPE_FLOAT,
-			"usage": PROPERTY_USAGE_DEFAULT
+			"usage": PROPERTY_USAGE_DEFAULT,
+			"hint_tooltip": "Radius of the circular zoom area"
 		})
 	elif zoom_shape == ZoomShape.RECTANGLE:
 		properties.append({
 			"name": "rectangle_size",
 			"type": TYPE_VECTOR2,
-			"usage": PROPERTY_USAGE_DEFAULT
+			"usage": PROPERTY_USAGE_DEFAULT,
+			"hint_tooltip": "Size of the rectangular zoom area"
 		})
 	
 	properties.append({
 		"name": "zoom_factor",
 		"type": TYPE_FLOAT,
-		"usage": PROPERTY_USAGE_DEFAULT
+		"usage": PROPERTY_USAGE_DEFAULT,
+		"hint_tooltip": "Target zoom level when camera is in this area"
 	})
 	
 	properties.append({
 		"name": "gradual_zoom",
 		"type": TYPE_BOOL,
-		"usage": PROPERTY_USAGE_DEFAULT
+		"usage": PROPERTY_USAGE_DEFAULT,
+		"hint_tooltip": "If true, zoom transitions smoothly. If false, zoom changes instantly"
 	})
 	return properties

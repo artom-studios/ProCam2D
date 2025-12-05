@@ -125,12 +125,30 @@ Extend the camera with built-in addons or write your own:
 - **PCamMouseFollow**: Cursor-based camera offset (great for aiming)
 - **PCamGrids**: Snap to grid (pixel-perfect movement)
 
-**Add via Code:**
+**Add via Code (Quick Start):**
 ```gdscript
-var shake = PCamShake.new()
-shake.apply_preset(shake.Preset.EXPLOSION)
-procam.add_addon(shake)
-shake.shake()  # Boom!
+extends Node2D
+
+@onready var camera = $ProCam2D
+
+# 1. Create separate instances for different shake layers
+var handheld_shake = PCamShake.new()
+var impact_shake = PCamShake.new()
+
+func _ready():
+    # 2. Add them to the camera
+    camera.add_addon(handheld_shake)
+    camera.add_addon(impact_shake)
+    
+    # Start the ambient "handheld" shake (runs forever)
+    handheld_shake.apply_preset(PCamShake.Preset.HANDHELD)
+    handheld_shake.shake()
+
+func _on_player_shoot():
+    # 3. Trigger the impact shake independently
+    # This layers on top of the handheld shake!
+    impact_shake.apply_preset(PCamShake.Preset.GUNSHOT)
+    impact_shake.shake()
 ```
 
 **Add via Inspector:**
@@ -230,6 +248,16 @@ player_target.priority = 10
 boss_target.priority = 20
 ```
 
+### Switching Active Camera
+
+If you have multiple `ProCam2D` nodes in the same viewport, you can switch between them by changing their `priority`. The camera with the highest priority automatically becomes the active one.
+
+```gdscript
+# Switch to camera 2
+camera1.priority = 0
+camera2.priority = 10
+```
+
 ### Camera IDs & Affect All
 
 ```gdscript
@@ -248,9 +276,13 @@ Explore the `addons/ProCam2D/examples/` folder:
 
 | Example | What It Shows |
 |---------|---------------|
-| **`split_screen_gdquest.tscn`** | 2-player split-screen with WASD controls |
-| **`split_screen_4player.tscn`** | 4-player grid layout (2x2) |
-| **`loader_demo.tscn`** | Async scene loading with progress bar |
+| **`platformer/`** | Full platformer with parallax & smooth following |
+| **`mouse_follow/`** | Top-down aiming with cursor influence |
+| **`cinematic_demo.tscn`** | Scripted cutscenes with zoom & rotation |
+| **`multi_target_demo.tscn`** | Auto-zoom fitting multiple moving targets |
+| **`shake_demo.tscn`** | Playground for all shake presets |
+| **`camera_swap_demo.tscn`** | Switching active cameras via priority |
+| **`split_screen/split_screen_4player.tscn`** | 4-player competitive split-screen |
 
 Each example is fully commented and ready to run!
 

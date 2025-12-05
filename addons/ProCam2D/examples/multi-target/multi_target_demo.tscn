@@ -1,0 +1,207 @@
+[gd_scene load_steps=4 format=3 uid="uid://bnsclck38a3yw"]
+
+[ext_resource type="Script" uid="uid://dlbsjqip71vv7" path="res://addons/ProCam2D/examples/multi-target/multi_target_demo.gd" id="1"]
+[ext_resource type="Script" uid="uid://2qj1e40noged" path="res://addons/ProCam2D/scripts/procam2d.gd" id="2"]
+[ext_resource type="Script" uid="uid://b4rf4nj3rhndx" path="res://addons/ProCam2D/scripts/pcam_target.gd" id="3"]
+
+[node name="MultiTargetDemo" type="Node2D" unique_id=1392085353]
+script = ExtResource("1")
+
+[node name="Background" type="ColorRect" parent="." unique_id=1286916645]
+offset_right = 2400.0
+offset_bottom = 1350.0
+color = Color(0.0588235, 0.0745098, 0.109804, 1)
+
+[node name="Grid" type="Node2D" parent="." unique_id=1640293107]
+modulate = Color(1, 1, 1, 0.08)
+
+[node name="Line1" type="ColorRect" parent="Grid" unique_id=195787796]
+offset_left = 600.0
+offset_right = 602.0
+offset_bottom = 1350.0
+color = Color(0.5, 0.7, 1, 1)
+
+[node name="Line2" type="ColorRect" parent="Grid" unique_id=1680530455]
+offset_left = 1200.0
+offset_right = 1202.0
+offset_bottom = 1350.0
+color = Color(0.5, 0.7, 1, 1)
+
+[node name="Line3" type="ColorRect" parent="Grid" unique_id=560513272]
+offset_left = 1800.0
+offset_right = 1802.0
+offset_bottom = 1350.0
+color = Color(0.5, 0.7, 1, 1)
+
+[node name="Line4" type="ColorRect" parent="Grid" unique_id=1251355524]
+offset_top = 337.0
+offset_right = 2400.0
+offset_bottom = 339.0
+color = Color(0.5, 0.7, 1, 1)
+
+[node name="Line5" type="ColorRect" parent="Grid" unique_id=2090348992]
+offset_top = 675.0
+offset_right = 2400.0
+offset_bottom = 677.0
+color = Color(0.5, 0.7, 1, 1)
+
+[node name="Line6" type="ColorRect" parent="Grid" unique_id=1849256035]
+offset_top = 1012.0
+offset_right = 2400.0
+offset_bottom = 1014.0
+color = Color(0.5, 0.7, 1, 1)
+
+[node name="ProCam2D" type="Node2D" parent="." unique_id=854569738]
+z_index = 4096
+z_as_relative = false
+position = Vector2(1200, 675)
+script = ExtResource("2")
+process_frame = 1
+follow_mode = 1
+drag_type = 0
+smooth_drag = true
+smooth_drag_speed = Vector2(5, 5)
+max_distance = Vector2(100000, 100000)
+offset = Vector2(0, 0)
+smooth_offset = true
+smooth_offset_speed = 2.0
+allow_rotation = false
+zoom = 2.0
+smooth_zoom = true
+smooth_zoom_speed = 5.0
+auto_zoom = true
+min_zoom = 0.3
+max_zoom = 1.0
+zoom_margin = 0.0
+smooth_limit = true
+left_limit = -10000000
+right_limit = 10000000
+top_limit = -10000000
+bottom_limit = 10000000
+use_h_margins = false
+use_v_margins = false
+working_radius = 2000.0
+global_debug_draw = false
+
+[node name="Target1" type="Node2D" parent="." unique_id=520916800]
+position = Vector2(800, 500)
+
+[node name="Visual" type="Polygon2D" parent="Target1" unique_id=19271067]
+color = Color(0.3, 0.8, 1, 1)
+polygon = PackedVector2Array(-30, -30, 30, -30, 30, 30, -30, 30)
+
+[node name="Label" type="Label" parent="Target1" unique_id=1521453775]
+offset_left = -20.0
+offset_top = -60.0
+offset_right = 20.0
+offset_bottom = -35.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 14
+text = "P1"
+horizontal_alignment = 1
+
+[node name="PCamTarget" type="Node2D" parent="Target1" unique_id=1966549750]
+script = ExtResource("3")
+radius = 100.0
+priority = 10
+
+[node name="Target2" type="Node2D" parent="." unique_id=845252334]
+position = Vector2(1600, 500)
+
+[node name="Visual" type="Polygon2D" parent="Target2" unique_id=2098365468]
+color = Color(1, 0.5, 0.3, 1)
+polygon = PackedVector2Array(-30, -30, 30, -30, 30, 30, -30, 30)
+
+[node name="Label" type="Label" parent="Target2" unique_id=962965907]
+offset_left = -20.0
+offset_top = -60.0
+offset_right = 20.0
+offset_bottom = -35.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 14
+text = "P2"
+horizontal_alignment = 1
+
+[node name="PCamTarget" type="Node2D" parent="Target2" unique_id=320716927]
+script = ExtResource("3")
+radius = 100.0
+
+[node name="Target3" type="Node2D" parent="." unique_id=1353179178]
+position = Vector2(800, 850)
+
+[node name="Visual" type="Polygon2D" parent="Target3" unique_id=1225248771]
+color = Color(0.5, 1, 0.5, 1)
+polygon = PackedVector2Array(-30, -30, 30, -30, 30, 30, -30, 30)
+
+[node name="Label" type="Label" parent="Target3" unique_id=540575662]
+offset_left = -20.0
+offset_top = -60.0
+offset_right = 20.0
+offset_bottom = -35.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 14
+text = "P3"
+horizontal_alignment = 1
+
+[node name="PCamTarget" type="Node2D" parent="Target3" unique_id=73973158]
+script = ExtResource("3")
+radius = 100.0
+
+[node name="Target4" type="Node2D" parent="." unique_id=825545748]
+position = Vector2(1600, 850)
+
+[node name="Visual" type="Polygon2D" parent="Target4" unique_id=977321024]
+color = Color(1, 0.8, 0.3, 1)
+polygon = PackedVector2Array(-30, -30, 30, -30, 30, 30, -30, 30)
+
+[node name="Label" type="Label" parent="Target4" unique_id=215122987]
+offset_left = -20.0
+offset_top = -60.0
+offset_right = 20.0
+offset_bottom = -35.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 14
+text = "P4"
+horizontal_alignment = 1
+
+[node name="PCamTarget" type="Node2D" parent="Target4" unique_id=1254958294]
+script = ExtResource("3")
+radius = 100.0
+
+[node name="UI" type="CanvasLayer" parent="." unique_id=759736791]
+
+[node name="Instructions" type="Label" parent="UI" unique_id=1435577565]
+offset_left = 20.0
+offset_top = 20.0
+offset_right = 520.0
+offset_bottom = 120.0
+theme_override_colors/font_color = Color(0.7, 0.9, 1, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.7)
+theme_override_constants/shadow_offset_x = 2
+theme_override_constants/shadow_offset_y = 2
+theme_override_font_sizes/font_size = 16
+text = "ProCam2D Multi-Target Demo
+
+WASD: Control Player 1
+TAB: Switch camera focus priority
+Watch: Auto-zoom fits all targets!"
+
+[node name="PriorityLabel" type="Label" parent="UI" unique_id=742696142]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -200.0
+offset_top = -60.0
+offset_right = 200.0
+offset_bottom = -20.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_colors/font_color = Color(1, 1, 0.5, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.7)
+theme_override_constants/shadow_offset_x = 2
+theme_override_constants/shadow_offset_y = 2
+theme_override_font_sizes/font_size = 20
+text = "Focus: Player 1 (TAB to switch)"
+horizontal_alignment = 1

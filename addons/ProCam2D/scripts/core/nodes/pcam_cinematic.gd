@@ -3,11 +3,17 @@ extends "pcam_base.gd"
 
 const GROUP_NAME := "procam_cinematics"
 
+## Identifier for this cinematic sequence (multiple nodes with same ID form a sequence)
 @export var cinematic_id := ""
+## How long to hold at this cinematic point (in seconds)
 @export var hold_time := 1.0
+## Target zoom level during this cinematic
 @export var target_zoom := 1.0
+## Speed of camera movement to this point
 @export var drag_speed := Vector2(5, 5)
+## Speed of camera rotation during this cinematic
 @export var rotation_speed := 5.0
+## Speed of zoom change during this cinematic
 @export var zoom_speed := 5.0
 
 var _original_values := {}

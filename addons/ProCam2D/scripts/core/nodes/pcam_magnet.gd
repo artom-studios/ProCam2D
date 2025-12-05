@@ -179,16 +179,18 @@ func _get_property_list():
 		"name": "attract_repel",
 		"type": TYPE_INT,
 		"hint": PROPERTY_HINT_ENUM,
-		"hint_string": "Attract,Repel",
-		"usage": PROPERTY_USAGE_DEFAULT
+		"hint_string": "Attract:0,Repel:1",
+		"usage": PROPERTY_USAGE_DEFAULT,
+		"hint_tooltip": "Whether magnet attracts or repels the camera"
 	})
 	
 	properties.append({
 		"name": "magnet_shape",
 		"type": TYPE_INT,
 		"hint": PROPERTY_HINT_ENUM,
-		"hint_string": "Circle,Rectangle",
-		"usage": PROPERTY_USAGE_DEFAULT
+		"hint_string": "Circle:0,Rectangle:1",
+		"usage": PROPERTY_USAGE_DEFAULT,
+		"hint_tooltip": "Shape of the magnet's influence area"
 	})
 	
 	
@@ -197,26 +199,30 @@ func _get_property_list():
 		properties.append({
 			"name": "radius",
 			"type": TYPE_FLOAT,
-			"usage": PROPERTY_USAGE_DEFAULT
+			"usage": PROPERTY_USAGE_DEFAULT,
+			"hint_tooltip": "Radius of the circular influence area"
 		})
 	elif magnet_shape == MagnetShape.RECTANGLE:
 		properties.append({
 			"name": "rectangle_size",
 			"type": TYPE_VECTOR2,
-			"usage": PROPERTY_USAGE_DEFAULT
+			"usage": PROPERTY_USAGE_DEFAULT,
+			"hint_tooltip": "Size of the rectangular influence area"
 		})
 	
 	properties.append({
 		"name": "use_full_force",
 		"type": TYPE_BOOL,
-		"usage": PROPERTY_USAGE_DEFAULT
+		"usage": PROPERTY_USAGE_DEFAULT,
+		"hint_tooltip": "If true, instantly snaps camera to position. If false, applies gradual force"
 	})
 
 	if not use_full_force:
 		properties.append({
 			"name": "force",
 			"type": TYPE_VECTOR2,
-			"usage": PROPERTY_USAGE_DEFAULT
+			"usage": PROPERTY_USAGE_DEFAULT,
+			"hint_tooltip": "Strength of the magnetic force on X and Y axes"
 		})
 
 		properties.append({
@@ -224,14 +230,16 @@ func _get_property_list():
 			"type": TYPE_OBJECT,
 			"hint": PROPERTY_HINT_RESOURCE_TYPE,
 			"hint_string": "Curve",
-			"usage": PROPERTY_USAGE_DEFAULT
+			"usage": PROPERTY_USAGE_DEFAULT,
+			"hint_tooltip": "Curve defining how force diminishes with distance from center"
 		})
 	
 	# Debug Properties
 	properties.append({
 		"name": "debug_color",
 		"type": TYPE_COLOR,
-		"usage": PROPERTY_USAGE_DEFAULT
+		"usage": PROPERTY_USAGE_DEFAULT,
+		"hint_tooltip": "Color used for debug visualization"
 	})
 	
 	return properties

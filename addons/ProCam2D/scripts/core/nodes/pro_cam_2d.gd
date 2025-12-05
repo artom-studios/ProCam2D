@@ -801,19 +801,22 @@ func _get_property_list():
 		"name": "process_frame",
 		"type": TYPE_INT,
 		"hint": PROPERTY_HINT_ENUM,
-		"hint_string": "Idle, physics"
+		"hint_string": "Idle, physics",
+		"hint_tooltip": "When the camera updates: Idle (every frame) or Physics (physics frames only)"
 	})
 	properties.append({
 		"name": "follow_mode",
 		"type": TYPE_INT,
 		"hint": PROPERTY_HINT_ENUM,
-		"hint_string": "Single Target,Multi Target"
+		"hint_string": "Single Target,Multi Target",
+		"hint_tooltip": "Single Target: follows highest priority target. Multi Target: centers on all targets"
 	})
 	properties.append({
 		"name": "drag_type",
 		"type": TYPE_INT,
 		"hint": PROPERTY_HINT_ENUM,
-		"hint_string": "Smooth Damp,Look Ahead,Auto Speed,Spring Damp"
+		"hint_string": "Smooth Damp,Look Ahead,Auto Speed,Spring Damp",
+		"hint_tooltip": "Camera movement style: Smooth, Predictive, Speed-based, or Bouncy"
 	})
 	
 	# Movement settings
@@ -824,21 +827,25 @@ func _get_property_list():
 	})
 	properties.append({
 		"name": "smooth_drag",
-		"type": TYPE_BOOL
+		"type": TYPE_BOOL,
+		"hint_tooltip": "If true, camera smoothly follows target. If false, snaps instantly"
 	})
 	if get("smooth_drag"):
 		properties.append({
 			"name": "smooth_drag_speed",
-			"type": TYPE_VECTOR2
+			"type": TYPE_VECTOR2,
+			"hint_tooltip": "Speed of smooth camera movement on X and Y axes (higher = faster)"
 		})
 	properties.append({
 		"name": "max_distance",
-		"type": TYPE_VECTOR2
+		"type": TYPE_VECTOR2,
+		"hint_tooltip": "Maximum distance camera can lag behind target on X and Y axes"
 	})
 	if get("drag_type") == DragType.LOOK_AHEAD:
 		properties.append({
 			"name": "prediction_time",
-			"type": TYPE_VECTOR2
+			"type": TYPE_VECTOR2,
+			"hint_tooltip": "How far ahead to look in Look Ahead mode (in seconds)"
 		})
 	
 	# Offset settings
@@ -849,16 +856,19 @@ func _get_property_list():
 	})
 	properties.append({
 		"name": "offset",
-		"type": TYPE_VECTOR2
+		"type": TYPE_VECTOR2,
+		"hint_tooltip": "Static offset from target position"
 	})
 	properties.append({
 		"name": "smooth_offset",
-		"type": TYPE_BOOL
+		"type": TYPE_BOOL,
+		"hint_tooltip": "If true, offset transitions smoothly when changed"
 	})
 	if get("smooth_offset"):
 		properties.append({
 			"name": "smooth_offset_speed",
-			"type": TYPE_FLOAT
+			"type": TYPE_FLOAT,
+			"hint_tooltip": "Speed of smooth offset transitions"
 		})
 	
 	# Rotation settings
@@ -869,17 +879,20 @@ func _get_property_list():
 	})
 	properties.append({
 		"name": "allow_rotation",
-		"type": TYPE_BOOL
+		"type": TYPE_BOOL,
+		"hint_tooltip": "If true, camera rotates to match target rotation"
 	})
 	if get("allow_rotation"):
 		properties.append({
 			"name": "smooth_rotation",
-			"type": TYPE_BOOL
+			"type": TYPE_BOOL,
+			"hint_tooltip": "If true, rotation transitions smoothly"
 		})
 		if get("smooth_rotation"):
 			properties.append({
 				"name": "smooth_rotation_speed",
-				"type": TYPE_FLOAT
+				"type": TYPE_FLOAT,
+				"hint_tooltip": "Speed of smooth rotation transitions"
 			})
 	
 	# Zoom settings
@@ -890,33 +903,40 @@ func _get_property_list():
 	})
 	properties.append({
 		"name": "zoom",
-		"type": TYPE_FLOAT
+		"type": TYPE_FLOAT,
+		"hint_tooltip": "Manual zoom level (1.0 = normal, higher = zoomed in)"
 	})
 	properties.append({
 		"name": "smooth_zoom",
-		"type": TYPE_BOOL
+		"type": TYPE_BOOL,
+		"hint_tooltip": "If true, zoom transitions smoothly"
 	})
 	if get("smooth_zoom"):
 		properties.append({
 			"name": "smooth_zoom_speed",
-			"type": TYPE_FLOAT
+			"type": TYPE_FLOAT,
+			"hint_tooltip": "Speed of smooth zoom transitions"
 		})
 	properties.append({
 		"name": "auto_zoom",
-		"type": TYPE_BOOL
+		"type": TYPE_BOOL,
+		"hint_tooltip": "If true, automatically zooms out to fit all targets in Multi Target mode"
 	})
 	if get("auto_zoom"):
 		properties.append({
 			"name": "min_zoom",
-			"type": TYPE_FLOAT
+			"type": TYPE_FLOAT,
+			"hint_tooltip": "Minimum zoom level for auto-zoom"
 		})
 		properties.append({
 			"name": "max_zoom",
-			"type": TYPE_FLOAT
+			"type": TYPE_FLOAT,
+			"hint_tooltip": "Maximum zoom level for auto-zoom"
 		})
 		properties.append({
 			"name": "zoom_margin",
-			"type": TYPE_FLOAT
+			"type": TYPE_FLOAT,
+			"hint_tooltip": "Extra padding around targets for auto-zoom calculations"
 		})
 	
 	# Limits settings
@@ -927,7 +947,8 @@ func _get_property_list():
 	})
 	properties.append({
 		"name": "smooth_limit",
-		"type": TYPE_BOOL
+		"type": TYPE_BOOL,
+		"hint_tooltip": "If true, camera smoothly stops at limits. If false, hard clamp"
 	})
 	properties.append({
 		"name": "left_limit",
@@ -954,11 +975,13 @@ func _get_property_list():
 	})
 	properties.append({
 		"name": "use_h_margins",
-		"type": TYPE_BOOL
+		"type": TYPE_BOOL,
+		"hint_tooltip": "If true, enables horizontal deadzone margins (left/right)"
 	})
 	properties.append({
 		"name": "use_v_margins",
-		"type": TYPE_BOOL
+		"type": TYPE_BOOL,
+		"hint_tooltip": "If true, enables vertical deadzone margins (top/bottom)"
 	})
 	if get("use_h_margins"):
 		properties.append({
@@ -1059,3 +1082,13 @@ func set_global_debug_draw(value):
 	
 func get_global_debug_draw() -> bool:
 	return _global_debug_draw
+
+func set_priority(value: int) -> void:
+	super.set_priority(value)
+	var procam = get_node_or_null("/root/procam")
+	if procam:
+		procam.update_camera_priority(self)
+
+func make_current() -> void:
+	if is_instance_valid(_camera) and _camera.is_inside_tree():
+		_camera.make_current()

@@ -111,7 +111,7 @@ modulate = Color(1, 1, 0.415686, 1)
 texture = ExtResource("3_icon")
 
 [node name="TestMagnet" type="Node2D" parent="GridContainer/SubViewportContainer1/SubViewport/World" unique_id=675423616]
-z_index = 4095
+z_index = 4096
 z_as_relative = false
 position = Vector2(600, 500)
 script = ExtResource("6_magnet")
@@ -176,6 +176,8 @@ working_radius = 2000.0
 global_debug_draw = true
 camera_id = "1"
 
+[node name="Coins" type="Node2D" parent="GridContainer/SubViewportContainer1/SubViewport/World" unique_id=194787414]
+
 [node name="HUD" type="CanvasLayer" parent="GridContainer/SubViewportContainer1/SubViewport" unique_id=402069939]
 
 [node name="Label" type="Label" parent="GridContainer/SubViewportContainer1/SubViewport/HUD" unique_id=1423106018]
@@ -232,7 +234,7 @@ camera_id = "2"
 [node name="Label" type="Label" parent="GridContainer/SubViewportContainer2/SubViewport/HUD" unique_id=1732717360]
 offset_right = 100.0
 offset_bottom = 23.0
-text = "PLAYER 2 (Auto)"
+text = "PLAYER 2 (Arrows)"
 
 [node name="SubViewportContainer3" type="SubViewportContainer" parent="GridContainer" unique_id=943085041]
 layout_mode = 2
@@ -283,7 +285,7 @@ camera_id = "3"
 [node name="Label" type="Label" parent="GridContainer/SubViewportContainer3/SubViewport/HUD" unique_id=730038918]
 offset_right = 100.0
 offset_bottom = 23.0
-text = "PLAYER 3 (Auto)"
+text = "PLAYER 3 (TFGH)"
 
 [node name="SubViewportContainer4" type="SubViewportContainer" parent="GridContainer" unique_id=116362341]
 layout_mode = 2
@@ -334,4 +336,130 @@ camera_id = "4"
 [node name="Label" type="Label" parent="GridContainer/SubViewportContainer4/SubViewport/HUD" unique_id=1601465655]
 offset_right = 100.0
 offset_bottom = 23.0
-text = "PLAYER 4 (Auto)"
+text = "PLAYER 4 (IJKL)"
+
+[node name="UI" type="CanvasLayer" parent="." unique_id=855249917]
+
+[node name="Timer" type="Label" parent="UI" unique_id=492656739]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -50.0
+offset_right = 50.0
+offset_bottom = 40.0
+grow_horizontal = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.8)
+theme_override_constants/shadow_offset_x = 2
+theme_override_constants/shadow_offset_y = 2
+theme_override_font_sizes/font_size = 32
+text = "Time: 30"
+horizontal_alignment = 1
+
+[node name="Score1" type="Label" parent="UI" unique_id=1618122841]
+offset_left = 20.0
+offset_top = 50.0
+offset_right = 120.0
+offset_bottom = 80.0
+theme_override_colors/font_color = Color(0.337255, 0.584314, 1, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.7)
+theme_override_constants/shadow_offset_x = 2
+theme_override_constants/shadow_offset_y = 2
+theme_override_font_sizes/font_size = 20
+text = "P1: 0"
+
+[node name="Score2" type="Label" parent="UI" unique_id=201501120]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -120.0
+offset_top = 50.0
+offset_right = -20.0
+offset_bottom = 80.0
+grow_horizontal = 0
+theme_override_colors/font_color = Color(1, 0.415686, 0.415686, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.7)
+theme_override_constants/shadow_offset_x = 2
+theme_override_constants/shadow_offset_y = 2
+theme_override_font_sizes/font_size = 20
+text = "P2: 0"
+horizontal_alignment = 2
+
+[node name="Score3" type="Label" parent="UI" unique_id=242058640]
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 20.0
+offset_top = -80.0
+offset_right = 120.0
+offset_bottom = -50.0
+grow_vertical = 0
+theme_override_colors/font_color = Color(0.415686, 1, 0.415686, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.7)
+theme_override_constants/shadow_offset_x = 2
+theme_override_constants/shadow_offset_y = 2
+theme_override_font_sizes/font_size = 20
+text = "P3: 0"
+
+[node name="Score4" type="Label" parent="UI" unique_id=396659087]
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -120.0
+offset_top = -80.0
+offset_right = -20.0
+offset_bottom = -50.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_colors/font_color = Color(1, 1, 0.415686, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.7)
+theme_override_constants/shadow_offset_x = 2
+theme_override_constants/shadow_offset_y = 2
+theme_override_font_sizes/font_size = 20
+text = "P4: 0"
+horizontal_alignment = 2
+
+[node name="WinnerLabel" type="Label" parent="UI" unique_id=964438887]
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -250.0
+offset_top = -50.0
+offset_right = 250.0
+offset_bottom = 50.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(1, 0.9, 0.3, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.9)
+theme_override_constants/shadow_offset_x = 3
+theme_override_constants/shadow_offset_y = 3
+theme_override_font_sizes/font_size = 48
+text = "Winner: Player 1!"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="RestartLabel" type="Label" parent="UI" unique_id=314269603]
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -200.0
+offset_top = 60.0
+offset_right = 200.0
+offset_bottom = 100.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.8, 0.8, 0.8, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.7)
+theme_override_constants/shadow_offset_x = 2
+theme_override_constants/shadow_offset_y = 2
+theme_override_font_sizes/font_size = 24
+text = "Press SPACE to restart"
+horizontal_alignment = 1

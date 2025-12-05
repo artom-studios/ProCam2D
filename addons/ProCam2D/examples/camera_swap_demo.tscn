@@ -1,0 +1,176 @@
+[gd_scene load_steps=3 format=3 uid="uid://bhmg10nwqfysm"]
+
+[ext_resource type="Script" uid="uid://d3xn7ypi05l7f" path="res://addons/ProCam2D/examples/camera_swap_demo.gd" id="1"]
+[ext_resource type="Script" uid="uid://2qj1e40noged" path="res://addons/ProCam2D/scripts/procam2d.gd" id="2"]
+
+[node name="CameraSwapDemo" type="Node2D" unique_id=1684030528]
+script = ExtResource("1")
+
+[node name="Background" type="ColorRect" parent="." unique_id=1618524696]
+offset_right = 1920.0
+offset_bottom = 1080.0
+color = Color(0.1, 0.1, 0.12, 1)
+
+[node name="Zone1" type="ColorRect" parent="." unique_id=1680657008]
+offset_left = 200.0
+offset_top = 200.0
+offset_right = 800.0
+offset_bottom = 800.0
+color = Color(0.2, 0.3, 0.5, 0.5)
+
+[node name="Label" type="Label" parent="Zone1" unique_id=292410777]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -11.5
+offset_right = 20.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 32
+text = "ZONE 1 (Blue Camera)"
+
+[node name="Zone2" type="ColorRect" parent="." unique_id=2073482338]
+offset_left = 1120.0
+offset_top = 200.0
+offset_right = 1720.0
+offset_bottom = 800.0
+color = Color(0.5, 0.2, 0.2, 0.5)
+
+[node name="Label" type="Label" parent="Zone2" unique_id=1153318883]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -11.5
+offset_right = 20.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 32
+text = "ZONE 2 (Red Camera)"
+
+[node name="ProCam2D_1" type="Node2D" parent="." unique_id=883371838]
+z_index = 4096
+z_as_relative = false
+position = Vector2(500, 500)
+script = ExtResource("2")
+process_frame = 1
+follow_mode = 0
+drag_type = 0
+smooth_drag = true
+smooth_drag_speed = Vector2(5, 5)
+max_distance = Vector2(100000, 100000)
+offset = Vector2(0, 0)
+smooth_offset = true
+smooth_offset_speed = 2.0
+allow_rotation = false
+zoom = 1.5
+smooth_zoom = true
+smooth_zoom_speed = 5.0
+auto_zoom = true
+min_zoom = 0.01
+max_zoom = 1.0
+zoom_margin = 5.0
+smooth_limit = true
+left_limit = -10000000
+right_limit = 10000000
+top_limit = -10000000
+bottom_limit = 10000000
+use_h_margins = false
+use_v_margins = false
+working_radius = 2000.0
+global_debug_draw = false
+
+[node name="ProCam2D_2" type="Node2D" parent="." unique_id=764459238]
+z_index = 4096
+z_as_relative = false
+position = Vector2(1420, 500)
+script = ExtResource("2")
+process_frame = 1
+follow_mode = 0
+drag_type = 0
+smooth_drag = true
+smooth_drag_speed = Vector2(5, 5)
+max_distance = Vector2(100000, 100000)
+offset = Vector2(0, 0)
+smooth_offset = true
+smooth_offset_speed = 2.0
+allow_rotation = false
+zoom = 1.5
+smooth_zoom = true
+smooth_zoom_speed = 5.0
+auto_zoom = true
+min_zoom = 0.01
+max_zoom = 1.0
+zoom_margin = 5.0
+smooth_limit = true
+left_limit = -10000000
+right_limit = 10000000
+top_limit = -10000000
+bottom_limit = 10000000
+use_h_margins = false
+use_v_margins = false
+working_radius = 2000.0
+global_debug_draw = false
+
+[node name="UI" type="CanvasLayer" parent="." unique_id=1186857037]
+
+[node name="Title" type="Label" parent="UI" unique_id=1343504924]
+offset_left = 20.0
+offset_top = 20.0
+offset_right = 620.0
+offset_bottom = 80.0
+theme_override_font_sizes/font_size = 28
+text = "Camera Priority Switching Demo"
+
+[node name="StatusLabel" type="Label" parent="UI" unique_id=1412667130]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -200.0
+offset_top = 50.0
+offset_right = 200.0
+offset_bottom = 100.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 24
+text = "Active Camera: ..."
+horizontal_alignment = 1
+
+[node name="HBox" type="HBoxContainer" parent="UI" unique_id=176057199]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -200.0
+offset_top = -150.0
+offset_right = 200.0
+offset_bottom = -50.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/separation = 50
+
+[node name="BtnCam1" type="Button" parent="UI/HBox" unique_id=42520589]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "Switch to Blue
+(Priority = 10)"
+
+[node name="BtnCam2" type="Button" parent="UI/HBox" unique_id=473798204]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "Switch to Red
+(Priority = 10)"
+
+[connection signal="pressed" from="UI/HBox/BtnCam1" to="." method="_on_cam_1_pressed"]
+[connection signal="pressed" from="UI/HBox/BtnCam2" to="." method="_on_cam_2_pressed"]

@@ -1,0 +1,241 @@
+[gd_scene load_steps=3 format=3 uid="uid://dc0oihdp75ppv"]
+
+[ext_resource type="Script" uid="uid://c2yl3aieifear" path="res://addons/ProCam2D/examples/screen shake/shake_demo.gd" id="1"]
+[ext_resource type="Script" uid="uid://2qj1e40noged" path="res://addons/ProCam2D/scripts/procam2d.gd" id="2"]
+
+[node name="ShakeDemo" type="Node2D" unique_id=1607116948]
+script = ExtResource("1")
+
+[node name="Background" type="ColorRect" parent="." unique_id=305089181]
+offset_right = 1920.0
+offset_bottom = 1080.0
+color = Color(0.12549, 0.141176, 0.192157, 1)
+
+[node name="Grid" type="Node2D" parent="." unique_id=1405363504]
+modulate = Color(1, 1, 1, 0.1)
+
+[node name="VLine1" type="ColorRect" parent="Grid" unique_id=1468237427]
+offset_left = 640.0
+offset_right = 642.0
+offset_bottom = 1080.0
+color = Color(0.6, 0.8, 1, 1)
+
+[node name="VLine2" type="ColorRect" parent="Grid" unique_id=1006418105]
+offset_left = 1280.0
+offset_right = 1282.0
+offset_bottom = 1080.0
+color = Color(0.6, 0.8, 1, 1)
+
+[node name="HLine1" type="ColorRect" parent="Grid" unique_id=2048190940]
+offset_top = 360.0
+offset_right = 1920.0
+offset_bottom = 362.0
+color = Color(0.6, 0.8, 1, 1)
+
+[node name="HLine2" type="ColorRect" parent="Grid" unique_id=1146619417]
+offset_top = 720.0
+offset_right = 1920.0
+offset_bottom = 722.0
+color = Color(0.6, 0.8, 1, 1)
+
+[node name="ProCam2D" type="Node2D" parent="." unique_id=1656223134]
+z_index = 4096
+z_as_relative = false
+position = Vector2(960, 540)
+script = ExtResource("2")
+process_frame = 1
+follow_mode = 0
+drag_type = 0
+smooth_drag = true
+smooth_drag_speed = Vector2(5, 5)
+max_distance = Vector2(100000, 100000)
+offset = Vector2(0, 0)
+smooth_offset = true
+smooth_offset_speed = 2.0
+allow_rotation = false
+zoom = 1.0
+smooth_zoom = true
+smooth_zoom_speed = 5.0
+auto_zoom = true
+min_zoom = 0.01
+max_zoom = 1.0
+zoom_margin = 5.0
+smooth_limit = true
+left_limit = -10000000
+right_limit = 10000000
+top_limit = -10000000
+bottom_limit = 10000000
+use_h_margins = false
+use_v_margins = false
+working_radius = 2000.0
+global_debug_draw = false
+
+[node name="CenterMarker" type="Node2D" parent="." unique_id=1081022670]
+position = Vector2(960, 540)
+
+[node name="Circle" type="Polygon2D" parent="CenterMarker" unique_id=1044165868]
+color = Color(1, 0.3, 0.3, 1)
+polygon = PackedVector2Array(0, -50, 15, -47, 29, -40, 40, -29, 47, -15, 50, 0, 47, 15, 40, 29, 29, 40, 15, 47, 0, 50, -15, 47, -29, 40, -40, 29, -47, 15, -50, 0, -47, -15, -40, -29, -29, -40, -15, -47)
+
+[node name="InnerCircle" type="Polygon2D" parent="CenterMarker" unique_id=1806959392]
+color = Color(1, 0.8, 0.8, 1)
+polygon = PackedVector2Array(0, -15, 5, -14, 11, -11, 14, -5, 15, 0, 14, 5, 11, 11, 5, 14, 0, 15, -5, 14, -11, 11, -14, 5, -15, 0, -14, -5, -11, -11, -5, -14)
+
+[node name="Building1" type="ColorRect" parent="." unique_id=2121229845]
+offset_left = 200.0
+offset_top = 400.0
+offset_right = 300.0
+offset_bottom = 700.0
+color = Color(0.3, 0.35, 0.45, 1)
+
+[node name="Building2" type="ColorRect" parent="." unique_id=390679468]
+offset_left = 500.0
+offset_top = 300.0
+offset_right = 650.0
+offset_bottom = 700.0
+color = Color(0.35, 0.4, 0.5, 1)
+
+[node name="Building3" type="ColorRect" parent="." unique_id=1052505495]
+offset_left = 1300.0
+offset_top = 350.0
+offset_right = 1450.0
+offset_bottom = 700.0
+color = Color(0.3, 0.35, 0.45, 1)
+
+[node name="Building4" type="ColorRect" parent="." unique_id=2130982691]
+offset_left = 1600.0
+offset_top = 250.0
+offset_right = 1700.0
+offset_bottom = 700.0
+color = Color(0.35, 0.4, 0.5, 1)
+
+[node name="UI" type="CanvasLayer" parent="." unique_id=2056175271]
+
+[node name="Title" type="Label" parent="UI" unique_id=1079432021]
+offset_left = 20.0
+offset_top = 20.0
+offset_right = 620.0
+offset_bottom = 80.0
+theme_override_colors/font_color = Color(0.8, 0.9, 1, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.8)
+theme_override_constants/shadow_offset_x = 2
+theme_override_constants/shadow_offset_y = 2
+theme_override_font_sizes/font_size = 28
+text = "ProCam2D Screen Shake Demo"
+
+[node name="Instructions" type="Label" parent="UI" unique_id=1913656528]
+offset_left = 20.0
+offset_top = 80.0
+offset_right = 720.0
+offset_bottom = 140.0
+theme_override_colors/font_color = Color(0.7, 0.8, 0.9, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.7)
+theme_override_constants/shadow_offset_x = 2
+theme_override_constants/shadow_offset_y = 2
+theme_override_font_sizes/font_size = 16
+text = "Click buttons to test built-in shake presets using the PCamShake addon.
+Watch the red circle and grid lines to see the effect!"
+
+[node name="ButtonPanel" type="PanelContainer" parent="UI" unique_id=323619869]
+offset_left = 20.0
+offset_top = 160.0
+offset_right = 420.0
+offset_bottom = 620.0
+
+[node name="VBox" type="VBoxContainer" parent="UI/ButtonPanel" unique_id=477764157]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="PresetsLabel" type="Label" parent="UI/ButtonPanel/VBox" unique_id=1211331427]
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
+text = "Built-in Shake Presets:"
+horizontal_alignment = 1
+
+[node name="Gunshot" type="Button" parent="UI/ButtonPanel/VBox" unique_id=1147675997]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+text = "💥 Gunshot (Quick & Sharp)"
+
+[node name="Earthquake" type="Button" parent="UI/ButtonPanel/VBox" unique_id=463098935]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+text = "🌊 Earthquake (Sustained)"
+
+[node name="Handheld" type="Button" parent="UI/ButtonPanel/VBox" unique_id=451682166]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+text = "📷 Handheld (Endless Subtle)"
+
+[node name="Explosion" type="Button" parent="UI/ButtonPanel/VBox" unique_id=1110091159]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+text = "💣 Explosion (Random + Zoom)"
+
+[node name="Impact" type="Button" parent="UI/ButtonPanel/VBox" unique_id=978206388]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+text = "👊 Impact (Vertical + Rotate)"
+
+[node name="Rumble" type="Button" parent="UI/ButtonPanel/VBox" unique_id=1480752212]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+text = "📳 Rumble (Low Frequency)"
+
+[node name="Vibration" type="Button" parent="UI/ButtonPanel/VBox" unique_id=1247734736]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+text = "⚡ Vibration (Fast)"
+
+[node name="Wobbly" type="Button" parent="UI/ButtonPanel/VBox" unique_id=349465787]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+text = "🌀 Wobbly (Slow Rotate)"
+
+[node name="Separator" type="HSeparator" parent="UI/ButtonPanel/VBox" unique_id=2008110205]
+layout_mode = 2
+
+[node name="StopShake" type="Button" parent="UI/ButtonPanel/VBox" unique_id=2024985400]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.3, 0.3, 1)
+text = "🛑 STOP SHAKE"
+
+[node name="InfoPanel" type="PanelContainer" parent="UI" unique_id=1186564703]
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -520.0
+offset_top = -260.0
+offset_right = -20.0
+offset_bottom = -20.0
+grow_horizontal = 0
+grow_vertical = 0
+
+[node name="InfoLabel" type="Label" parent="UI/InfoPanel" unique_id=122906501]
+layout_mode = 2
+theme_override_font_sizes/font_size = 14
+text = "PCamShake Addon Presets:
+
+• Gunshot: Quick, intense shake
+• Earthquake: Sustained perlin shake
+• Handheld: Endless subtle camera wobble
+• Explosion: Random + zoom effect
+• Impact: Vertical with rotation
+• Rumble: Low frequency shake
+• Vibration: Fast horizontal/vertical
+• Wobbly: Slow rotation wobble
+
+'Handheld' runs endlessly - use STOP!"
+
+[connection signal="pressed" from="UI/ButtonPanel/VBox/Gunshot" to="." method="_on_gunshot_pressed"]
+[connection signal="pressed" from="UI/ButtonPanel/VBox/Earthquake" to="." method="_on_earthquake_pressed"]
+[connection signal="pressed" from="UI/ButtonPanel/VBox/Handheld" to="." method="_on_handheld_pressed"]
+[connection signal="pressed" from="UI/ButtonPanel/VBox/Explosion" to="." method="_on_explosion_pressed"]
+[connection signal="pressed" from="UI/ButtonPanel/VBox/Impact" to="." method="_on_impact_pressed"]
+[connection signal="pressed" from="UI/ButtonPanel/VBox/Rumble" to="." method="_on_rumble_pressed"]
+[connection signal="pressed" from="UI/ButtonPanel/VBox/Vibration" to="." method="_on_vibration_pressed"]
+[connection signal="pressed" from="UI/ButtonPanel/VBox/Wobbly" to="." method="_on_wobbly_pressed"]
+[connection signal="pressed" from="UI/ButtonPanel/VBox/StopShake" to="." method="_on_stop_shake_pressed"]

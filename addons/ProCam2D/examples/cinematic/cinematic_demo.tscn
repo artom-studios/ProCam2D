@@ -1,0 +1,178 @@
+[gd_scene load_steps=5 format=3]
+
+[ext_resource type="Script" uid="uid://bf1lb6ya6j71o" path="res://addons/ProCam2D/examples/cinematic/cinematic_demo.gd" id="1"]
+[ext_resource type="Script" uid="uid://2qj1e40noged" path="res://addons/ProCam2D/scripts/procam2d.gd" id="2"]
+[ext_resource type="Script" uid="uid://pqjp5nldbx4s" path="res://addons/ProCam2D/scripts/pcam_cinematic.gd" id="3"]
+[ext_resource type="Script" uid="uid://b4rf4nj3rhndx" path="res://addons/ProCam2D/scripts/pcam_target.gd" id="4"]
+
+
+[node name="CinematicDemo" type="Node2D"]
+script = ExtResource("1")
+
+[node name="Background" type="ColorRect" parent="."]
+offset_right = 2400.0
+offset_bottom = 1350.0
+color = Color(0.0509804, 0.0313726, 0.0784314, 1)
+
+[node name="ProCam2D" type="Node2D" parent="."]
+position = Vector2(1200, 675)
+script = ExtResource("2")
+
+[node name="Character" type="Node2D" parent="."]
+position = Vector2(1200, 675)
+
+[node name="Body" type="Polygon2D" parent="Character"]
+color = Color(0.4, 0.7, 1, 1)
+polygon = PackedVector2Array(-20, -40, 20, -40, 20, 20, -20, 20)
+
+[node name="Head" type="Polygon2D" parent="Character"]
+position = Vector2(0, -50)
+color = Color(0.9, 0.8, 0.7, 1)
+polygon = PackedVector2Array(-15, -15, 15, -15, 15, 15, -15, 15)
+
+[node name="PCamTarget" type="Node2D" parent="Character"]
+script = ExtResource("4")
+
+[node name="Environment" type="Node2D" parent="."]
+
+[node name="Mountain1" type="Polygon2D" parent="Environment"]
+position = Vector2(400, 900)
+color = Color(0.2, 0.15, 0.3, 1)
+polygon = PackedVector2Array(0, 0, 200, -400, 400, 0)
+
+[node name="Mountain2" type="Polygon2D" parent="Environment"]
+position = Vector2(800, 900)
+color = Color(0.25, 0.2, 0.35, 1)
+polygon = PackedVector2Array(0, 0, 300, -500, 600, 0)
+
+[node name="Mountain3" type="Polygon2D" parent="Environment"]
+position = Vector2(1600, 900)
+color = Color(0.2, 0.15, 0.3, 1)
+polygon = PackedVector2Array(0, 0, 250, -450, 500, 0)
+
+[node name="Tree1" type="Polygon2D" parent="Environment"]
+position = Vector2(600, 700)
+color = Color(0.1, 0.3, 0.15, 1)
+polygon = PackedVector2Array(0, -60, 20, -20, -20, -20)
+
+[node name="Tree2" type="Polygon2D" parent="Environment"]
+position = Vector2(1800, 650)
+color = Color(0.1, 0.3, 0.15, 1)
+polygon = PackedVector2Array(0, -70, 25, -20, -25, -20)
+
+[node name="Ground" type="ColorRect" parent="Environment"]
+offset_top = 700.0
+offset_right = 2400.0
+offset_bottom = 900.0
+color = Color(0.15, 0.25, 0.15, 1)
+
+[node name="CinematicPoints" type="Node2D" parent="."]
+
+[node name="PCamCinematic1" type="Node2D" parent="CinematicPoints"]
+position = Vector2(800, 400)
+rotation = -0.2
+script = ExtResource("3")
+cinematic_id = "intro"
+hold_time = 1.5
+target_zoom = 1.5
+drag_speed = Vector2(3, 3)
+rotation_speed = 3.0
+zoom_speed = 3.0
+priority = 3
+
+[node name="PCamCinematic2" type="Node2D" parent="CinematicPoints"]
+position = Vector2(1600, 600)
+rotation = 0.3
+script = ExtResource("3")
+cinematic_id = "intro"
+hold_time = 1.2
+target_zoom = 0.8
+drag_speed = Vector2(4, 4)
+rotation_speed = 4.0
+zoom_speed = 4.0
+priority = 2
+
+[node name="PCamCinematic3" type="Node2D" parent="CinematicPoints"]
+position = Vector2(1200, 300)
+script = ExtResource("3")
+cinematic_id = "intro"
+hold_time = 1.5
+target_zoom = 2.0
+drag_speed = Vector2(2, 2)
+rotation_speed = 2.0
+zoom_speed = 2.0
+priority = 1
+
+[node name="PCamCinematic4" type="Node2D" parent="CinematicPoints"]
+position = Vector2(1200, 675)
+script = ExtResource("3")
+cinematic_id = "intro"
+hold_time = 0.8
+target_zoom = 1.0
+drag_speed = Vector2(5, 5)
+rotation_speed = 5.0
+zoom_speed = 5.0
+priority = 0
+
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="Instructions" type="Label" parent="UI"]
+visible = false
+offset_left = 20.0
+offset_top = 20.0
+offset_right = 620.0
+offset_bottom = 100.0
+theme_override_colors/font_color = Color(0.6, 0.9, 1, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.7)
+theme_override_constants/shadow_offset_x = 2
+theme_override_constants/shadow_offset_y = 2
+theme_override_font_sizes/font_size = 16
+text = "ProCam2D Cinematic Demo
+
+Press SPACE to replay the cinematic sequence
+Press ESC to reset"
+
+[node name="SpacePrompt" type="Label" parent="UI"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -200.0
+offset_top = -40.0
+offset_right = 200.0
+offset_bottom = 40.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.9, 1, 0.6, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.8)
+theme_override_constants/shadow_offset_x = 3
+theme_override_constants/shadow_offset_y = 3
+theme_override_font_sizes/font_size = 32
+text = "Press SPACE to start"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="PlayingLabel" type="Label" parent="UI"]
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -150.0
+offset_top = 250.0
+offset_right = 150.0
+offset_bottom = 290.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(1, 0.9, 0.5, 0.6)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.5)
+theme_override_constants/shadow_offset_x = 2
+theme_override_constants/shadow_offset_y = 2
+theme_override_font_sizes/font_size = 20
+text = "Cinematic Playing..."
+horizontal_alignment = 1
+
+[connection signal="cinematic_started" from="ProCam2D" to="." method="_on_cinematic_started"]
+[connection signal="cinematic_stopped" from="ProCam2D" to="." method="_on_cinematic_stopped"]

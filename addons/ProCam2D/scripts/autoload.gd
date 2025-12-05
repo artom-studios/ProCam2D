@@ -66,6 +66,25 @@ func unregister_camera(camera: Node2D) -> void:
 			else:
 				current_camera = null
 
+func update_camera_priority(changed_camera: Node2D) -> void:
+	# Find all cameras in the same viewport as the changed camera
+	var viewport = changed_camera.get_viewport()
+	var highest_priority_camera = null
+	var highest_priority = -999999
+	
+	for camera in cameras:
+		if camera.get_viewport() == viewport:
+			if camera.priority > highest_priority:
+				highest_priority = camera.priority
+				highest_priority_camera = camera
+	
+	# If we found a camera with the highest priority, make it current
+	if highest_priority_camera:
+		highest_priority_camera.make_current()
+		if viewport == get_viewport(): # If it's the main viewport, update current_camera reference
+			current_camera = highest_priority_camera
+
+
 func get_camera_by_id(id: String) -> Node2D:
 	for camera in cameras:
 		if "camera_id" in camera and camera.camera_id == id:

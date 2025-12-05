@@ -8,6 +8,7 @@ enum AxisConstraint {
 	Y
 }
 
+## Axis along which the camera is constrained to follow the path
 @export_enum("X","Y") var constraint_axis: int = AxisConstraint.Y
 
 var _path: Path2D: set = set_path

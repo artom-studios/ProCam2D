@@ -3,10 +3,15 @@ extends "pcam_base.gd"
 
 const GROUP_NAME = "procam_targets"
 
+## How much this target influences camera movement (0-1+ on X and Y axis)
 @export var influence: Vector2 = Vector2.ONE
+## How much this target's rotation influences camera rotation (0-1+)
 @export var rotation_influence: float = 1.0
+## Positional offset from the target's position
 @export var offset: Vector2 = Vector2.ZERO
+## Radius for auto-zoom calculations (visual debug circle)
 @export var radius: float = 50.0: set = set_radius
+## If true, camera ignores this target when it moves outside camera limits
 @export var disable_outside_limits: bool = true
 var velocity: Vector2 = Vector2.ZERO
 var acceleration: Vector2 = Vector2.ZERO

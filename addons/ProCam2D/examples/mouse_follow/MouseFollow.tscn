@@ -1,302 +1,300 @@
-[gd_scene load_steps=9 format=3 uid="uid://d1e2f3g4h5i6j"]
+[gd_scene load_steps=10 format=3 uid="uid://d1e2f3g4h5i6j"]
 
 [ext_resource type="PackedScene" uid="uid://c1m2x3n4p5q6r" path="res://addons/ProCam2D/examples/mouse_follow/Player.tscn" id="1"]
-[ext_resource type="Script" uid="uid://cehb0ngltjow3" path="res://addons/ProCam2D/scripts/procam2d.gd" id="2"]
-[ext_resource type="Script" path="res://addons/ProCam2D/scripts/core/addns/pcam_mouse_influence.gd" id="3"]
-[ext_resource type="Script" path="res://addons/ProCam2D/examples/mouse_follow/Crosshair.gd" id="4"]
-[ext_resource type="Script" path="res://addons/ProCam2D/examples/mouse_follow/GameManager.gd" id="5"]
-[ext_resource type="PackedScene" uid="uid://e1n2e3m4y5w6x" path="res://addons/ProCam2D/examples/mouse_follow/Enemy.tscn" id="6"]
+[ext_resource type="Script" uid="uid://2qj1e40noged" path="res://addons/ProCam2D/scripts/procam2d.gd" id="2"]
+[ext_resource type="Script" uid="uid://dh0uyf5fd3cbu" path="res://addons/ProCam2D/scripts/core/addons/pcam_mouse_influence.gd" id="3"]
+[ext_resource type="Script" uid="uid://eb7ke8n0mn0e" path="res://addons/ProCam2D/scripts/core/nodes/pcam_addon.gd" id="3_s15a5"]
+[ext_resource type="Script" uid="uid://1uiu6pbysg2m" path="res://addons/ProCam2D/examples/mouse_follow/Crosshair.gd" id="4"]
+[ext_resource type="Script" uid="uid://h8qf547hlgtr" path="res://addons/ProCam2D/examples/mouse_follow/GameManager.gd" id="5"]
+[ext_resource type="PackedScene" uid="uid://586s1pvfx2f6" path="res://addons/ProCam2D/examples/mouse_follow/Enemy.tscn" id="6"]
+
+[sub_resource type="Resource" id="2"]
+script = ExtResource("3")
+max_offset = Vector2(250, 250)
 
 [sub_resource type="RectangleShape2D" id="1"]
 size = Vector2(100, 100)
 
-[sub_resource type="Resource" id="2"]
-script = ExtResource("3")
-max_distance = 300.0
-influence = Vector2(0.5, 0.5)
-smoothing = 8.0
-deadzone_radius = 10.0
-priority = 0
-enabled = true
+[node name="MouseFollow" type="Node2D" unique_id=1011327077]
 
-[node name="MouseFollow" type="Node2D"]
-
-[node name="GameManager" type="Node" parent="."]
+[node name="GameManager" type="Node" parent="." unique_id=1959069690]
 script = ExtResource("5")
 
-[node name="EnemySpawnTimer" type="Timer" parent="GameManager"]
+[node name="EnemySpawnTimer" type="Timer" parent="GameManager" unique_id=2030042640]
 wait_time = 3.0
 autostart = true
 
-[node name="Background" type="ColorRect" parent="."]
+[node name="Background" type="ColorRect" parent="." unique_id=850250833]
 offset_right = 2400.0
 offset_bottom = 2400.0
 color = Color(0.0941176, 0.101961, 0.14902, 1)
 metadata/_edit_lock_ = true
 
-[node name="Grid" type="Node2D" parent="."]
+[node name="Grid" type="Node2D" parent="." unique_id=4391790]
 modulate = Color(1, 1, 1, 0.1)
 
-[node name="LineH1" type="ColorRect" parent="Grid"]
+[node name="LineH1" type="ColorRect" parent="Grid" unique_id=435866630]
 offset_top = 600.0
 offset_right = 2400.0
 offset_bottom = 602.0
 color = Color(0.4, 0.6, 0.8, 1)
 
-[node name="LineH2" type="ColorRect" parent="Grid"]
+[node name="LineH2" type="ColorRect" parent="Grid" unique_id=551046630]
 offset_top = 1200.0
 offset_right = 2400.0
 offset_bottom = 1202.0
 color = Color(0.4, 0.6, 0.8, 1)
 
-[node name="LineH3" type="ColorRect" parent="Grid"]
+[node name="LineH3" type="ColorRect" parent="Grid" unique_id=729582331]
 offset_top = 1800.0
 offset_right = 2400.0
 offset_bottom = 1802.0
 color = Color(0.4, 0.6, 0.8, 1)
 
-[node name="LineV1" type="ColorRect" parent="Grid"]
+[node name="LineV1" type="ColorRect" parent="Grid" unique_id=2082974271]
 offset_left = 600.0
 offset_right = 602.0
 offset_bottom = 2400.0
 color = Color(0.4, 0.6, 0.8, 1)
 
-[node name="LineV2" type="ColorRect" parent="Grid"]
+[node name="LineV2" type="ColorRect" parent="Grid" unique_id=496310443]
 offset_left = 1200.0
 offset_right = 1202.0
 offset_bottom = 2400.0
 color = Color(0.4, 0.6, 0.8, 1)
 
-[node name="LineV3" type="ColorRect" parent="Grid"]
+[node name="LineV3" type="ColorRect" parent="Grid" unique_id=201121656]
 offset_left = 1800.0
 offset_right = 1802.0
 offset_bottom = 2400.0
 color = Color(0.4, 0.6, 0.8, 1)
 
-[node name="ProCam2D" type="Node2D" parent="."]
+[node name="ProCam2D" type="Node2D" parent="." unique_id=10960207]
+z_index = 4096
+z_as_relative = false
 script = ExtResource("2")
-addons = Array[Resource]([SubResource("2")])
+addons = Array[ExtResource("3_s15a5")]([SubResource("2")])
 
-[node name="Player" parent="." instance=ExtResource("1")]
+[node name="Player" parent="." unique_id=184734483 instance=ExtResource("1")]
 position = Vector2(1200, 1200)
 
-[node name="Enemies" type="Node2D" parent="."]
+[node name="Enemies" type="Node2D" parent="." unique_id=1065946790]
 
-[node name="Enemy1" parent="Enemies" instance=ExtResource("6")]
+[node name="Enemy1" parent="Enemies" unique_id=872920052 instance=ExtResource("6")]
 position = Vector2(800, 600)
 
-[node name="Enemy2" parent="Enemies" instance=ExtResource("6")]
+[node name="Enemy2" parent="Enemies" unique_id=606863943 instance=ExtResource("6")]
 position = Vector2(1600, 800)
 
-[node name="Enemy3" parent="Enemies" instance=ExtResource("6")]
+[node name="Enemy3" parent="Enemies" unique_id=328645188 instance=ExtResource("6")]
 position = Vector2(600, 1600)
 
-[node name="Enemy4" parent="Enemies" instance=ExtResource("6")]
+[node name="Enemy4" parent="Enemies" unique_id=107757568 instance=ExtResource("6")]
 position = Vector2(1800, 1600)
 
-[node name="Enemy5" parent="Enemies" instance=ExtResource("6")]
+[node name="Enemy5" parent="Enemies" unique_id=2133530750 instance=ExtResource("6")]
 position = Vector2(1200, 400)
 
-[node name="Enemy6" parent="Enemies" instance=ExtResource("6")]
+[node name="Enemy6" parent="Enemies" unique_id=1796323124 instance=ExtResource("6")]
 position = Vector2(400, 1000)
 
-[node name="Obstacles" type="Node2D" parent="."]
+[node name="Obstacles" type="Node2D" parent="." unique_id=1849943961]
 
-[node name="Obstacle1" type="StaticBody2D" parent="Obstacles"]
+[node name="Obstacle1" type="StaticBody2D" parent="Obstacles" unique_id=1224644948]
 position = Vector2(600, 400)
 
-[node name="Visual" type="ColorRect" parent="Obstacles/Obstacle1"]
+[node name="Visual" type="ColorRect" parent="Obstacles/Obstacle1" unique_id=1880052540]
 offset_left = -50.0
 offset_top = -50.0
 offset_right = 50.0
 offset_bottom = 50.0
 color = Color(1, 0.5, 0.2, 1)
 
-[node name="Outline" type="ColorRect" parent="Obstacles/Obstacle1"]
+[node name="Outline" type="ColorRect" parent="Obstacles/Obstacle1" unique_id=1943064370]
+z_index = -1
 offset_left = -52.0
 offset_top = -52.0
 offset_right = 52.0
 offset_bottom = 52.0
 color = Color(0.8, 0.3, 0.1, 1)
-z_index = -1
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Obstacles/Obstacle1"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Obstacles/Obstacle1" unique_id=1568551106]
 shape = SubResource("1")
 
-[node name="Obstacle2" type="StaticBody2D" parent="Obstacles"]
+[node name="Obstacle2" type="StaticBody2D" parent="Obstacles" unique_id=1243256727]
 position = Vector2(1800, 600)
 
-[node name="Visual" type="ColorRect" parent="Obstacles/Obstacle2"]
+[node name="Visual" type="ColorRect" parent="Obstacles/Obstacle2" unique_id=1665532176]
 offset_left = -50.0
 offset_top = -50.0
 offset_right = 50.0
 offset_bottom = 50.0
 color = Color(1, 0.5, 0.2, 1)
 
-[node name="Outline" type="ColorRect" parent="Obstacles/Obstacle2"]
+[node name="Outline" type="ColorRect" parent="Obstacles/Obstacle2" unique_id=546860011]
+z_index = -1
 offset_left = -52.0
 offset_top = -52.0
 offset_right = 52.0
 offset_bottom = 52.0
 color = Color(0.8, 0.3, 0.1, 1)
-z_index = -1
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Obstacles/Obstacle2"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Obstacles/Obstacle2" unique_id=1828174379]
 shape = SubResource("1")
 
-[node name="Obstacle3" type="StaticBody2D" parent="Obstacles"]
+[node name="Obstacle3" type="StaticBody2D" parent="Obstacles" unique_id=711491658]
 position = Vector2(400, 1200)
 
-[node name="Visual" type="ColorRect" parent="Obstacles/Obstacle3"]
+[node name="Visual" type="ColorRect" parent="Obstacles/Obstacle3" unique_id=2022056546]
 offset_left = -50.0
 offset_top = -50.0
 offset_right = 50.0
 offset_bottom = 50.0
 color = Color(1, 0.5, 0.2, 1)
 
-[node name="Outline" type="ColorRect" parent="Obstacles/Obstacle3"]
+[node name="Outline" type="ColorRect" parent="Obstacles/Obstacle3" unique_id=725404778]
+z_index = -1
 offset_left = -52.0
 offset_top = -52.0
 offset_right = 52.0
 offset_bottom = 52.0
 color = Color(0.8, 0.3, 0.1, 1)
-z_index = -1
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Obstacles/Obstacle3"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Obstacles/Obstacle3" unique_id=959330933]
 shape = SubResource("1")
 
-[node name="Obstacle4" type="StaticBody2D" parent="Obstacles"]
+[node name="Obstacle4" type="StaticBody2D" parent="Obstacles" unique_id=1125357342]
 position = Vector2(2000, 1400)
 
-[node name="Visual" type="ColorRect" parent="Obstacles/Obstacle4"]
+[node name="Visual" type="ColorRect" parent="Obstacles/Obstacle4" unique_id=1873216466]
 offset_left = -50.0
 offset_top = -50.0
 offset_right = 50.0
 offset_bottom = 50.0
 color = Color(1, 0.5, 0.2, 1)
 
-[node name="Outline" type="ColorRect" parent="Obstacles/Obstacle4"]
+[node name="Outline" type="ColorRect" parent="Obstacles/Obstacle4" unique_id=2122379156]
+z_index = -1
 offset_left = -52.0
 offset_top = -52.0
 offset_right = 52.0
 offset_bottom = 52.0
 color = Color(0.8, 0.3, 0.1, 1)
-z_index = -1
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Obstacles/Obstacle4"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Obstacles/Obstacle4" unique_id=421586114]
 shape = SubResource("1")
 
-[node name="Obstacle5" type="StaticBody2D" parent="Obstacles"]
+[node name="Obstacle5" type="StaticBody2D" parent="Obstacles" unique_id=623871363]
 position = Vector2(800, 1800)
 
-[node name="Visual" type="ColorRect" parent="Obstacles/Obstacle5"]
+[node name="Visual" type="ColorRect" parent="Obstacles/Obstacle5" unique_id=527196178]
 offset_left = -50.0
 offset_top = -50.0
 offset_right = 50.0
 offset_bottom = 50.0
 color = Color(1, 0.5, 0.2, 1)
 
-[node name="Outline" type="ColorRect" parent="Obstacles/Obstacle5"]
+[node name="Outline" type="ColorRect" parent="Obstacles/Obstacle5" unique_id=1667736791]
+z_index = -1
 offset_left = -52.0
 offset_top = -52.0
 offset_right = 52.0
 offset_bottom = 52.0
 color = Color(0.8, 0.3, 0.1, 1)
-z_index = -1
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Obstacles/Obstacle5"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Obstacles/Obstacle5" unique_id=2121304382]
 shape = SubResource("1")
 
-[node name="Obstacle6" type="StaticBody2D" parent="Obstacles"]
+[node name="Obstacle6" type="StaticBody2D" parent="Obstacles" unique_id=637000747]
 position = Vector2(1600, 2000)
 
-[node name="Visual" type="ColorRect" parent="Obstacles/Obstacle6"]
+[node name="Visual" type="ColorRect" parent="Obstacles/Obstacle6" unique_id=121250668]
 offset_left = -50.0
 offset_top = -50.0
 offset_right = 50.0
 offset_bottom = 50.0
 color = Color(1, 0.5, 0.2, 1)
 
-[node name="Outline" type="ColorRect" parent="Obstacles/Obstacle6"]
+[node name="Outline" type="ColorRect" parent="Obstacles/Obstacle6" unique_id=261792040]
+z_index = -1
 offset_left = -52.0
 offset_top = -52.0
 offset_right = 52.0
 offset_bottom = 52.0
 color = Color(0.8, 0.3, 0.1, 1)
-z_index = -1
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Obstacles/Obstacle6"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Obstacles/Obstacle6" unique_id=413983724]
 shape = SubResource("1")
 
-[node name="Targets" type="Node2D" parent="."]
+[node name="Targets" type="Node2D" parent="." unique_id=635027086]
 
-[node name="Target1" type="Polygon2D" parent="Targets"]
+[node name="Target1" type="Polygon2D" parent="Targets" unique_id=359104192]
 position = Vector2(400, 400)
 color = Color(0.2, 0.8, 0.6, 1)
 polygon = PackedVector2Array(0, -30, 26, -9, 16, 24, -16, 24, -26, -9)
 
-[node name="Outline" type="Polygon2D" parent="Targets/Target1"]
+[node name="Outline" type="Polygon2D" parent="Targets/Target1" unique_id=2102655453]
+z_index = -1
 color = Color(0.1, 0.6, 0.4, 1)
 polygon = PackedVector2Array(0, -33, 28, -10, 18, 26, -18, 26, -28, -10)
-z_index = -1
 
-[node name="Target2" type="Polygon2D" parent="Targets"]
+[node name="Target2" type="Polygon2D" parent="Targets" unique_id=1291846818]
 position = Vector2(1200, 600)
 color = Color(0.2, 0.8, 0.6, 1)
 polygon = PackedVector2Array(0, -30, 26, -9, 16, 24, -16, 24, -26, -9)
 
-[node name="Outline" type="Polygon2D" parent="Targets/Target2"]
+[node name="Outline" type="Polygon2D" parent="Targets/Target2" unique_id=788126727]
+z_index = -1
 color = Color(0.1, 0.6, 0.4, 1)
 polygon = PackedVector2Array(0, -33, 28, -10, 18, 26, -18, 26, -28, -10)
-z_index = -1
 
-[node name="Target3" type="Polygon2D" parent="Targets"]
+[node name="Target3" type="Polygon2D" parent="Targets" unique_id=1241005140]
 position = Vector2(2000, 800)
 color = Color(0.2, 0.8, 0.6, 1)
 polygon = PackedVector2Array(0, -30, 26, -9, 16, 24, -16, 24, -26, -9)
 
-[node name="Outline" type="Polygon2D" parent="Targets/Target3"]
+[node name="Outline" type="Polygon2D" parent="Targets/Target3" unique_id=295396670]
+z_index = -1
 color = Color(0.1, 0.6, 0.4, 1)
 polygon = PackedVector2Array(0, -33, 28, -10, 18, 26, -18, 26, -28, -10)
-z_index = -1
 
-[node name="Target4" type="Polygon2D" parent="Targets"]
+[node name="Target4" type="Polygon2D" parent="Targets" unique_id=280443071]
 position = Vector2(600, 1600)
 color = Color(0.2, 0.8, 0.6, 1)
 polygon = PackedVector2Array(0, -30, 26, -9, 16, 24, -16, 24, -26, -9)
 
-[node name="Outline" type="Polygon2D" parent="Targets/Target4"]
+[node name="Outline" type="Polygon2D" parent="Targets/Target4" unique_id=1152002320]
+z_index = -1
 color = Color(0.1, 0.6, 0.4, 1)
 polygon = PackedVector2Array(0, -33, 28, -10, 18, 26, -18, 26, -28, -10)
-z_index = -1
 
-[node name="Target5" type="Polygon2D" parent="Targets"]
+[node name="Target5" type="Polygon2D" parent="Targets" unique_id=369044570]
 position = Vector2(1800, 1800)
 color = Color(0.2, 0.8, 0.6, 1)
 polygon = PackedVector2Array(0, -30, 26, -9, 16, 24, -16, 24, -26, -9)
 
-[node name="Outline" type="Polygon2D" parent="Targets/Target5"]
+[node name="Outline" type="Polygon2D" parent="Targets/Target5" unique_id=467673277]
+z_index = -1
 color = Color(0.1, 0.6, 0.4, 1)
 polygon = PackedVector2Array(0, -33, 28, -10, 18, 26, -18, 26, -28, -10)
-z_index = -1
 
-[node name="Target6" type="Polygon2D" parent="Targets"]
+[node name="Target6" type="Polygon2D" parent="Targets" unique_id=1283234897]
 position = Vector2(1400, 2000)
 color = Color(0.2, 0.8, 0.6, 1)
 polygon = PackedVector2Array(0, -30, 26, -9, 16, 24, -16, 24, -26, -9)
 
-[node name="Outline" type="Polygon2D" parent="Targets/Target6"]
+[node name="Outline" type="Polygon2D" parent="Targets/Target6" unique_id=1187676013]
+z_index = -1
 color = Color(0.1, 0.6, 0.4, 1)
 polygon = PackedVector2Array(0, -33, 28, -10, 18, 26, -18, 26, -28, -10)
-z_index = -1
 
-[node name="UI" type="CanvasLayer" parent="."]
+[node name="UI" type="CanvasLayer" parent="." unique_id=861376035]
 
-[node name="Instructions" type="Label" parent="UI"]
-offset_left = 20.0
+[node name="Instructions" type="Label" parent="UI" unique_id=673704632]
+offset_left = 22.0
 offset_top = 20.0
-offset_right = 520.0
-offset_bottom = 140.0
+offset_right = 522.0
+offset_bottom = 225.0
 theme_override_colors/font_color = Color(0.4, 0.8, 1, 1)
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.5)
 theme_override_constants/shadow_offset_x = 2
@@ -311,11 +309,11 @@ Left Click: Shoot
 Survive and rack up points! Notice how the camera
 shifts toward your cursor for better aim visibility."
 
-[node name="ScoreLabel" type="Label" parent="UI"]
-offset_left = 20.0
-offset_top = 160.0
-offset_right = 300.0
-offset_bottom = 190.0
+[node name="ScoreLabel" type="Label" parent="UI" unique_id=1032620164]
+offset_left = 717.0
+offset_top = 13.0
+offset_right = 997.0
+offset_bottom = 47.0
 theme_override_colors/font_color = Color(1, 0.9, 0.4, 1)
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.5)
 theme_override_constants/shadow_offset_x = 2
@@ -323,11 +321,11 @@ theme_override_constants/shadow_offset_y = 2
 theme_override_font_sizes/font_size = 24
 text = "Score: 0"
 
-[node name="HighScoreLabel" type="Label" parent="UI"]
-offset_left = 20.0
-offset_top = 195.0
-offset_right = 300.0
-offset_bottom = 225.0
+[node name="HighScoreLabel" type="Label" parent="UI" unique_id=1375923312]
+offset_left = 715.0
+offset_top = 50.0
+offset_right = 995.0
+offset_bottom = 80.0
 theme_override_colors/font_color = Color(0.9, 0.5, 1, 1)
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.5)
 theme_override_constants/shadow_offset_x = 2
@@ -335,7 +333,7 @@ theme_override_constants/shadow_offset_y = 2
 theme_override_font_sizes/font_size = 20
 text = "High Score: 0"
 
-[node name="Crosshair" type="Control" parent="UI"]
+[node name="Crosshair" type="Control" parent="UI" unique_id=2019511824]
 visible = false
 layout_mode = 3
 anchors_preset = 0
@@ -344,7 +342,7 @@ offset_bottom = 40.0
 mouse_filter = 2
 script = ExtResource("4")
 
-[node name="H" type="ColorRect" parent="UI/Crosshair"]
+[node name="H" type="ColorRect" parent="UI/Crosshair" unique_id=859467746]
 layout_mode = 0
 offset_left = -10.0
 offset_top = -1.0
@@ -353,7 +351,7 @@ offset_bottom = 1.0
 mouse_filter = 2
 color = Color(1, 1, 1, 0.6)
 
-[node name="V" type="ColorRect" parent="UI/Crosshair"]
+[node name="V" type="ColorRect" parent="UI/Crosshair" unique_id=1344912485]
 layout_mode = 0
 offset_left = -1.0
 offset_top = -10.0

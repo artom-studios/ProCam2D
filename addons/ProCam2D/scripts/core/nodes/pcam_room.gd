@@ -95,18 +95,21 @@ func _get_property_list():
 	properties.append({
 		"name": "room_size",
 		"type": TYPE_VECTOR2,
-		"usage": PROPERTY_USAGE_DEFAULT
+		"usage": PROPERTY_USAGE_DEFAULT,
+		"hint_tooltip": "Dimensions of the room that constrains the camera"
 	})
 	properties.append({
 		"name": "zoom",
 		"type": TYPE_FLOAT,
-		"usage": PROPERTY_USAGE_DEFAULT
+		"usage": PROPERTY_USAGE_DEFAULT,
+		"hint_tooltip": "Minimum zoom level enforced within this room"
 	})
 	properties.append({
 		"name": "open_sides",
 		"type": TYPE_INT,
 		"hint": PROPERTY_HINT_FLAGS,
 		"hint_string": "Left, Right, Top, Bottom",
-		"usage": PROPERTY_USAGE_DEFAULT
+		"usage": PROPERTY_USAGE_DEFAULT,
+		"hint_tooltip": "Which sides of the room are open (camera can exit through these)"
 	})
 	return properties
