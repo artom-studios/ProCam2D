@@ -68,6 +68,8 @@ func _ready2():
 func post_smoothing(camera, delta):
 	if not _is_shaking:
 		return
+	
+	# print("Shaking! Time: ", _time_elapsed, " Trauma: ", _current_trauma)
 
 	if _time_elapsed == 0:
 		_initial_rotation = camera._current_rotation
@@ -117,7 +119,7 @@ func post_smoothing(camera, delta):
 
 	camera._current_rotation = _initial_rotation + rotation_offset
 	camera._current_zoom += zoom_offset
-	camera._current_position += offset
+	camera._shake_offset += offset
 
 
 	# Stop conditions

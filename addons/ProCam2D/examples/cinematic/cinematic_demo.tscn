@@ -1,74 +1,105 @@
-[gd_scene load_steps=5 format=3]
+[gd_scene load_steps=5 format=3 uid="uid://7ku8mqpkehbl"]
 
-[ext_resource type="Script" uid="uid://bf1lb6ya6j71o" path="res://addons/ProCam2D/examples/cinematic/cinematic_demo.gd" id="1"]
+[ext_resource type="Script" uid="uid://y16x1f1rarnc" path="res://addons/ProCam2D/examples/cinematic/assets/cinematic_demo.gd" id="1"]
 [ext_resource type="Script" uid="uid://2qj1e40noged" path="res://addons/ProCam2D/scripts/procam2d.gd" id="2"]
 [ext_resource type="Script" uid="uid://pqjp5nldbx4s" path="res://addons/ProCam2D/scripts/pcam_cinematic.gd" id="3"]
 [ext_resource type="Script" uid="uid://b4rf4nj3rhndx" path="res://addons/ProCam2D/scripts/pcam_target.gd" id="4"]
 
-
-[node name="CinematicDemo" type="Node2D"]
+[node name="CinematicDemo" type="Node2D" unique_id=47843722]
 script = ExtResource("1")
 
-[node name="Background" type="ColorRect" parent="."]
+[node name="Background" type="ColorRect" parent="." unique_id=1000811405]
 offset_right = 2400.0
 offset_bottom = 1350.0
 color = Color(0.0509804, 0.0313726, 0.0784314, 1)
 
-[node name="ProCam2D" type="Node2D" parent="."]
+[node name="ProCam2D" type="Node2D" parent="." unique_id=722991602]
+z_index = 4096
+z_as_relative = false
 position = Vector2(1200, 675)
 script = ExtResource("2")
+process_frame = 1
+follow_mode = 0
+drag_type = 0
+smooth_drag = true
+smooth_drag_speed = Vector2(5, 5)
+max_distance = Vector2(100000, 100000)
+offset = Vector2(0, 0)
+smooth_offset = true
+smooth_offset_speed = 2.0
+allow_rotation = true
+smooth_rotation = true
+smooth_rotation_speed = 5.0
+zoom = 1.0
+smooth_zoom = true
+smooth_zoom_speed = 5.0
+auto_zoom = true
+min_zoom = 0.01
+max_zoom = 1.0
+zoom_margin = 5.0
+smooth_limit = true
+left_limit = -10000000
+right_limit = 10000000
+top_limit = -10000000
+bottom_limit = 10000000
+use_h_margins = false
+use_v_margins = false
+working_radius = 2000.0
+global_debug_draw = false
 
-[node name="Character" type="Node2D" parent="."]
+[node name="Character" type="Node2D" parent="." unique_id=1886043102]
 position = Vector2(1200, 675)
 
-[node name="Body" type="Polygon2D" parent="Character"]
+[node name="Body" type="Polygon2D" parent="Character" unique_id=248070789]
 color = Color(0.4, 0.7, 1, 1)
 polygon = PackedVector2Array(-20, -40, 20, -40, 20, 20, -20, 20)
 
-[node name="Head" type="Polygon2D" parent="Character"]
+[node name="Head" type="Polygon2D" parent="Character" unique_id=1372110298]
 position = Vector2(0, -50)
 color = Color(0.9, 0.8, 0.7, 1)
 polygon = PackedVector2Array(-15, -15, 15, -15, 15, 15, -15, 15)
 
-[node name="PCamTarget" type="Node2D" parent="Character"]
+[node name="PCamTarget" type="Node2D" parent="Character" unique_id=89963845]
 script = ExtResource("4")
 
-[node name="Environment" type="Node2D" parent="."]
+[node name="Environment" type="Node2D" parent="." unique_id=1726276901]
 
-[node name="Mountain1" type="Polygon2D" parent="Environment"]
+[node name="Mountain1" type="Polygon2D" parent="Environment" unique_id=413539039]
 position = Vector2(400, 900)
 color = Color(0.2, 0.15, 0.3, 1)
 polygon = PackedVector2Array(0, 0, 200, -400, 400, 0)
 
-[node name="Mountain2" type="Polygon2D" parent="Environment"]
+[node name="Mountain2" type="Polygon2D" parent="Environment" unique_id=813427848]
 position = Vector2(800, 900)
 color = Color(0.25, 0.2, 0.35, 1)
 polygon = PackedVector2Array(0, 0, 300, -500, 600, 0)
 
-[node name="Mountain3" type="Polygon2D" parent="Environment"]
+[node name="Mountain3" type="Polygon2D" parent="Environment" unique_id=1568575175]
 position = Vector2(1600, 900)
 color = Color(0.2, 0.15, 0.3, 1)
 polygon = PackedVector2Array(0, 0, 250, -450, 500, 0)
 
-[node name="Tree1" type="Polygon2D" parent="Environment"]
+[node name="Tree1" type="Polygon2D" parent="Environment" unique_id=1797603786]
 position = Vector2(600, 700)
 color = Color(0.1, 0.3, 0.15, 1)
 polygon = PackedVector2Array(0, -60, 20, -20, -20, -20)
 
-[node name="Tree2" type="Polygon2D" parent="Environment"]
+[node name="Tree2" type="Polygon2D" parent="Environment" unique_id=1617803107]
 position = Vector2(1800, 650)
 color = Color(0.1, 0.3, 0.15, 1)
 polygon = PackedVector2Array(0, -70, 25, -20, -25, -20)
 
-[node name="Ground" type="ColorRect" parent="Environment"]
+[node name="Ground" type="ColorRect" parent="Environment" unique_id=1024894561]
 offset_top = 700.0
 offset_right = 2400.0
 offset_bottom = 900.0
 color = Color(0.15, 0.25, 0.15, 1)
 
-[node name="CinematicPoints" type="Node2D" parent="."]
+[node name="CinematicPoints" type="Node2D" parent="." unique_id=1957353205]
 
-[node name="PCamCinematic1" type="Node2D" parent="CinematicPoints"]
+[node name="PCamCinematic1" type="Node2D" parent="CinematicPoints" unique_id=1624970341]
+z_index = 4096
+z_as_relative = false
 position = Vector2(800, 400)
 rotation = -0.2
 script = ExtResource("3")
@@ -80,9 +111,11 @@ rotation_speed = 3.0
 zoom_speed = 3.0
 priority = 3
 
-[node name="PCamCinematic2" type="Node2D" parent="CinematicPoints"]
+[node name="PCamCinematic2" type="Node2D" parent="CinematicPoints" unique_id=244759970]
+z_index = 4096
+z_as_relative = false
 position = Vector2(1600, 600)
-rotation = 0.3
+rotation = -0.98679584
 script = ExtResource("3")
 cinematic_id = "intro"
 hold_time = 1.2
@@ -92,8 +125,10 @@ rotation_speed = 4.0
 zoom_speed = 4.0
 priority = 2
 
-[node name="PCamCinematic3" type="Node2D" parent="CinematicPoints"]
-position = Vector2(1200, 300)
+[node name="PCamCinematic3" type="Node2D" parent="CinematicPoints" unique_id=1611711174]
+z_index = 4096
+z_as_relative = false
+position = Vector2(1382, 109)
 script = ExtResource("3")
 cinematic_id = "intro"
 hold_time = 1.5
@@ -103,20 +138,17 @@ rotation_speed = 2.0
 zoom_speed = 2.0
 priority = 1
 
-[node name="PCamCinematic4" type="Node2D" parent="CinematicPoints"]
+[node name="PCamCinematic4" type="Node2D" parent="CinematicPoints" unique_id=579828797]
+z_index = 4096
+z_as_relative = false
 position = Vector2(1200, 675)
 script = ExtResource("3")
 cinematic_id = "intro"
 hold_time = 0.8
-target_zoom = 1.0
-drag_speed = Vector2(5, 5)
-rotation_speed = 5.0
-zoom_speed = 5.0
-priority = 0
 
-[node name="UI" type="CanvasLayer" parent="."]
+[node name="UI" type="CanvasLayer" parent="." unique_id=1689515915]
 
-[node name="Instructions" type="Label" parent="UI"]
+[node name="Instructions" type="Label" parent="UI" unique_id=1138458578]
 visible = false
 offset_left = 20.0
 offset_top = 20.0
@@ -132,7 +164,7 @@ text = "ProCam2D Cinematic Demo
 Press SPACE to replay the cinematic sequence
 Press ESC to reset"
 
-[node name="SpacePrompt" type="Label" parent="UI"]
+[node name="SpacePrompt" type="Label" parent="UI" unique_id=805135440]
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -153,7 +185,7 @@ text = "Press SPACE to start"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="PlayingLabel" type="Label" parent="UI"]
+[node name="PlayingLabel" type="Label" parent="UI" unique_id=1969378932]
 visible = false
 anchors_preset = 8
 anchor_left = 0.5

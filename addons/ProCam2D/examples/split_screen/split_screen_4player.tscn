@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=3 uid="uid://bm46sfxhpo6mx"]
 
 [ext_resource type="Script" uid="uid://2qj1e40noged" path="res://addons/ProCam2D/scripts/procam2d.gd" id="1_pcam"]
-[ext_resource type="Script" uid="uid://55sk1qclhrwv" path="res://addons/ProCam2D/examples/split_screen/split_screen_4player.gd" id="1_script"]
+[ext_resource type="Script" uid="uid://b464pbm2sve6d" path="res://addons/ProCam2D/examples/split_screen/assets/split_screen_4player.gd" id="1_script"]
 [ext_resource type="Script" uid="uid://b4rf4nj3rhndx" path="res://addons/ProCam2D/scripts/pcam_target.gd" id="2_target"]
 [ext_resource type="Texture2D" uid="uid://1ljgu0r8fru2" path="res://icon.svg" id="3_icon"]
 [ext_resource type="Script" uid="uid://yegndmy2xge4" path="res://addons/ProCam2D/scripts/core/nodes/pcam_magnet.gd" id="6_magnet"]
@@ -35,7 +35,7 @@ stretch = true
 
 [node name="SubViewport" type="SubViewport" parent="GridContainer/SubViewportContainer1" unique_id=201659452]
 handle_input_locally = false
-size = Vector2i(574, 322)
+size = Vector2i(2, 2)
 render_target_update_mode = 4
 
 [node name="World" type="Node2D" parent="GridContainer/SubViewportContainer1/SubViewport" unique_id=475189746]
@@ -193,7 +193,7 @@ stretch = true
 
 [node name="SubViewport" type="SubViewport" parent="GridContainer/SubViewportContainer2" unique_id=1158591241]
 handle_input_locally = false
-size = Vector2i(573, 322)
+size = Vector2i(2, 2)
 render_target_update_mode = 4
 
 [node name="ProCam2D_P2" type="Node2D" parent="GridContainer/SubViewportContainer2/SubViewport" unique_id=1263172687]
@@ -244,7 +244,7 @@ stretch = true
 
 [node name="SubViewport" type="SubViewport" parent="GridContainer/SubViewportContainer3" unique_id=586870391]
 handle_input_locally = false
-size = Vector2i(574, 321)
+size = Vector2i(2, 2)
 render_target_update_mode = 4
 
 [node name="ProCam2D_P3" type="Node2D" parent="GridContainer/SubViewportContainer3/SubViewport" unique_id=1443912612]
@@ -295,7 +295,7 @@ stretch = true
 
 [node name="SubViewport" type="SubViewport" parent="GridContainer/SubViewportContainer4" unique_id=1087322422]
 handle_input_locally = false
-size = Vector2i(573, 321)
+size = Vector2i(2, 2)
 render_target_update_mode = 4
 
 [node name="ProCam2D_P4" type="Node2D" parent="GridContainer/SubViewportContainer4/SubViewport" unique_id=786359499]

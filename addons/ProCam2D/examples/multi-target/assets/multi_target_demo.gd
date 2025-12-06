@@ -46,7 +46,7 @@ func _update_radii():
 	for i in range(targets.size()):
 		var pcam_target = targets[i].get_node("PCamTarget")
 		if i == current_focus_index:
-			pcam_target.radius = 200.0  # Larger radius = camera gives more space
+			pcam_target.radius = 300.0  # Larger radius = camera gives more space
 		else:
 			pcam_target.radius = 100.0  # Normal radius
 	

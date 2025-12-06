@@ -1,6 +1,6 @@
-[gd_scene load_steps=3 format=3 uid="uid://e1n2e3m4y5w6x"]
+[gd_scene load_steps=3 format=3 uid="uid://586s1pvfx2f6"]
 
-[ext_resource type="Script" path="res://addons/ProCam2D/examples/mouse_follow/Enemy.gd" id="1"]
+[ext_resource type="Script" uid="uid://cksje3aosnsst" path="res://addons/ProCam2D/examples/mouse_follow/assets/Enemy.gd" id="1"]
 
 [sub_resource type="CircleShape2D" id="1"]
 radius = 18.0

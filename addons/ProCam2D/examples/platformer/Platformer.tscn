@@ -1,12 +1,24 @@
-[gd_scene load_steps=4 format=3 uid="uid://cyb8shk10shk1"]
+[gd_scene load_steps=7 format=3 uid="uid://cyb8shk10shk1"]
 
-[ext_resource type="PackedScene" uid="uid://l1glbpf6ynxf" path="res://addons/ProCam2D/examples/platformer/Player.tscn" id="1"]
+[ext_resource type="PackedScene" uid="uid://l1glbpf6ynxf" path="res://addons/ProCam2D/examples/platformer/assets/Player.tscn" id="1"]
 [ext_resource type="Script" uid="uid://2qj1e40noged" path="res://addons/ProCam2D/scripts/procam2d.gd" id="2_ax3jb"]
+[ext_resource type="Script" uid="uid://eb7ke8n0mn0e" path="res://addons/ProCam2D/scripts/core/nodes/pcam_addon.gd" id="2_oi0k6"]
+[ext_resource type="Script" uid="uid://vgkxfwv860g2" path="res://addons/ProCam2D/scripts/core/addons/pcam_shake.gd" id="3_ulp51"]
+
+[sub_resource type="Resource" id="Resource_7ns4d"]
+script = ExtResource("3_ulp51")
+preset = 5
+intensity = 2.0
+shake_type = 17
+trauma_attack = 0.05
+trauma_decay = 0.1
+duration = 0.1
+metadata/_custom_type_script = "uid://vgkxfwv860g2"
 
 [sub_resource type="RectangleShape2D" id="1"]
 size = Vector2(256, 32)
 
-[node name="Platformer" type="Node2D" unique_id=1937280997]
+[node name="Platformer4" type="Node2D" unique_id=1937280997]
 
 [node name="ParallaxBackground" type="ParallaxBackground" parent="." unique_id=660616182]
 
@@ -88,10 +100,12 @@ offset_right = 1680.0
 offset_bottom = 900.0
 color = Color(0.305882, 0.215686, 0.439216, 1)
 
-[node name="ProCam2D" type="Node2D" parent="." unique_id=1352717533]
+[node name="ProCam2D" type="Node2D" parent="." unique_id=534386572]
 z_index = 4096
 z_as_relative = false
 script = ExtResource("2_ax3jb")
+addons = Array[ExtResource("2_oi0k6")]([SubResource("Resource_7ns4d")])
+pixel_perfect = true
 process_frame = 1
 follow_mode = 0
 drag_type = 0
@@ -101,7 +115,9 @@ max_distance = Vector2(100000, 100000)
 offset = Vector2(0, 0)
 smooth_offset = true
 smooth_offset_speed = 2.0
-allow_rotation = false
+allow_rotation = true
+smooth_rotation = true
+smooth_rotation_speed = 5.0
 zoom = 1.0
 smooth_zoom = true
 smooth_zoom_speed = 5.0
@@ -114,10 +130,15 @@ left_limit = -10000000
 right_limit = 10000000
 top_limit = -10000000
 bottom_limit = 10000000
-use_h_margins = false
-use_v_margins = false
+use_h_margins = true
+use_v_margins = true
+left_margin = 0.3
+right_margin = 0.3
+top_margin = 0.3
+bottom_margin = 0.3
 working_radius = 2000.0
 global_debug_draw = false
+metadata/_custom_type_script = "uid://2qj1e40noged"
 
 [node name="Player" parent="." unique_id=1406953685 instance=ExtResource("1")]
 position = Vector2(200, 800)

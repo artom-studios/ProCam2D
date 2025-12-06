@@ -1,12 +1,12 @@
 [gd_scene load_steps=10 format=3 uid="uid://d1e2f3g4h5i6j"]
 
-[ext_resource type="PackedScene" uid="uid://c1m2x3n4p5q6r" path="res://addons/ProCam2D/examples/mouse_follow/Player.tscn" id="1"]
+[ext_resource type="PackedScene" uid="uid://c1m2x3n4p5q6r" path="res://addons/ProCam2D/examples/mouse_follow/assets/Player.tscn" id="1"]
 [ext_resource type="Script" uid="uid://2qj1e40noged" path="res://addons/ProCam2D/scripts/procam2d.gd" id="2"]
 [ext_resource type="Script" uid="uid://dh0uyf5fd3cbu" path="res://addons/ProCam2D/scripts/core/addons/pcam_mouse_influence.gd" id="3"]
 [ext_resource type="Script" uid="uid://eb7ke8n0mn0e" path="res://addons/ProCam2D/scripts/core/nodes/pcam_addon.gd" id="3_s15a5"]
-[ext_resource type="Script" uid="uid://1uiu6pbysg2m" path="res://addons/ProCam2D/examples/mouse_follow/Crosshair.gd" id="4"]
-[ext_resource type="Script" uid="uid://h8qf547hlgtr" path="res://addons/ProCam2D/examples/mouse_follow/GameManager.gd" id="5"]
-[ext_resource type="PackedScene" uid="uid://586s1pvfx2f6" path="res://addons/ProCam2D/examples/mouse_follow/Enemy.tscn" id="6"]
+[ext_resource type="Script" uid="uid://bi4jh613pyqui" path="res://addons/ProCam2D/examples/mouse_follow/assets/Crosshair.gd" id="4"]
+[ext_resource type="Script" uid="uid://c2w6fr4aiufxi" path="res://addons/ProCam2D/examples/mouse_follow/assets/GameManager.gd" id="5"]
+[ext_resource type="PackedScene" uid="uid://586s1pvfx2f6" path="res://addons/ProCam2D/examples/mouse_follow/assets/Enemy.tscn" id="6"]
 
 [sub_resource type="Resource" id="2"]
 script = ExtResource("3")
@@ -74,6 +74,32 @@ z_index = 4096
 z_as_relative = false
 script = ExtResource("2")
 addons = Array[ExtResource("3_s15a5")]([SubResource("2")])
+process_frame = 1
+follow_mode = 0
+drag_type = 0
+smooth_drag = true
+smooth_drag_speed = Vector2(5, 5)
+max_distance = Vector2(100000, 100000)
+offset = Vector2(0, 0)
+smooth_offset = true
+smooth_offset_speed = 2.0
+allow_rotation = false
+zoom = 1.0
+smooth_zoom = true
+smooth_zoom_speed = 5.0
+auto_zoom = true
+min_zoom = 0.01
+max_zoom = 1.0
+zoom_margin = 5.0
+smooth_limit = true
+left_limit = -10000000
+right_limit = 10000000
+top_limit = -10000000
+bottom_limit = 10000000
+use_h_margins = false
+use_v_margins = false
+working_radius = 2000.0
+global_debug_draw = false
 
 [node name="Player" parent="." unique_id=184734483 instance=ExtResource("1")]
 position = Vector2(1200, 1200)

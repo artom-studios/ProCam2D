@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://dc0oihdp75ppv"]
 
-[ext_resource type="Script" uid="uid://c2yl3aieifear" path="res://addons/ProCam2D/examples/screen shake/shake_demo.gd" id="1"]
+[ext_resource type="Script" uid="uid://bpe420b0drcx8" path="res://addons/ProCam2D/examples/screen shake/assets/shake_demo.gd" id="1"]
 [ext_resource type="Script" uid="uid://2qj1e40noged" path="res://addons/ProCam2D/scripts/procam2d.gd" id="2"]
 
 [node name="ShakeDemo" type="Node2D" unique_id=1607116948]

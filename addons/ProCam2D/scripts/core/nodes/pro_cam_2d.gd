@@ -31,7 +31,7 @@ var smooth_offset_speed: float = 2.0
 var allow_rotation: bool = false: set = set_allow_rotation
 var smooth_rotation: bool = true: set = set_smooth_rotation
 var smooth_rotation_speed: float = 5.0
-var zoom: float = 1.0 : set = sett_zoom
+var zoom: float = 1.0 : set = _set_zoom_property
 var smooth_zoom: bool = true: set = set_smooth_zoom
 var smooth_zoom_speed: float = 5.0
 var auto_zoom: bool = true: set = set_auto_zoom
@@ -52,6 +52,7 @@ var bottom_margin: float = 0.3
 var working_radius := 2000.0
 var global_debug_draw := false: set = set_global_debug_draw
 @export var addons: Array[PCamAddon] = []
+@export var pixel_perfect: bool = false
 
 var _cell_size := 8000.0
 var _global_debug_draw: bool
@@ -67,7 +68,8 @@ var _current_rotation_velocity: float = 0.0
 var _current_zoom: float = 1.0
 var _target_zoom: float = 0.0
 var _current_zoom_velocity: float = 0.0
-var _margin_offset: Vector2 = Vector2.ZERO
+var _shake_offset: Vector2 = Vector2.ZERO
+var _last_target_position: Vector2 = Vector2.ZERO
 var _velocity: Vector2
 var _camera: Camera2D
 var _spatial_hash = {}
@@ -157,11 +159,13 @@ func _setup_camera() -> void:
 	top_level = true
 	_current_position = global_position
 	_current_rotation = global_rotation
+	_current_offset = offset.rotated(_current_rotation)
+	_last_target_position = global_position - _current_offset
 	_current_zoom = zoom
 	_camera.ignore_rotation = false
 	_update_limits()
 	set_global_debug_draw(_global_debug_draw)
-	set_tha_process_mode(_pm)
+	set_process_frame(_pm)
 	_camera.set_process_mode(process_frame)
 	_camera.enabled = true
 	_camera.ignore_rotation = false
@@ -271,8 +275,8 @@ func _on_node_position_changed(node):
 	_remove_from_spatial_hash(node)
 	_add_to_spatial_hash(node)
 
-func _get_nodes_in_group(group_name: String) -> Array:
 	# Deprecated or used for fallback?
+func _get_nodes_in_group(group_name: String) -> Array:
 	# We should use the cached lists now.
 	match group_name:
 		"procam_targets": return _known_targets
@@ -287,6 +291,7 @@ func _update(delta: float) -> void:
 	if Engine.is_editor_hint():
 		return
 	_update_targets(delta)
+	_target_offset = offset.rotated(_current_rotation) if not _playing_cinematic else Vector2.ZERO
 	_target_position = _calculate_target_position()
 	_target_rotation = _calculate_target_rotation()
 	_target_zoom = _calculate_target_zoom()
@@ -339,6 +344,7 @@ func _apply_influences():
 	_target_position = _apply_cinematic_influences(_target_position)
 
 func _update_offset(delta: float) -> void:
+	
 	if smooth_offset:
 		var result_x = PCamUtils.smooth_damp(_current_offset.x, _target_offset.x, _current_offset_velocity.x, smooth_offset_speed, INF, delta)
 		_current_offset.x = result_x.new_position
@@ -482,7 +488,8 @@ func _apply_deadzones(target_position: Vector2) -> Vector2:
 		return target_position
 	
 	var drag_rect = _calculate_deadzone_rect()
-	_margin_offset = target_position - global_position
+	var camera_center = _last_target_position
+	var _margin_offset = target_position - camera_center
 	var rotated_offset = _margin_offset.rotated(-_current_rotation)
 	
 	var camera_movement = Vector2.ZERO
@@ -497,11 +504,16 @@ func _apply_deadzones(target_position: Vector2) -> Vector2:
 	elif rotated_offset.y > drag_rect.end.y:
 		camera_movement.y = rotated_offset.y - drag_rect.end.y
 	
-	camera_movement = global_position + camera_movement.rotated(_current_rotation)
-	return Vector2(camera_movement.x if use_h_margins else target_position.x,
-				   camera_movement.y if use_v_margins else target_position.y)
+	camera_movement = camera_center + camera_movement.rotated(_current_rotation)
+	
+	if !use_h_margins:
+		camera_movement.x = target_position.x
+	if !use_v_margins:
+		camera_movement.y = target_position.y
+		
+	_last_target_position = camera_movement
+	return camera_movement
 
-@export var pixel_perfect: bool = false
 
 func add_trauma(amount: float) -> void:
 	for addon in addons:
@@ -510,7 +522,7 @@ func add_trauma(amount: float) -> void:
 			return
 
 func _apply_transforms() -> void:
-	var final_pos = _current_position
+	var final_pos = _current_position + _shake_offset
 	var final_rot = _current_rotation
 	
 	if pixel_perfect:
@@ -519,6 +531,9 @@ func _apply_transforms() -> void:
 	global_position = final_pos
 	global_rotation = final_rot
 	_camera.zoom = Vector2(_current_zoom,_current_zoom)
+	
+	# Reset shake offset for next frame
+	_shake_offset = Vector2.ZERO
 
 func _calculate_deadzone_rect() -> Rect2:
 	var size = _viewport_size / _current_zoom
@@ -663,6 +678,7 @@ func _draw_debug() -> void:
 	# Draw drag margin rect
 	if use_h_margins or use_v_margins:
 		var drag_rect = _calculate_deadzone_rect()
+		drag_rect.position -= _current_offset
 		draw_rect(drag_rect, debug_color[0], false)
 	
 	# Draw camera limits rect
@@ -675,10 +691,13 @@ func _draw_debug() -> void:
 
 # Public methods
 func reset_camera():
-	global_position = _calculate_target_position()
+	var raw_target = _calculate_target_position()
+	global_position = raw_target
+	_current_offset = offset
+	_current_position = raw_target + _current_offset
+	_last_target_position = raw_target
 	global_rotation = _calculate_target_rotation()
 	_current_zoom = _calculate_target_zoom()
-	_current_offset = offset
 	_current_velocity = Vector2.ZERO
 	_current_rotation_velocity = 0
 	_current_offset_velocity = Vector2.ZERO
@@ -687,6 +706,7 @@ func reset_camera():
 
 func set_position(new_position: Vector2):
 	_current_position = new_position
+	_last_target_position = new_position - _current_offset
 	_apply_transforms()
 
 func set_rotation(new_rotation: float):
@@ -697,12 +717,12 @@ func set_zoom(new_zoom: float):
 	_current_zoom = new_zoom
 	_apply_transforms()
 
-func sett_zoom(new_zoom: float):
+func _set_zoom_property(new_zoom: float):
 	# Ensure zoom is never zero or negative
 	if new_zoom <= 0.001:
 		new_zoom = 0.001
 	zoom = new_zoom
-	if _camera:
+	if _camera and Engine.is_editor_hint():
 		_camera.zoom = Vector2(new_zoom, new_zoom)
 
 func add_addon(addon: PCamAddon) -> void:
@@ -1035,6 +1055,8 @@ func _get_property_list():
 
 func set_follow_mode(value):
 	follow_mode = value
+	if follow_mode == FollowMode.SINGLE_TARGET:
+		_last_target_position = global_position - _current_offset
 	notify_property_list_changed()
 
 func set_drag_type(value):

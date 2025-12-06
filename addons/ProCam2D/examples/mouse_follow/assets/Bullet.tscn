@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://b1u2l3e4t5s6h"]
 
-[ext_resource type="Script" path="res://addons/ProCam2D/examples/mouse_follow/Bullet.gd" id="1"]
+[ext_resource type="Script" uid="uid://ctega3tr7xjf3" path="res://addons/ProCam2D/examples/mouse_follow/assets/Bullet.gd" id="1"]
 
 [sub_resource type="CapsuleShape2D" id="1"]
 radius = 3.0

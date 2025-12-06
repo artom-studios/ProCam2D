@@ -7,7 +7,7 @@ var enemies_alive = 0
 @onready var score_label = $"../UI/ScoreLabel"
 @onready var high_score_label = $"../UI/HighScoreLabel"
 @onready var enemy_spawn_timer = $EnemySpawnTimer
-@onready var enemy_scene = preload("res://addons/ProCam2D/examples/mouse_follow/Enemy.tscn")
+@onready var enemy_scene = preload("res://addons/ProCam2D/examples/mouse_follow/assets/Enemy.tscn")
 
 const MIN_SPAWN_DISTANCE = 400.0
 const MAX_SPAWN_DISTANCE = 800.0

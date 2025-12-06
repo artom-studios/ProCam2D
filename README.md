@@ -9,8 +9,8 @@
 <p align="center">
   <a href="#-quick-start">Quick Start</a> •
   <a href="#-key-features">Features</a> •
-  <a href="#-examples">Examples</a> •
-  <a href="#-documentation">Documentation</a> •
+  <a href="#-examples-included">Examples</a> •
+  <a href="#-api-reference">Documentation</a> •
   <a href="#-contributing">Contributing</a>
 </p>
 

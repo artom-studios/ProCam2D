@@ -18,7 +18,7 @@ var health = 5
 func _ready():
 	# Load bullet scene if not assigned
 	if bullet_scene == null:
-		bullet_scene = load("res://addons/ProCam2D/examples/mouse_follow/Bullet.tscn")
+		bullet_scene = load("res://addons/ProCam2D/examples/mouse_follow/assets/Bullet.tscn")
 
 func _physics_process(delta):
 	# Get input direction (WASD or Arrow keys)

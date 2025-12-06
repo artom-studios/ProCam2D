@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://bhmg10nwqfysm"]
 
-[ext_resource type="Script" uid="uid://d3xn7ypi05l7f" path="res://addons/ProCam2D/examples/camera_swap_demo.gd" id="1"]
+[ext_resource type="Script" uid="uid://cuku2srx5rp6s" path="res://addons/ProCam2D/examples/camera switch demo/assets/camera_swap_demo.gd" id="1"]
 [ext_resource type="Script" uid="uid://2qj1e40noged" path="res://addons/ProCam2D/scripts/procam2d.gd" id="2"]
 
 [node name="CameraSwapDemo" type="Node2D" unique_id=1684030528]

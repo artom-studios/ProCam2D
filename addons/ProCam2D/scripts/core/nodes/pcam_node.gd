@@ -6,7 +6,7 @@ enum ProcessMode {
 	IDLE,
 	PHYSICS
 }
-var process_frame: int = ProcessMode.PHYSICS: set = set_tha_process_mode
+var process_frame: int = ProcessMode.PHYSICS: set = set_process_frame
 @export var enabled: bool = true: set = set_enabled
 @export var priority: int = 0: set = set_priority
 @export var camera_id: String = "0"
@@ -60,7 +60,7 @@ func change_debug(camera):
 	debug_draw = camera.debug_draw
 	queue_redraw()
 
-func set_tha_process_mode(value):
+func set_process_frame(value):
 	if process_frame != value:
 		_pm = value
 		process_frame = value
