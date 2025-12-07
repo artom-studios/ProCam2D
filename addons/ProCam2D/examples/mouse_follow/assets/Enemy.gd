@@ -58,6 +58,7 @@ func take_damage(amount: int):
 
 func die():
 	# Create death particles
+	procam.get_addons()[1].shake()
 	var particles = CPUParticles2D.new()
 	particles.global_position = global_position
 	particles.emitting = true

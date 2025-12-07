@@ -78,10 +78,14 @@ left_limit = -10000000
 right_limit = 10000000
 top_limit = -10000000
 bottom_limit = 10000000
-use_h_margins = false
-use_v_margins = false
+use_h_margins = true
+use_v_margins = true
+left_margin = 0.3
+right_margin = 0.3
+top_margin = 0.3
+bottom_margin = 0.3
 working_radius = 2000.0
-global_debug_draw = false
+global_debug_draw = true
 
 [node name="Target1" type="Node2D" parent="." unique_id=520916800]
 position = Vector2(800, 500)

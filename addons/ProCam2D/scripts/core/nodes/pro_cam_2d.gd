@@ -327,7 +327,7 @@ func _update_targets(delta) -> void:
 	
 	_targets.clear()
 	for target in _known_targets:
-		if target.enabled:
+		if target and target.enabled:
 			var limit_rect = Rect2(left_limit, top_limit, right_limit - left_limit, bottom_limit - top_limit)
 			if not target.disable_outside_limits or (target.disable_outside_limits and limit_rect.has_point(target.global_position)):
 				target._update_velocity(delta)
