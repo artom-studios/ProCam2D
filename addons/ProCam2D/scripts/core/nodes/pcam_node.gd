@@ -73,7 +73,14 @@ func _update_process_mode() -> void:
 func _draw() -> void:
 	if not enabled:
 		return
-	if debug_draw or Engine.is_editor_hint():
+		
+	var should_draw = false
+	if Engine.is_editor_hint():
+		should_draw = true
+	elif debug_draw and get_tree().debug_collisions_hint:
+		should_draw = true
+		
+	if should_draw:
 		_draw_debug()
 
 func _draw_debug() -> void:

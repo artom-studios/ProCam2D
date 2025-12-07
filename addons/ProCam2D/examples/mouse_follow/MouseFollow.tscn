@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://d1e2f3g4h5i6j"]
+[gd_scene load_steps=12 format=3 uid="uid://d1e2f3g4h5i6j"]
 
 [ext_resource type="PackedScene" uid="uid://c1m2x3n4p5q6r" path="res://addons/ProCam2D/examples/mouse_follow/assets/Player.tscn" id="1"]
 [ext_resource type="Script" uid="uid://2qj1e40noged" path="res://addons/ProCam2D/scripts/procam2d.gd" id="2"]
@@ -8,7 +8,6 @@
 [ext_resource type="Script" uid="uid://c2w6fr4aiufxi" path="res://addons/ProCam2D/examples/mouse_follow/assets/GameManager.gd" id="5"]
 [ext_resource type="Script" uid="uid://vgkxfwv860g2" path="res://addons/ProCam2D/scripts/core/addons/pcam_shake.gd" id="5_d4brp"]
 [ext_resource type="PackedScene" uid="uid://586s1pvfx2f6" path="res://addons/ProCam2D/examples/mouse_follow/assets/Enemy.tscn" id="6"]
-[ext_resource type="Script" uid="uid://dm4f03m2vxjbj" path="res://addons/ProCam2D/scripts/core/nodes/pcam_target.gd" id="8_v0x8j"]
 
 [sub_resource type="Resource" id="2"]
 script = ExtResource("3")
@@ -89,7 +88,7 @@ script = ExtResource("2")
 addons = Array[ExtResource("3_s15a5")]([SubResource("2"), SubResource("Resource_v0x8j")])
 pixel_perfect = true
 process_frame = 1
-follow_mode = 1
+follow_mode = 0
 drag_type = 0
 smooth_drag = true
 smooth_drag_speed = Vector2(5, 5)
@@ -126,10 +125,6 @@ position = Vector2(1200, 1200)
 
 [node name="Enemy1" parent="Enemies" unique_id=872920052 instance=ExtResource("6")]
 position = Vector2(800, 600)
-
-[node name="PCamTarget" type="Node2D" parent="Enemies/Enemy1" unique_id=1280368643]
-script = ExtResource("8_v0x8j")
-metadata/_custom_type_script = "uid://dm4f03m2vxjbj"
 
 [node name="Enemy2" parent="Enemies" unique_id=606863943 instance=ExtResource("6")]
 position = Vector2(1600, 800)
