@@ -8,6 +8,7 @@
 [sub_resource type="Resource" id="Resource_7ns4d"]
 script = ExtResource("3_ulp51")
 preset = 5
+speed = 80.0
 intensity = 2.0
 shake_type = 17
 trauma_attack = 0.05

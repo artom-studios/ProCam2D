@@ -1,0 +1,13 @@
+<svg width="64" height="64" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background circle -->
+  <circle cx="32" cy="32" r="28" fill="#4a90e2" opacity="0.2"/>
+  
+  <!-- Wave lines representing shake/vibration -->
+  <path d="M 16 24 Q 22 20, 28 24 T 40 24 T 52 24" stroke="#4a90e2" stroke-width="3" fill="none" stroke-linecap="round"/>
+  <path d="M 16 32 Q 22 28, 28 32 T 40 32 T 52 32" stroke="#4a90e2" stroke-width="3" fill="none" stroke-linecap="round"/>
+  <path d="M 16 40 Q 22 36, 28 40 T 40 40 T 52 40" stroke="#4a90e2" stroke-width="3" fill="none" stroke-linecap="round"/>
+  
+  <!-- Movement arrows on sides -->
+  <path d="M 10 28 L 6 32 L 10 36" stroke="#e74c3c" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M 54 28 L 58 32 L 54 36" stroke="#e74c3c" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

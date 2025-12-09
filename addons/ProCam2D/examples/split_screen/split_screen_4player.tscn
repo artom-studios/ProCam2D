@@ -35,7 +35,7 @@ stretch = true
 
 [node name="SubViewport" type="SubViewport" parent="GridContainer/SubViewportContainer1" unique_id=201659452]
 handle_input_locally = false
-size = Vector2i(2, 2)
+size = Vector2i(574, 322)
 render_target_update_mode = 4
 
 [node name="World" type="Node2D" parent="GridContainer/SubViewportContainer1/SubViewport" unique_id=475189746]
@@ -152,7 +152,8 @@ script = ExtResource("1_pcam")
 process_frame = 1
 follow_mode = 0
 drag_type = 0
-smooth_drag = false
+smooth_drag = true
+smooth_drag_speed = Vector2(5, 5)
 max_distance = Vector2(100000, 100000)
 offset = Vector2(0, 0)
 smooth_offset = true
@@ -193,7 +194,7 @@ stretch = true
 
 [node name="SubViewport" type="SubViewport" parent="GridContainer/SubViewportContainer2" unique_id=1158591241]
 handle_input_locally = false
-size = Vector2i(2, 2)
+size = Vector2i(573, 322)
 render_target_update_mode = 4
 
 [node name="ProCam2D_P2" type="Node2D" parent="GridContainer/SubViewportContainer2/SubViewport" unique_id=1263172687]
@@ -244,7 +245,7 @@ stretch = true
 
 [node name="SubViewport" type="SubViewport" parent="GridContainer/SubViewportContainer3" unique_id=586870391]
 handle_input_locally = false
-size = Vector2i(2, 2)
+size = Vector2i(574, 321)
 render_target_update_mode = 4
 
 [node name="ProCam2D_P3" type="Node2D" parent="GridContainer/SubViewportContainer3/SubViewport" unique_id=1443912612]
@@ -295,7 +296,7 @@ stretch = true
 
 [node name="SubViewport" type="SubViewport" parent="GridContainer/SubViewportContainer4" unique_id=1087322422]
 handle_input_locally = false
-size = Vector2i(2, 2)
+size = Vector2i(573, 321)
 render_target_update_mode = 4
 
 [node name="ProCam2D_P4" type="Node2D" parent="GridContainer/SubViewportContainer4/SubViewport" unique_id=786359499]

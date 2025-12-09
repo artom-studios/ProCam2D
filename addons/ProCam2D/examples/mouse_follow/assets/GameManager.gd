@@ -17,7 +17,6 @@ func _ready():
 	# Set custom crosshair cursor
 	var crosshair_image = Image.create(32, 32, false, Image.FORMAT_RGBA8)
 	crosshair_image.fill(Color(0, 0, 0, 0))
-
 	# Draw crosshair lines
 	for i in range(32):
 		if i != 16:
